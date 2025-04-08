@@ -77,9 +77,6 @@ export default function AppAppBar() {
               alignItems: 'center',
             }}
           >
-            {/* <Button color="primary" variant="text" size="small">
-              Sign in
-            </Button> */}
             <Button color="primary" variant="contained" size="small">
               Ro'yxatdan o'tish
             </Button>
@@ -112,21 +109,15 @@ export default function AppAppBar() {
                   </IconButton>
                 </Box>
 
-                <MenuItem>Features</MenuItem>
-                <MenuItem>Testimonials</MenuItem>
-                <MenuItem>Highlights</MenuItem>
-                <MenuItem>Pricing</MenuItem>
-                <MenuItem>FAQ</MenuItem>
-                <MenuItem>Blog</MenuItem>
+                <MenuItem>Kurslar</MenuItem>
+                <MenuItem>Natijalar</MenuItem>
+                <MenuItem>Ustozlar</MenuItem>
+                <MenuItem>Narxlar</MenuItem>
+                <MenuItem>Savollar</MenuItem>
                 <Divider sx={{ my: 3 }} />
                 <MenuItem>
                   <Button color="primary" variant="contained" fullWidth>
-                    Sign up
-                  </Button>
-                </MenuItem>
-                <MenuItem>
-                  <Button color="primary" variant="outlined" fullWidth>
-                    Sign in
+                    Ro'yxatdan o'tish
                   </Button>
                 </MenuItem>
               </Box>
