@@ -11,7 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import ColorModeIconDropdown from '.././theme/ColorModeIconDropdown';
+import ColorModeIconDropdown from '../theme/ColorModeIconDropdown';
 import Sitemark from './SitemarkIcon';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
@@ -54,22 +54,19 @@ export default function AppAppBar() {
             <Sitemark />
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               <Button variant="text" color="info" size="small">
-                Features
+                Kurslar
               </Button>
               <Button variant="text" color="info" size="small">
-                Testimonials
+                Natijalar
               </Button>
               <Button variant="text" color="info" size="small">
-                Highlights
+                Ustozlar
               </Button>
               <Button variant="text" color="info" size="small">
-                Pricing
+                Narxlar
               </Button>
               <Button variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
-                FAQ
-              </Button>
-              <Button variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
-                Blog
+                Savollar
               </Button>
             </Box>
           </Box>
@@ -80,11 +77,11 @@ export default function AppAppBar() {
               alignItems: 'center',
             }}
           >
-            <Button color="primary" variant="text" size="small">
+            {/* <Button color="primary" variant="text" size="small">
               Sign in
-            </Button>
+            </Button> */}
             <Button color="primary" variant="contained" size="small">
-              Sign up
+              Ro'yxatdan o'tish
             </Button>
             <ColorModeIconDropdown />
           </Box>
