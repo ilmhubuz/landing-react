@@ -74,7 +74,6 @@ export default function Hero() {
               fontSize: 'clamp(3rem, 10vw, 3.5rem)',
             }}
           >
-            ilmhub&nbsp;o'quv&nbsp;
             <Typography
               component="span"
               variant="h1"
@@ -86,8 +85,9 @@ export default function Hero() {
                 }),
               })}
             >
-              markazi
-            </Typography>
+              ilmhub
+            </Typography>&nbsp;
+            o'quv markazi
           </Typography>
           <Typography
             sx={{
