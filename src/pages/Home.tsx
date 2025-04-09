@@ -18,7 +18,7 @@ export default function Home(props: { disableCustomTheme?: boolean }) {
       <CssBaseline enableColorScheme />
 
       <AppAppBar />
-      {/* <Hero /> */}
+      <Hero />
       {/* <div>
         <LogoCollection />
         <Features />
