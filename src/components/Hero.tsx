@@ -74,7 +74,6 @@ export default function Hero() {
               fontSize: 'clamp(3rem, 10vw, 3.5rem)',
             }}
           >
-            Our&nbsp;latest&nbsp;
             <Typography
               component="span"
               variant="h1"
@@ -86,8 +85,9 @@ export default function Hero() {
                 }),
               })}
             >
-              products
-            </Typography>
+              ilmhub
+            </Typography>&nbsp;
+            o'quv markazi
           </Typography>
           <Typography
             sx={{
@@ -96,31 +96,43 @@ export default function Hero() {
               width: { sm: '100%', md: '80%' },
             }}
           >
-            Explore our cutting-edge dashboard, delivering high-quality solutions
-            tailored to your needs. Elevate your experience with top-tier features
-            and services.
+            Ta'limga zamonaviy yondashuv. Ingliz tili, IT, Matematika va eng zamonaviy kasblarni
+            bir maskanda o'rganish imkoniyati. Farzandingiz kelajagini birgalikda&nbsp; 
+            <Typography
+              component="span"
+              sx={(theme) => ({
+                fontSize: 'inherit',
+                fontWeight: 'bold',
+                color: 'primary.main',
+                ...theme.applyStyles('dark', {
+                  color: 'primary.light',
+                }),
+              })}
+            >
+              ilmhub
+            </Typography>da quramiz!
           </Typography>
           <Stack
             direction={{ xs: 'column', sm: 'row' }}
             spacing={1}
             useFlexGap
-            sx={{ pt: 2, width: { xs: '100%', sm: '350px' } }}
+            sx={{ pt: 4, width: { xs: '100%', sm: '350px' } }}
           >
-            <InputLabel htmlFor="email-hero" sx={visuallyHidden}>
-              Email
+            <InputLabel htmlFor="qayta-aloqa-telefon" sx={visuallyHidden}>
+              telefon raqam
             </InputLabel>
             <TextField
-              id="email-hero"
+              id="qayta-aloqa-telefon"
               hiddenLabel
               size="small"
               variant="outlined"
-              aria-label="Enter your email address"
-              placeholder="Your email address"
+              aria-label="telefon raqam"
+              placeholder="93 123 45 67"
               fullWidth
               slotProps={{
                 htmlInput: {
                   autoComplete: 'off',
-                  'aria-label': 'Enter your email address',
+                  'aria-label': 'telefon raqam',
                 },
               }}
             />
@@ -130,7 +142,7 @@ export default function Hero() {
               size="small"
               sx={{ minWidth: 'fit-content' }}
             >
-              Start now
+              Maslahat oling
             </Button>
           </Stack>
           <Typography
@@ -138,14 +150,16 @@ export default function Hero() {
             color="text.secondary"
             sx={{ textAlign: 'center' }}
           >
-            By clicking &quot;Start now&quot; you agree to our&nbsp;
-            <Link href="#" color="primary">
-              Terms & Conditions
-            </Link>
-            .
+            <div>
+              Raqamingizni qoldiring yoki &nbsp;
+              <Link href="tel:+998906915060" color="primary">
+                90 691 50 60
+              </Link>
+              &nbsp; raqamiga qo'ng'iroq qilib maslahat oling.
+            </div>
           </Typography>
         </Stack>
-        <StyledBox id="image" />
+        {/* <StyledBox id="image" /> */}
       </Container>
     </Box>
   );

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import DarkModeIcon from '@mui/icons-material/DarkModeRounded';
 import LightModeIcon from '@mui/icons-material/LightModeRounded';
+import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import Box from '@mui/material/Box';
 import IconButton, { IconButtonOwnProps } from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
@@ -74,14 +75,14 @@ export default function ColorModeIconDropdown(props: IconButtonOwnProps) {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem selected={mode === 'system'} onClick={handleMode('system')}>
-          System
-        </MenuItem>
         <MenuItem selected={mode === 'light'} onClick={handleMode('light')}>
-          Light
+          <LightModeIcon sx={{ mr: 2 }} /> Kun
         </MenuItem>
         <MenuItem selected={mode === 'dark'} onClick={handleMode('dark')}>
-          Dark
+          <DarkModeIcon sx={{ mr: 2 }} /> Tun
+        </MenuItem>
+        <MenuItem selected={mode === 'system'} onClick={handleMode('system')}>
+          <AutoAwesomeRoundedIcon sx={{ mr: 2 }} /> Tizimniki
         </MenuItem>
       </Menu>
     </React.Fragment>
