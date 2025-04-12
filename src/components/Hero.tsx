@@ -1,14 +1,11 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import InputLabel from '@mui/material/InputLabel';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import visuallyHidden from '@mui/utils/visuallyHidden';
 import { styled } from '@mui/material/styles';
+import { CallbackForm } from './CallbackForm';
 
 const StyledBox = styled('div')(({ theme }) => ({
   alignSelf: 'center',
@@ -87,7 +84,7 @@ export default function Hero() {
             >
               ilmhub
             </Typography>&nbsp;
-            o'quv markazi
+            o&apos;quv markazi
           </Typography>
           <Typography
             sx={{
@@ -96,7 +93,7 @@ export default function Hero() {
               width: { sm: '100%', md: '80%' },
             }}
           >
-            Ta'limga zamonaviy yondashuv. Ingliz tili, IT, Matematika va eng zamonaviy kasblarni
+            Ta&apos;limga zamonaviy yondashuv. Ingliz tili, IT, Matematika va eng zamonaviy kasblarni
             bir maskanda o'rganish imkoniyati. Farzandingiz kelajagini birgalikda&nbsp; 
             <Typography
               component="span"
@@ -112,39 +109,7 @@ export default function Hero() {
               ilmhub
             </Typography>da quramiz!
           </Typography>
-          <Stack
-            direction={{ xs: 'column', sm: 'row' }}
-            spacing={1}
-            useFlexGap
-            sx={{ pt: 4, width: { xs: '100%', sm: '350px' } }}
-          >
-            <InputLabel htmlFor="qayta-aloqa-telefon" sx={visuallyHidden}>
-              telefon raqam
-            </InputLabel>
-            <TextField
-              id="qayta-aloqa-telefon"
-              hiddenLabel
-              size="small"
-              variant="outlined"
-              aria-label="telefon raqam"
-              placeholder="93 123 45 67"
-              fullWidth
-              slotProps={{
-                htmlInput: {
-                  autoComplete: 'off',
-                  'aria-label': 'telefon raqam',
-                },
-              }}
-            />
-            <Button
-              variant="contained"
-              color="primary"
-              size="small"
-              sx={{ minWidth: 'fit-content' }}
-            >
-              Maslahat oling
-            </Button>
-          </Stack>
+          <CallbackForm />
           <Typography
             variant="caption"
             color="text.secondary"

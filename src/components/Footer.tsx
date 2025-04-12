@@ -7,6 +7,9 @@ import InputLabel from '@mui/material/InputLabel';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
+import TelegramIcon from '@mui/icons-material/Telegram';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import YouTubeIcon from '@mui/icons-material/YouTube';
 import Typography from '@mui/material/Typography';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -16,9 +19,9 @@ import SitemarkIcon from './SitemarkIcon';
 function Copyright() {
   return (
     <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
-      {'Copyright © '}
-      <Link color="text.secondary" href="https://mui.com/">
-        Sitemark
+      {'Mualliflik huquqi @ '}
+      <Link color="text.secondary" href="https://ilmhub.uz/">
+        ilmhub
       </Link>
       &nbsp;
       {new Date().getFullYear()}
@@ -38,7 +41,7 @@ export default function Footer() {
         textAlign: { sm: 'center', md: 'left' },
       }}
     >
-      <Box
+      {/* <Box
         sx={{
           display: 'flex',
           flexDirection: { xs: 'column', sm: 'row' },
@@ -157,7 +160,7 @@ export default function Footer() {
             Contact
           </Link>
         </Box>
-      </Box>
+      </Box> */}
       <Box
         sx={{
           display: 'flex',
@@ -168,18 +171,7 @@ export default function Footer() {
           borderColor: 'divider',
         }}
       >
-        <div>
-          <Link color="text.secondary" variant="body2" href="#">
-            Privacy Policy
-          </Link>
-          <Typography sx={{ display: 'inline', mx: 0.5, opacity: 0.5 }}>
-            &nbsp;•&nbsp;
-          </Typography>
-          <Link color="text.secondary" variant="body2" href="#">
-            Terms of Service
-          </Link>
-          <Copyright />
-        </div>
+        <Copyright />
         <Stack
           direction="row"
           spacing={1}
@@ -189,25 +181,34 @@ export default function Footer() {
           <IconButton
             color="inherit"
             size="small"
-            href="https://github.com/mui"
-            aria-label="GitHub"
+            href="https://instagram.com/ilmhubenglish"
+            aria-label="Instagram"
             sx={{ alignSelf: 'center' }}
           >
-            <GitHubIcon />
+            <InstagramIcon />
           </IconButton>
           <IconButton
             color="inherit"
             size="small"
-            href="https://x.com/MaterialUI"
-            aria-label="X"
+            href="https://www.youtube.com/@ilmhubschool"
+            aria-label="YouTube"
             sx={{ alignSelf: 'center' }}
           >
-            <TwitterIcon />
+            <YouTubeIcon />
           </IconButton>
           <IconButton
             color="inherit"
             size="small"
-            href="https://www.linkedin.com/company/mui/"
+            href="https://t.me/ilmhubenglish"
+            aria-label="Telegram"
+            sx={{ alignSelf: 'center' }}
+          >
+            <TelegramIcon />
+          </IconButton>
+          <IconButton
+            color="inherit"
+            size="small"
+            href="https://linkedin.com/company/ilmhub-school"
             aria-label="LinkedIn"
             sx={{ alignSelf: 'center' }}
           >

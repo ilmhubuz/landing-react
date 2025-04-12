@@ -3,14 +3,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import AppTheme from '../theme/AppTheme';
 import AppAppBar from '../components/AppAppBar';
 import Hero from '../components/Hero';
-// import Divider from '@mui/material/Divider';
-// import LogoCollection from '../components/LogoCollection';
-// import Highlights from '../components/Highlights';
-// import Pricing from '../components/Pricing';
-// import Features from '../components/Features';
-// import Testimonials from '../components/Testimonials';
-// import FAQ from '../components/FAQ';
-// import Footer from '../components/Footer';
+import Footer from '../components/Footer';
+import FAQ from '../components/FAQ';
 
 export default function Home(props: { disableCustomTheme?: boolean }) {
   return (
@@ -19,8 +13,8 @@ export default function Home(props: { disableCustomTheme?: boolean }) {
 
       <AppAppBar />
       <Hero />
-      {/* <div>
-        <LogoCollection />
+      <div>
+        {/* <LogoCollection />
         <Features />
         <Divider />
         <Testimonials />
@@ -29,10 +23,10 @@ export default function Home(props: { disableCustomTheme?: boolean }) {
         <Divider />
         <Pricing />
         <Divider />
+        <Divider /> */}
         <FAQ />
-        <Divider />
         <Footer />
-      </div> */}
+      </div>
     </AppTheme>
   );
 }

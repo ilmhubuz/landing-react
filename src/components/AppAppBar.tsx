@@ -11,6 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import Typography from '@mui/material/Typography';
 import ColorModeIconDropdown from '../theme/ColorModeIconDropdown';
 import Sitemark from './SitemarkIcon';
 
@@ -36,6 +37,8 @@ export default function AppAppBar() {
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
+
+  const scrollToFaq = () => document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' });
 
   return (
     <AppBar
@@ -65,7 +68,7 @@ export default function AppAppBar() {
               <Button variant="text" color="info" size="small">
                 Narxlar
               </Button>
-              <Button variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
+              <Button variant="text" color="info" size="small" sx={{ minWidth: 0 }} onClick={scrollToFaq}>
                 Savollar
               </Button>
             </Box>
@@ -77,6 +80,18 @@ export default function AppAppBar() {
               alignItems: 'center',
             }}
           >
+            <Typography 
+              variant="h4" 
+              sx={{ 
+                color: '#B8860B', 
+                fontWeight: 'bold',
+                display: 'flex',
+                alignItems: 'center',
+                mr: 2
+              }}
+            >
+              90 691 50 60
+            </Typography>
             <Button color="primary" variant="contained" size="small">
               Ro'yxatdan o'tish
             </Button>
@@ -113,7 +128,7 @@ export default function AppAppBar() {
                 <MenuItem>Natijalar</MenuItem>
                 <MenuItem>Ustozlar</MenuItem>
                 <MenuItem>Narxlar</MenuItem>
-                <MenuItem>Savollar</MenuItem>
+                <MenuItem onClick={() => { scrollToFaq(); toggleDrawer(false)(); }}>Savollar</MenuItem>
                 <Divider sx={{ my: 3 }} />
                 <MenuItem>
                   <Button color="primary" variant="contained" fullWidth>

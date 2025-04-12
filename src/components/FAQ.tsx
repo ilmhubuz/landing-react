@@ -42,7 +42,7 @@ export default function FAQ() {
           textAlign: { sm: 'left', md: 'center' },
         }}
       >
-        Frequently asked questions
+        Ko&apos;p so&apos;raladigan savollar
       </Typography>
       <Box sx={{ width: '100%' }}>
         <Accordion
@@ -55,7 +55,7 @@ export default function FAQ() {
             id="panel1d-header"
           >
             <Typography component="span" variant="subtitle2">
-              How do I contact customer support if I have a question or issue?
+              Kurslar haqida to&apos;liq ma&apos;lumotni qanday olish mumkin?
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
@@ -64,10 +64,32 @@ export default function FAQ() {
               gutterBottom
               sx={{ maxWidth: { sm: '100%', md: '70%' } }}
             >
-              You can reach our customer support team by emailing&nbsp;
-              <Link href="mailto:support@email.com">support@email.com</Link>
-              &nbsp;or calling our toll-free number. We&apos;re here to assist you
-              promptly.
+              <Link href="tel:+998906915060">90 691 50 60</Link>
+              &nbsp;raqamiga qo&apos;ng&apos;iroq qiling yoki telegram orqali <Link href="https://t.me/ilmhubnamangan">ilmhubnamangan</Link>&nbsp;
+              hisobiga yozing, sizga tezkor ma&apos;lumot beramiz.
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion
+          expanded={expanded.includes('panel1')}
+          onChange={handleChange('panel1')}
+        >
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1d-content"
+            id="panel1d-header"
+          >
+            <Typography component="span" variant="subtitle2">
+              Kurslar narxi qancha?
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography
+              variant="body2"
+              gutterBottom
+              sx={{ maxWidth: { sm: '100%', md: '70%' } }}
+            >
+              Kurslar narxi yo&apos;nalish va filialga qarab farqlanadi. Narxlar bilan tanishish uchun <Link href="tel:+998906915060">90 691 50 60</Link>&nbsp;raqamiga qo&apos;ng&apos;iroq qiling.
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -81,7 +103,7 @@ export default function FAQ() {
             id="panel2d-header"
           >
             <Typography component="span" variant="subtitle2">
-              Can I return the product if it doesn&apos;t meet my expectations?
+              Menga eng yaqin <strong>ilmhub</strong> filiali qayerda?
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
@@ -90,9 +112,24 @@ export default function FAQ() {
               gutterBottom
               sx={{ maxWidth: { sm: '100%', md: '70%' } }}
             >
-              Absolutely! We offer a hassle-free return policy. If you&apos;re not
-              completely satisfied, you can return the product within [number of
-              days] days for a full refund or exchange.
+              Ha, biz hozirda quyidagi 3 ta manzilda zamonaviy va sifatli darslar olib boramiz:
+              <Box component="ul" sx={{ pl: 2 }}>
+                <li>
+                  <Link href="https://yandex.uz/maps/-/CHV~z88z" target="_blank" rel="noopener">
+                    ilmhub chimgan
+                  </Link>
+                </li>
+                <li>
+                  <Link href="https://yandex.uz/maps/-/CHV~zLzQ" target="_blank" rel="noopener">
+                    ilmhub namangan
+                  </Link>
+                </li>
+                <li>
+                  <Link href="https://yandex.uz/maps/-/CHV~zT4r" target="_blank" rel="noopener">
+                    ilmhub uychi
+                  </Link>
+                </li>
+              </Box>
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -106,7 +143,7 @@ export default function FAQ() {
             id="panel3d-header"
           >
             <Typography component="span" variant="subtitle2">
-              What makes your product stand out from others in the market?
+              <strong>ilmhub</strong> kurslarining boshqa kurslardan farqi nimada?
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
@@ -115,9 +152,24 @@ export default function FAQ() {
               gutterBottom
               sx={{ maxWidth: { sm: '100%', md: '70%' } }}
             >
-              Our product distinguishes itself through its adaptability, durability,
-              and innovative features. We prioritize user satisfaction and
-              continually strive to exceed expectations in every aspect.
+              <strong>ilmhub</strong> kurslarining farqlari:
+              <Box component="ul" sx={{ pl: 2 }}>
+                <li>
+                  Boshqa kurslardan farqli o&apos;laroq, biz bolalar uchun stressli lug&apos;at va grammatika mashg&apos;ulotlari bilan an&apos;anaviy ingliz tilini o&apos;rgatish usulini emas, balki bolaning yoshiga mos zamonaviy dasturlarni taklif etamiz.
+                </li>
+                <li>
+                  Ingliz tili darslari interaktiv mashg&apos;ulotlar va o&apos;yinlarga asoslangan bo&apos;lib ko&apos;rish, eshitish va gapirish oraqali Ingliz tilida ravon gapirishni o&apos;rgatamiz.
+                </li>
+                <li>
+                  Dars rejalari bolalar psixologiyasiga asoslangan. Bizning darslarimiz AQSh va Janubiy Koreyadagi zamonaviy ta&apos;lim muassasalari dasturlari asosida tuzilgan.
+                </li>
+                <li>
+                  IELTS va CEFR sertifikatlari yoki universitet kirish imtihonlari uchun o&apos;qiyotgan talabalar uchun, bizning yuqori malakali ustozlarimiz eng zamonaviy yondashuvni va maqsadlaringizga tezroq erishish uchun barcha qisqa yo&apos;llarni taklif etadilar.
+                </li>
+                <li>
+                  Barcha yoshdagi bolalar uchun IT dasturlarimizga kelsak, hozirda IT sohasida bizning kurslarimizga muqobil yo&apos;q. Faqatgina biz farzandlaringizning yorqin kelajagini kafolatlaydigan eng zamonaviy dars rejalarini taklif etamiz.
+                </li>
+              </Box>
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -131,7 +183,7 @@ export default function FAQ() {
             id="panel4d-header"
           >
             <Typography component="span" variant="subtitle2">
-              Is there a warranty on the product, and what does it cover?
+              Farzandimni necha yoshdan kurslarga bersam bo&apos;ladi?
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
@@ -140,10 +192,48 @@ export default function FAQ() {
               gutterBottom
               sx={{ maxWidth: { sm: '100%', md: '70%' } }}
             >
-              Yes, our product comes with a [length of warranty] warranty. It covers
-              defects in materials and workmanship. If you encounter any issues
-              covered by the warranty, please contact our customer support for
-              assistance.
+              <li>
+                  Ingliz tiliga 5-6 yoshdan boshlab dasturlarimiz mavjud.
+              </li>
+              <li>
+                  IT (dasturlash) uchun farzandingizni 8 yoshdan qabul qilamiz.
+              </li>
+              Qabul qilishda farzandingizni maktabgacha bo&apos;lgan ta&apos;lim bilimlari va iqtidori hisobga olib darslarga tayyor yoki yo&apos;q ekanligini aniqlanadi.
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion
+          expanded={expanded.includes('panel5')}
+          onChange={handleChange('panel5')}
+        >
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel5d-content"
+            id="panel5d-header"
+          >
+            <Typography component="span" variant="subtitle2">
+              Nega farzandimni IT (dasturlash)ga berishim kerak?
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography
+              variant="body2"
+              gutterBottom
+              sx={{ maxWidth: { sm: '100%', md: '70%' } }}
+            >
+              IT sohasini o&apos;rganish farzandingizga quyidagi imkoniyatlarni beradi:
+              <Box component="ul" sx={{ pl: 2 }}>
+                <li>
+                  Uyida o&apos;tirib O&apos;zbekiston va chet el kompaniyalarida yaxshi daromad bilan ishlash imkoniyatiga ega bo&apos;ladi
+                </li>
+                <li>
+                  Texnologiyaga qaramlikdan qutuladi, aksincha dasturlar orqali texnologiyani boshqarishni o&apos;rganadi
+                </li>
+                <li>
+                  Istalgan sohada, xoh bank bo&apos;lsin, xoh boshqa yo&apos;nalish - eng oldi kadr bo&apos;lib ishlash imkoniyatiga ega bo&apos;ladi
+                </li>
+              </Box>
+              Buning ahamiyatini davlatimiz ham tan olgan bo&apos;lib, Prezidentimiz ITni keng tarqatish uchun maxsus qarorlar chiqarmoqda.
             </Typography>
           </AccordionDetails>
         </Accordion>
