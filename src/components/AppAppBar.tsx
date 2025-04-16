@@ -13,7 +13,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import Typography from '@mui/material/Typography';
 import ColorModeIconDropdown from '../theme/ColorModeIconDropdown';
+import CallIcon from '@mui/icons-material/Call';
 import Sitemark from './SitemarkIcon';
+import { Link } from '@mui/material';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -30,6 +32,21 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   boxShadow: (theme.vars || theme).shadows[1],
   padding: '8px 12px',
 }));
+
+const PhoneTypography = (
+  <Link 
+    href="tel:+998906915060"
+    underline="none"
+    variant="h4" 
+    sx={{ 
+      color: '#B8860B', 
+      fontWeight: 'bold',
+      display: 'flex',
+      alignItems: 'center',
+      mr: 4
+    }}>
+    <CallIcon fontSize="large" />&nbsp;90 691 50 60
+  </Link>);
 
 export default function AppAppBar() {
   const [open, setOpen] = React.useState(false);
@@ -80,18 +97,7 @@ export default function AppAppBar() {
               alignItems: 'center',
             }}
           >
-            <Typography 
-              variant="h4" 
-              sx={{ 
-                color: '#B8860B', 
-                fontWeight: 'bold',
-                display: 'flex',
-                alignItems: 'center',
-                mr: 2
-              }}
-            >
-              90 691 50 60
-            </Typography>
+            {PhoneTypography}
             <Button color="primary" variant="contained" size="small">
               Ro'yxatdan o'tish
             </Button>
@@ -129,6 +135,7 @@ export default function AppAppBar() {
                 <MenuItem>Ustozlar</MenuItem>
                 <MenuItem>Narxlar</MenuItem>
                 <MenuItem onClick={() => { scrollToFaq(); toggleDrawer(false)(); }}>Savollar</MenuItem>
+                {PhoneTypography}
                 <Divider sx={{ my: 3 }} />
                 <MenuItem>
                   <Button color="primary" variant="contained" fullWidth>

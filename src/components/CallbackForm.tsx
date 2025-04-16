@@ -30,6 +30,7 @@ export function CallbackForm() {
             </InputLabel>
             <TextField
                 id="qayta-aloqa-telefon"
+                type="tel"
                 hiddenLabel
                 size="small"
                 variant="outlined"

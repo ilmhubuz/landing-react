@@ -30,7 +30,7 @@ export default function ColorModeSelect(props: SelectProps) {
         <DarkModeIcon sx={{ mr: 2 }} /> Tun
       </MenuItem>
       <MenuItem value="system">
-        <AutoAwesomeRoundedIcon sx={{ mr: 2 }} /> Tizimniki
+        <AutoAwesomeRoundedIcon sx={{ mr: 2 }} /> Tizim
       </MenuItem>
     </Select>
   );

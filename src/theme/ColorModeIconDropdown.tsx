@@ -82,7 +82,7 @@ export default function ColorModeIconDropdown(props: IconButtonOwnProps) {
           <DarkModeIcon sx={{ mr: 2 }} /> Tun
         </MenuItem>
         <MenuItem selected={mode === 'system'} onClick={handleMode('system')}>
-          <AutoAwesomeRoundedIcon sx={{ mr: 2 }} /> Tizimniki
+          <AutoAwesomeRoundedIcon sx={{ mr: 2 }} /> Tizim
         </MenuItem>
       </Menu>
     </React.Fragment>
