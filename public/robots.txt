@@ -1,0 +1,23 @@
+# robots.txt for ilmhub.uz React SPA
+
+# 1) Sitemap (if you have one—optional but recommended)
+Sitemap: https://ilmhub.uz/sitemap.xml
+
+# 2) Global rules
+User-agent: *
+# Allow the SPA shell and its routes
+Allow: /$
+Allow: /register$
+
+# Assets (JS/CSS/images) – adjust paths if different
+Allow: /static/js/
+Allow: /static/css/
+Allow: /static/media/
+
+# Block any backend or staging APIs or dashboards
+Disallow: /api/
+Disallow: /admin/
+Disallow: /login/
+Disallow: /staging/
+
+# (No Crawl-delay needed unless you see server strain)
