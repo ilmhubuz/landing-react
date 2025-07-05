@@ -1,61 +1,67 @@
-import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import Container from '@mui/material/Container';
-import Divider from '@mui/material/Divider';
-import MenuItem from '@mui/material/MenuItem';
-import Drawer from '@mui/material/Drawer';
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import Typography from '@mui/material/Typography';
-import ColorModeIconDropdown from '../theme/ColorModeIconDropdown';
-import CallIcon from '@mui/icons-material/Call';
-import Sitemark from './SitemarkIcon';
-import { Link } from '@mui/material';
+import * as React from "react";
+import { styled, alpha } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import Container from "@mui/material/Container";
+import Divider from "@mui/material/Divider";
+import MenuItem from "@mui/material/MenuItem";
+import Drawer from "@mui/material/Drawer";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import Typography from "@mui/material/Typography";
+import ColorModeIconDropdown from "../theme/ColorModeIconDropdown";
+import CallIcon from "@mui/icons-material/Call";
+import Sitemark from "./SitemarkIcon";
+import { Link } from "@mui/material";
+import { useNavigate } from "react-router-dom"; // 👈 qo'shildi
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
   flexShrink: 0,
   borderRadius: `calc(${theme.shape.borderRadius}px + 8px)`,
-  backdropFilter: 'blur(24px)',
-  border: '1px solid',
+  backdropFilter: "blur(24px)",
+  border: "1px solid",
   borderColor: (theme.vars || theme).palette.divider,
   backgroundColor: theme.vars
     ? `rgba(${theme.vars.palette.background.defaultChannel} / 0.4)`
     : alpha(theme.palette.background.default, 0.4),
   boxShadow: (theme.vars || theme).shadows[1],
-  padding: '8px 12px',
+  padding: "8px 12px",
 }));
 
 const PhoneTypography = (
-  <Link 
-    href="tel:+998906915060"
+  <Link
+    href="tel:+998946715060"
     underline="none"
-    variant="h4" 
-    sx={{ 
-      color: '#B8860B', 
-      fontWeight: 'bold',
-      display: 'flex',
-      alignItems: 'center',
-      mr: 4
-    }}>
-    <CallIcon fontSize="large" />&nbsp;90 691 50 60
-  </Link>);
+    variant="h4"
+    sx={{
+      color: "#B8860B",
+      fontWeight: "bold",
+      display: "flex",
+      alignItems: "center",
+      mr: 4,
+    }}
+  >
+    <CallIcon fontSize="large" />
+    &nbsp;94-671-50-60
+  </Link>
+);
 
 export default function AppAppBar() {
   const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate(); // 👈 SPA navigate qo'shildi
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
 
-  const scrollToFaq = () => document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToFaq = () =>
+    document.getElementById("faq")?.scrollIntoView({ behavior: "smooth" });
 
   return (
     <AppBar
@@ -63,47 +69,53 @@ export default function AppAppBar() {
       enableColorOnDark
       sx={{
         boxShadow: 0,
-        bgcolor: 'transparent',
-        backgroundImage: 'none',
-        mt: 'calc(var(--template-frame-height, 0px) + 28px)',
+        bgcolor: "transparent",
+        backgroundImage: "none",
+        mt: "calc(var(--template-frame-height, 0px) + 28px)",
       }}
     >
       <Container maxWidth="lg">
         <StyledToolbar variant="dense" disableGutters>
-          <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
+          {/* Chap qism */}
+          <Box
+            sx={{ flexGrow: 1, display: "flex", alignItems: "center", px: 0 }}
+          >
             <Sitemark />
-            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              <Button variant="text" color="info" size="small">
-                Kurslar
-              </Button>
-              <Button variant="text" color="info" size="small">
-                Natijalar
-              </Button>
-              <Button variant="text" color="info" size="small">
-                Ustozlar
-              </Button>
-              <Button variant="text" color="info" size="small">
-                Narxlar
-              </Button>
-              <Button variant="text" color="info" size="small" sx={{ minWidth: 0 }} onClick={scrollToFaq}>
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <Button
+                variant="text"
+                color="info"
+                size="small"
+                sx={{ minWidth: 0 }}
+                onClick={scrollToFaq}
+              >
                 Savollar
               </Button>
             </Box>
           </Box>
+
+          {/* Desktop qism */}
           <Box
             sx={{
-              display: { xs: 'none', md: 'flex' },
+              display: { xs: "none", md: "flex" },
               gap: 1,
-              alignItems: 'center',
+              alignItems: "center",
             }}
           >
             {PhoneTypography}
-            <Button color="primary" variant="contained" size="small">
+            <Button
+              color="primary"
+              variant="contained"
+              size="small"
+              onClick={() => navigate("/register")} // 👈 SPA navigate ishlaydi
+            >
               Ro'yxatdan o'tish
             </Button>
             <ColorModeIconDropdown />
           </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: 1 }}>
+
+          {/* Mobil menyu */}
+          <Box sx={{ display: { xs: "flex", md: "none" }, gap: 1 }}>
             <ColorModeIconDropdown size="medium" />
             <IconButton aria-label="Menu button" onClick={toggleDrawer(true)}>
               <MenuIcon />
@@ -114,31 +126,40 @@ export default function AppAppBar() {
               onClose={toggleDrawer(false)}
               PaperProps={{
                 sx: {
-                  top: 'var(--template-frame-height, 0px)',
+                  top: "var(--template-frame-height, 0px)",
                 },
               }}
             >
-              <Box sx={{ p: 2, backgroundColor: 'background.default' }}>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'flex-end',
-                  }}
-                >
+              <Box sx={{ p: 2, backgroundColor: "background.default" }}>
+                <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                   <IconButton onClick={toggleDrawer(false)}>
                     <CloseRoundedIcon />
                   </IconButton>
                 </Box>
 
-                <MenuItem>Kurslar</MenuItem>
-                <MenuItem>Natijalar</MenuItem>
-                <MenuItem>Ustozlar</MenuItem>
-                <MenuItem>Narxlar</MenuItem>
-                <MenuItem onClick={() => { scrollToFaq(); toggleDrawer(false)(); }}>Savollar</MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    scrollToFaq();
+                    toggleDrawer(false)();
+                  }}
+                >
+                  Savollar
+                </MenuItem>
+
                 {PhoneTypography}
+
                 <Divider sx={{ my: 3 }} />
+
                 <MenuItem>
-                  <Button color="primary" variant="contained" fullWidth>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    fullWidth
+                    onClick={() => {
+                      navigate("/register"); // 👈 mobil menyu ham navigate qiladi
+                      toggleDrawer(false)();
+                    }}
+                  >
                     Ro'yxatdan o'tish
                   </Button>
                 </MenuItem>
