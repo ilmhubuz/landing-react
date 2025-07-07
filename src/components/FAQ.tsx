@@ -16,7 +16,7 @@ export default function FAQ() {
       setExpanded(
         isExpanded
           ? [...expanded, panel]
-          : expanded.filter((item) => item !== panel),
+          : expanded.filter((item) => item !== panel)
       );
     };
 
@@ -65,8 +65,9 @@ export default function FAQ() {
               sx={{ maxWidth: { sm: '100%', md: '70%' } }}
             >
               <Link href="tel:+998906915060">90 691 50 60</Link>
-              &nbsp;raqamiga qo&apos;ng&apos;iroq qiling yoki telegram orqali <Link href="https://t.me/ilmhubnamangan">ilmhubnamangan</Link>&nbsp;
-              hisobiga yozing, sizga tezkor ma&apos;lumot beramiz.
+              &nbsp;raqamiga qo&apos;ng&apos;iroq qiling yoki telegram orqali{' '}
+              <Link href="https://t.me/ilmhubnamangan">ilmhubnamangan</Link>
+              &nbsp; hisobiga yozing, sizga tezkor ma&apos;lumot beramiz.
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -89,7 +90,10 @@ export default function FAQ() {
               gutterBottom
               sx={{ maxWidth: { sm: '100%', md: '70%' } }}
             >
-              Kurslar narxi yo&apos;nalish va filialga qarab farqlanadi. Narxlar bilan tanishish uchun <Link href="tel:+998906915060">90 691 50 60</Link>&nbsp;raqamiga qo&apos;ng&apos;iroq qiling.
+              Kurslar narxi yo&apos;nalish va filialga qarab farqlanadi. Narxlar
+              bilan tanishish uchun{' '}
+              <Link href="tel:+998906915060">90 691 50 60</Link>&nbsp;raqamiga
+              qo&apos;ng&apos;iroq qiling.
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -112,20 +116,33 @@ export default function FAQ() {
               gutterBottom
               sx={{ maxWidth: { sm: '100%', md: '70%' } }}
             >
-              Ha, biz hozirda quyidagi 3 ta manzilda zamonaviy va sifatli darslar olib boramiz:
+              Ha, biz hozirda quyidagi 3 ta manzilda zamonaviy va sifatli
+              darslar olib boramiz:
               <Box component="ul" sx={{ pl: 2 }}>
                 <li>
-                  <Link href="https://yandex.uz/maps/-/CHV~z88z" target="_blank" rel="noopener">
+                  <Link
+                    href="https://yandex.uz/maps/-/CHV~z88z"
+                    target="_blank"
+                    rel="noopener"
+                  >
                     ilmhub chimgan
                   </Link>
                 </li>
                 <li>
-                  <Link href="https://yandex.uz/maps/-/CHV~zLzQ" target="_blank" rel="noopener">
+                  <Link
+                    href="https://yandex.uz/maps/-/CHV~zLzQ"
+                    target="_blank"
+                    rel="noopener"
+                  >
                     ilmhub namangan
                   </Link>
                 </li>
                 <li>
-                  <Link href="https://yandex.uz/maps/-/CHV~zT4r" target="_blank" rel="noopener">
+                  <Link
+                    href="https://yandex.uz/maps/-/CHV~zT4r"
+                    target="_blank"
+                    rel="noopener"
+                  >
                     ilmhub uychi
                   </Link>
                 </li>
@@ -143,7 +160,8 @@ export default function FAQ() {
             id="panel3d-header"
           >
             <Typography component="span" variant="subtitle2">
-              <strong>ilmhub</strong> kurslarining boshqa kurslardan farqi nimada?
+              <strong>ilmhub</strong> kurslarining boshqa kurslardan farqi
+              nimada?
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
@@ -155,19 +173,35 @@ export default function FAQ() {
               <strong>ilmhub</strong> kurslarining farqlari:
               <Box component="ul" sx={{ pl: 2 }}>
                 <li>
-                  Boshqa kurslardan farqli o&apos;laroq, biz bolalar uchun stressli lug&apos;at va grammatika mashg&apos;ulotlari bilan an&apos;anaviy ingliz tilini o&apos;rgatish usulini emas, balki bolaning yoshiga mos zamonaviy dasturlarni taklif etamiz.
+                  Boshqa kurslardan farqli o&apos;laroq, biz bolalar uchun
+                  stressli lug&apos;at va grammatika mashg&apos;ulotlari bilan
+                  an&apos;anaviy ingliz tilini o&apos;rgatish usulini emas,
+                  balki bolaning yoshiga mos zamonaviy dasturlarni taklif
+                  etamiz.
                 </li>
                 <li>
-                  Ingliz tili darslari interaktiv mashg&apos;ulotlar va o&apos;yinlarga asoslangan bo&apos;lib ko&apos;rish, eshitish va gapirish oraqali Ingliz tilida ravon gapirishni o&apos;rgatamiz.
+                  Ingliz tili darslari interaktiv mashg&apos;ulotlar va
+                  o&apos;yinlarga asoslangan bo&apos;lib ko&apos;rish, eshitish
+                  va gapirish oraqali Ingliz tilida ravon gapirishni
+                  o&apos;rgatamiz.
                 </li>
                 <li>
-                  Dars rejalari bolalar psixologiyasiga asoslangan. Bizning darslarimiz AQSh va Janubiy Koreyadagi zamonaviy ta&apos;lim muassasalari dasturlari asosida tuzilgan.
+                  Dars rejalari bolalar psixologiyasiga asoslangan. Bizning
+                  darslarimiz AQSh va Janubiy Koreyadagi zamonaviy ta&apos;lim
+                  muassasalari dasturlari asosida tuzilgan.
                 </li>
                 <li>
-                  IELTS va CEFR sertifikatlari yoki universitet kirish imtihonlari uchun o&apos;qiyotgan talabalar uchun, bizning yuqori malakali ustozlarimiz eng zamonaviy yondashuvni va maqsadlaringizga tezroq erishish uchun barcha qisqa yo&apos;llarni taklif etadilar.
+                  IELTS va CEFR sertifikatlari yoki universitet kirish
+                  imtihonlari uchun o&apos;qiyotgan talabalar uchun, bizning
+                  yuqori malakali ustozlarimiz eng zamonaviy yondashuvni va
+                  maqsadlaringizga tezroq erishish uchun barcha qisqa
+                  yo&apos;llarni taklif etadilar.
                 </li>
                 <li>
-                  Barcha yoshdagi bolalar uchun IT dasturlarimizga kelsak, hozirda IT sohasida bizning kurslarimizga muqobil yo&apos;q. Faqatgina biz farzandlaringizning yorqin kelajagini kafolatlaydigan eng zamonaviy dars rejalarini taklif etamiz.
+                  Barcha yoshdagi bolalar uchun IT dasturlarimizga kelsak,
+                  hozirda IT sohasida bizning kurslarimizga muqobil yo&apos;q.
+                  Faqatgina biz farzandlaringizning yorqin kelajagini
+                  kafolatlaydigan eng zamonaviy dars rejalarini taklif etamiz.
                 </li>
               </Box>
             </Typography>
@@ -192,13 +226,13 @@ export default function FAQ() {
               gutterBottom
               sx={{ maxWidth: { sm: '100%', md: '70%' } }}
             >
+              <li>Ingliz tiliga 5-6 yoshdan boshlab dasturlarimiz mavjud.</li>
               <li>
-                  Ingliz tiliga 5-6 yoshdan boshlab dasturlarimiz mavjud.
+                IT (dasturlash) uchun farzandingizni 8 yoshdan qabul qilamiz.
               </li>
-              <li>
-                  IT (dasturlash) uchun farzandingizni 8 yoshdan qabul qilamiz.
-              </li>
-              Qabul qilishda farzandingizni maktabgacha bo&apos;lgan ta&apos;lim bilimlari va iqtidori hisobga olib darslarga tayyor yoki yo&apos;q ekanligini aniqlanadi.
+              Qabul qilishda farzandingizni maktabgacha bo&apos;lgan ta&apos;lim
+              bilimlari va iqtidori hisobga olib darslarga tayyor yoki yo&apos;q
+              ekanligini aniqlanadi.
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -221,19 +255,26 @@ export default function FAQ() {
               gutterBottom
               sx={{ maxWidth: { sm: '100%', md: '70%' } }}
             >
-              IT sohasini o&apos;rganish farzandingizga quyidagi imkoniyatlarni beradi:
+              IT sohasini o&apos;rganish farzandingizga quyidagi imkoniyatlarni
+              beradi:
               <Box component="ul" sx={{ pl: 2 }}>
                 <li>
-                  Uyida o&apos;tirib O&apos;zbekiston va chet el kompaniyalarida yaxshi daromad bilan ishlash imkoniyatiga ega bo&apos;ladi
+                  Uyida o&apos;tirib O&apos;zbekiston va chet el kompaniyalarida
+                  yaxshi daromad bilan ishlash imkoniyatiga ega bo&apos;ladi
                 </li>
                 <li>
-                  Texnologiyaga qaramlikdan qutuladi, aksincha dasturlar orqali texnologiyani boshqarishni o&apos;rganadi
+                  Texnologiyaga qaramlikdan qutuladi, aksincha dasturlar orqali
+                  texnologiyani boshqarishni o&apos;rganadi
                 </li>
                 <li>
-                  Istalgan sohada, xoh bank bo&apos;lsin, xoh boshqa yo&apos;nalish - eng oldi kadr bo&apos;lib ishlash imkoniyatiga ega bo&apos;ladi
+                  Istalgan sohada, xoh bank bo&apos;lsin, xoh boshqa
+                  yo&apos;nalish - eng oldi kadr bo&apos;lib ishlash
+                  imkoniyatiga ega bo&apos;ladi
                 </li>
               </Box>
-              Buning ahamiyatini davlatimiz ham tan olgan bo&apos;lib, Prezidentimiz ITni keng tarqatish uchun maxsus qarorlar chiqarmoqda.
+              Buning ahamiyatini davlatimiz ham tan olgan bo&apos;lib,
+              Prezidentimiz ITni keng tarqatish uchun maxsus qarorlar
+              chiqarmoqda.
             </Typography>
           </AccordionDetails>
         </Accordion>

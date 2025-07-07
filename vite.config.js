@@ -5,6 +5,6 @@ export default defineConfig({
   plugins: [react()],
   define: {
     // Make process.env available to client code
-    'process.env': {}
-  }
-}); 
+    'process.env': {},
+  },
+});

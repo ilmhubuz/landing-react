@@ -69,7 +69,8 @@ export default function Hero() {
               flexDirection: { xs: 'column', sm: 'row' },
               alignItems: 'center',
               fontSize: 'clamp(3rem, 10vw, 3.5rem)',
-            }}>
+            }}
+          >
             <Typography
               component="span"
               variant="h1"
@@ -79,7 +80,8 @@ export default function Hero() {
                 ...theme.applyStyles('dark', {
                   color: 'primary.light',
                 }),
-              })}>
+              })}
+            >
               ilmhub&nbsp;
             </Typography>
             o&apos;quv markazi
@@ -89,13 +91,14 @@ export default function Hero() {
               textAlign: 'center',
               color: 'text.secondary',
               width: { sm: '100%', md: '80%' },
-            }}>
-            Ta&apos;limga zamonaviy yondashuv. 
+            }}
+          >
+            Ta&apos;limga zamonaviy yondashuv.
             <strong>&nbsp;Ingliz tili,&nbsp;</strong>
             <strong>IT,&nbsp;</strong>
             <strong>Matematika&nbsp;</strong>
-            va eng zamonaviy kasblarni
-            bir maskanda o'rganish imkoniyati. Farzandingiz kelajagini birgalikda&nbsp; 
+            va eng zamonaviy kasblarni bir maskanda o'rganish imkoniyati.
+            Farzandingiz kelajagini birgalikda&nbsp;
             <Typography
               component="span"
               sx={(theme) => ({
@@ -108,7 +111,8 @@ export default function Hero() {
               })}
             >
               ilmhub
-            </Typography>da quramiz!
+            </Typography>
+            da quramiz!
           </Typography>
           <CallbackForm />
           <Typography
