@@ -41,3 +41,4 @@ coverage/
 # Optional: if you're using eslint/prettier cache
 .eslintcache
 .prettiercache
+.prettierrc
