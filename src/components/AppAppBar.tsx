@@ -35,19 +35,22 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 }));
 
 const PhoneTypography = (
-  <Link 
-    href="tel:+998906715060"
+  <Link
+    href="tel:+998946715060"
     underline="none"
-    variant="h4" 
-    sx={{ 
-      color: '#B8860B', 
+    variant="h4"
+    sx={{
+      color: '#B8860B',
       fontWeight: 'bold',
       display: 'flex',
       alignItems: 'center',
-      mr: 4
-    }}>
-    <CallIcon fontSize="large" />&nbsp;90 671 50 60
-  </Link>);
+      mr: 4,
+    }}
+  >
+    <CallIcon fontSize="large" />
+    &nbsp;946715060
+  </Link>
+);
 
 export default function AppAppBar() {
   const [open, setOpen] = React.useState(false);
@@ -85,18 +88,6 @@ export default function AppAppBar() {
           >
             <Sitemark />
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              {/* <Button variant="text" color="info" size="small">
-                Kurslar
-              </Button>
-              <Button variant="text" color="info" size="small">
-                Natijalar
-              </Button>
-              <Button variant="text" color="info" size="small">
-                Ustozlar
-              </Button>
-              <Button variant="text" color="info" size="small">
-                Narxlar
-              </Button> */}
               <Button
                 variant="text"
                 color="info"
