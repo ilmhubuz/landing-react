@@ -8,14 +8,14 @@ import { useNavigate } from 'react-router-dom';
 
 import AppTheme from '../theme/AppTheme';
 import ColorModeSelect from '../theme/ColorModeSelect';
-import SignInCard from '../components/ SignInCard'; // Fayl nomidagi bo'sh joyni olib tashlang
-import Content from '../components/Content';
+import RegisterCard from '../components/RegisterCard';
+import Content from '../components/RegisterFeatures';
 
-type SignInSideProps = {
+type RegisterPageProps = {
   disableCustomTheme?: boolean;
 };
 
-export default function SignInSide(props: SignInSideProps) {
+export default function Register(props: RegisterPageProps) {
   const navigate = useNavigate();
 
   return (
@@ -75,13 +75,11 @@ export default function SignInSide(props: SignInSideProps) {
             gap: { xs: 6, sm: 12 },
             p: { xs: 2, sm: 4 },
             mx: 'auto',
-            // --- O'ZGARTIRISH SHU YERDA ---
-            // Mobil qurilmalar uchun pastdan joy qo'shildi
             mb: { xs: 4, md: 0 },
           }}
         >
           <Content />
-          <SignInCard />
+          <RegisterCard />
         </Stack>
       </Stack>
     </AppTheme>
