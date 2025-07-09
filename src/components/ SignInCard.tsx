@@ -36,17 +36,11 @@ const Card = styled(MuiCard)(({ theme }) => ({
 }));
 
 export default function RegistrationCard() {
-  // Ma'lumotlarni yuklash uchun hook'lar
   const { locations, loading: locationsLoading } = useLocations();
   const { courses, loading: coursesLoading } = useCoursesTypes();
-
-  // API'ga jo'natish uchun custom hook
   const { submitLead, isSubmitting } = useSubmitLead();
-
-  // Sahifaga yo'naltirish uchun hook
   const navigate = useNavigate();
 
-  // Forma ma'lumotlari uchun state
   const [form, setForm] = React.useState({
     name: '',
     phone: '',
@@ -55,23 +49,42 @@ export default function RegistrationCard() {
     course: '',
   });
 
-  // Validatsiya xatoliklari uchun state
   const [errors, setErrors] = React.useState({
     name: '',
     phone: '',
     age: '',
   });
 
-  // Maydonlar o'zgarganda form state'ini yangilash
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setForm((prevForm) => ({
-      ...prevForm,
-      [name]: value,
-    }));
+  // 1. Telefon raqamini formatlash uchun yordamchi funksiyalar
+  const getDigitsOnly = (input: string) => input.replace(/\D/g, '').slice(0, 9);
+
+  const formatPhone = (digits: string) => {
+    let result = '';
+    if (digits.length > 0) result += digits.slice(0, 2);
+    if (digits.length > 2) result += ' ' + digits.slice(2, 5);
+    if (digits.length > 5) result += ' ' + digits.slice(5, 7);
+    if (digits.length > 7) result += ' ' + digits.slice(7, 9);
+    return result;
   };
 
-  // Kiritilgan ma'lumotlarni tekshirish (validatsiya)
+  // 2. handleChange funksiyasi "phone" maydoni uchun maxsus mantiq bilan to'ldirildi
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    if (name === 'phone') {
+      const formattedPhone = formatPhone(getDigitsOnly(value));
+      setForm((prevForm) => ({
+        ...prevForm,
+        phone: formattedPhone,
+      }));
+    } else {
+      setForm((prevForm) => ({
+        ...prevForm,
+        [name]: value,
+      }));
+    }
+  };
+
   const validateInputs = () => {
     const newErrors = { name: '', phone: '', age: '' };
     let isValid = true;
@@ -81,9 +94,9 @@ export default function RegistrationCard() {
       isValid = false;
     }
 
-    if (!/^\d{7,}$/.test(form.phone.replace(/\s/g, ''))) {
-      newErrors.phone =
-        'Telefon raqam kamida 7 ta raqamdan iborat bo‘lishi kerak.';
+    // Validatsiya endi toza raqamlar ustida ishlaydi (kamida 9 ta raqam)
+    if (form.phone.replace(/\s/g, '').length < 9) {
+      newErrors.phone = 'Telefon raqam to‘liq kiritilishi kerak.';
       isValid = false;
     }
 
@@ -96,7 +109,6 @@ export default function RegistrationCard() {
     return isValid;
   };
 
-  // Formani jo'natish funksiyasi
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!validateInputs()) {
@@ -109,10 +121,11 @@ export default function RegistrationCard() {
     const courseTypeName =
       courses.find((c: any) => c.id === form.course)?.name || null;
 
+    // 3. Backend'ga yuborishdan oldin telefon raqamidagi probellar olib tashlanadi
     const payload = {
       name: form.name,
       age: Number(form.age),
-      phone: form.phone,
+      phone: form.phone.replace(/\s/g, ''), // Toza raqam: "901234567"
       location: locationName,
       courseType: courseTypeName,
     };
@@ -120,14 +133,10 @@ export default function RegistrationCard() {
     toast.promise(submitLead(payload), {
       loading: 'Yuborilmoqda...',
       success: (data) => {
-        // Forma maydonlarini tozalash
         setForm({ name: '', phone: '', age: '', location: '', course: '' });
-
-        // Muvaffaqiyatli ro'yxatdan o'tgach, asosiy sahifaga o'tkazish
         setTimeout(() => {
           navigate('/');
         }, 1500);
-
         return <b>Ma'lumotlaringiz qabul qilindi!</b>;
       },
       error: <b>Xatolik yuz berdi. Qaytadan urunib ko'ring.</b>,
@@ -176,8 +185,7 @@ export default function RegistrationCard() {
             id="phone"
             name="phone"
             type="tel"
-            placeholder="+998 99 123 45 67"
-            autoComplete="tel"
+            placeholder="90 123 45 67"
             required
             fullWidth
             variant="outlined"
@@ -185,6 +193,10 @@ export default function RegistrationCard() {
             onChange={handleChange}
             error={!!errors.phone}
             helperText={errors.phone}
+            inputProps={{
+              // `slotProps` o'rniga `inputProps` ishlatish odatiyroq
+              maxLength: 12, // 9 ta raqam + 3 ta probel
+            }}
           />
         </FormControl>
 

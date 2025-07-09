@@ -2,53 +2,43 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import Skeleton from '@mui/material/Skeleton';
+import Sitemark from './SitemarkIcon';
 
-// Hook'imizni import qilamiz
-import { useFilteredCourses } from '../hooks/useFilteredCourses';
-import { SitemarkIcon } from './ CustomIcons';
+// "Wow" effekt beradigan, mazmunli ikonkalarni import qilamiz
+import ForumRoundedIcon from '@mui/icons-material/ForumRounded';
+import PsychologyRoundedIcon from '@mui/icons-material/PsychologyRounded';
+import WorkspacePremiumRoundedIcon from '@mui/icons-material/WorkspacePremiumRounded';
+import SecurityRoundedIcon from '@mui/icons-material/SecurityRounded';
 
-// Kurslarga mos keladigan ikonkalarni import qilamiz
-import SchoolRoundedIcon from '@mui/icons-material/SchoolRounded';
-import CodeRoundedIcon from '@mui/icons-material/CodeRounded';
-import StorageRoundedIcon from '@mui/icons-material/StorageRounded';
-import DeveloperModeRoundedIcon from '@mui/icons-material/DeveloperModeRounded';
-import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
-
-// Kurs nomi va unga mos ikonkani bog'laydigan funksiya
-const getIconForCourse = (courseName: string) => {
-  const iconProps = { sx: { color: 'text.secondary' } };
-  switch (courseName) {
-    case 'Pre IELTS':
-      return <SchoolRoundedIcon {...iconProps} />;
-    case 'IELTS':
-      return <VerifiedRoundedIcon {...iconProps} />;
-    case 'Frontend':
-      return <CodeRoundedIcon {...iconProps} />;
-    case 'Backend':
-      return <StorageRoundedIcon {...iconProps} />;
-    case '.NET Bootcamp':
-      return <DeveloperModeRoundedIcon {...iconProps} />;
-    default:
-      return null;
-  }
-};
+// 1. Ma'lumotlar endi statik, to'g'ridan-to'g'ri shu yerda e'lon qilinadi
+const items = [
+  {
+    icon: <ForumRoundedIcon />,
+    title: 'Qiziqarli ingliz tili',
+    description:
+      '6 yoshdan boshlab bolalar uchun interaktiv darslar — asosiy urg‘u speaking va listening ko‘nikmalarida.',
+  },
+  {
+    icon: <PsychologyRoundedIcon />,
+    title: 'Zamonaviy IT ko‘nikmalari',
+    description:
+      'Scratch, Robotics, App Inventor va AI prompting orqali bolalarda tafakkur va texnologiyaga qiziqish shakllantiramiz.',
+  },
+  {
+    icon: <WorkspacePremiumRoundedIcon />,
+    title: 'Tajribali o‘qituvchilar',
+    description:
+      'Yoshlar bilan ishlash ko‘nikmasiga ega mehribon ustozlar har bir o‘quvchiga alohida yondashadi.',
+  },
+  {
+    icon: <SecurityRoundedIcon />,
+    title: 'Xavfsiz va qulay muhit',
+    description:
+      'Qulay joylashuv, himoyalangan bino, har faslga mos xona va kerakli barcha texnik jihozlar mavjud.',
+  },
+];
 
 export default function Features() {
-  // 1. Hook'dan ma'lumotlarni olamiz
-  const { courses, loading, error } = useFilteredCourses();
-
-  // 2. Ma'lumotlarni komponent shabloniga moslaymiz
-  const items = React.useMemo(
-    () =>
-      courses.map((course) => ({
-        icon: getIconForCourse(course.name),
-        title: course.name,
-        description: course.description,
-      })),
-    [courses]
-  );
-
   return (
     <Stack
       sx={{
@@ -58,41 +48,36 @@ export default function Features() {
         maxWidth: 450,
       }}
     >
-      <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-        <SitemarkIcon />
+      <Box
+        sx={{
+          display: { xs: 'none', md: 'flex' },
+          alignItems: 'center',
+          gap: 2,
+        }}
+      >
+        <Sitemark />
       </Box>
 
-      {/* 3. Yuklanish (loading) holatini ko'rsatish */}
-      {loading &&
-        Array.from(new Array(4)).map((_, index) => (
-          <Stack key={index} direction="row" sx={{ gap: 2 }}>
-            <Skeleton variant="circular" width={40} height={40} />
-            <Box sx={{ flex: 1 }}>
-              <Skeleton variant="text" width="40%" />
-              <Skeleton variant="text" width="90%" />
-            </Box>
-          </Stack>
-        ))}
-
-      {/* 4. Xatolik holatini ko'rsatish */}
-      {error && <Typography color="error">{error}</Typography>}
-
-      {/* 5. Ma'lumotlar tayyor bo'lganda ko'rsatish */}
-      {!loading &&
-        !error &&
-        items.map((item, index) => (
-          <Stack key={index} direction="row" sx={{ gap: 2 }}>
+      {items.map((item, index) => (
+        <Stack key={index} direction="row" sx={{ gap: 2 }}>
+          <Box
+            sx={{
+              // Ikonkalarni yanada ko'zga ko'rinadigan qilish uchun
+              color: 'primary.main',
+            }}
+          >
             {item.icon}
-            <div>
-              <Typography gutterBottom sx={{ fontWeight: 'medium' }}>
-                {item.title}
-              </Typography>
-              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                {item.description}
-              </Typography>
-            </div>
-          </Stack>
-        ))}
+          </Box>
+          <div>
+            <Typography gutterBottom sx={{ fontWeight: 'medium' }}>
+              {item.title}
+            </Typography>
+            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+              {item.description}
+            </Typography>
+          </div>
+        </Stack>
+      ))}
     </Stack>
   );
 }
