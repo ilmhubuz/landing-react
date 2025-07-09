@@ -16,6 +16,7 @@ import ColorModeIconDropdown from '../theme/ColorModeIconDropdown';
 import CallIcon from '@mui/icons-material/Call';
 import Sitemark from './SitemarkIcon';
 import { Link } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -34,28 +35,40 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 }));
 
 const PhoneTypography = (
-  <Link 
-    href="tel:+998906915060"
+  <Link
+    href="tel:+998946715060"
     underline="none"
-    variant="h4" 
-    sx={{ 
-      color: '#B8860B', 
+    variant="h4"
+    sx={{
+      color: '#B8860B',
       fontWeight: 'bold',
       display: 'flex',
       alignItems: 'center',
-      mr: 4
-    }}>
-    <CallIcon fontSize="large" />&nbsp;90 691 50 60
-  </Link>);
+      mr: 4,
+    }}
+  >
+    <CallIcon fontSize="large" />
+    &nbsp;946715060
+  </Link>
+);
 
 export default function AppAppBar() {
   const [open, setOpen] = React.useState(false);
+  // 1. useNavigate hook'ini chaqiramiz
+  const navigate = useNavigate();
+
+  // 2. Tugma bosilganda ishlaydigan funksiya
+  const handleNavigateToRegister = () => {
+    // 3. navigate funksiyasiga o'tish kerak bo'lgan manzilni beramiz
+    navigate('/regester');
+  };
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
 
-  const scrollToFaq = () => document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToFaq = () =>
+    document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' });
 
   return (
     <AppBar
@@ -70,22 +83,18 @@ export default function AppAppBar() {
     >
       <Container maxWidth="lg">
         <StyledToolbar variant="dense" disableGutters>
-          <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
+          <Box
+            sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}
+          >
             <Sitemark />
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              <Button variant="text" color="info" size="small">
-                Kurslar
-              </Button>
-              <Button variant="text" color="info" size="small">
-                Natijalar
-              </Button>
-              <Button variant="text" color="info" size="small">
-                Ustozlar
-              </Button>
-              <Button variant="text" color="info" size="small">
-                Narxlar
-              </Button>
-              <Button variant="text" color="info" size="small" sx={{ minWidth: 0 }} onClick={scrollToFaq}>
+              <Button
+                variant="text"
+                color="info"
+                size="small"
+                sx={{ minWidth: 0 }}
+                onClick={scrollToFaq}
+              >
                 Savollar
               </Button>
             </Box>
@@ -98,7 +107,12 @@ export default function AppAppBar() {
             }}
           >
             {PhoneTypography}
-            <Button color="primary" variant="contained" size="small">
+            <Button
+              onClick={handleNavigateToRegister}
+              color="primary"
+              variant="contained"
+              size="small"
+            >
               Ro'yxatdan o'tish
             </Button>
             <ColorModeIconDropdown />
@@ -130,15 +144,27 @@ export default function AppAppBar() {
                   </IconButton>
                 </Box>
 
-                <MenuItem>Kurslar</MenuItem>
+                {/* <MenuItem>Kurslar</MenuItem>
                 <MenuItem>Natijalar</MenuItem>
                 <MenuItem>Ustozlar</MenuItem>
-                <MenuItem>Narxlar</MenuItem>
-                <MenuItem onClick={() => { scrollToFaq(); toggleDrawer(false)(); }}>Savollar</MenuItem>
+                <MenuItem>Narxlar</MenuItem> */}
+                <MenuItem
+                  onClick={() => {
+                    scrollToFaq();
+                    toggleDrawer(false)();
+                  }}
+                >
+                  Savollar
+                </MenuItem>
                 {PhoneTypography}
                 <Divider sx={{ my: 3 }} />
                 <MenuItem>
-                  <Button color="primary" variant="contained" fullWidth>
+                  <Button
+                    onClick={handleNavigateToRegister}
+                    color="primary"
+                    variant="contained"
+                    fullWidth
+                  >
                     Ro'yxatdan o'tish
                   </Button>
                 </MenuItem>
