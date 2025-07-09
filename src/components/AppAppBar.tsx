@@ -54,13 +54,10 @@ const PhoneTypography = (
 
 export default function AppAppBar() {
   const [open, setOpen] = React.useState(false);
-  // 1. useNavigate hook'ini chaqiramiz
   const navigate = useNavigate();
 
-  // 2. Tugma bosilganda ishlaydigan funksiya
   const handleNavigateToRegister = () => {
-    // 3. navigate funksiyasiga o'tish kerak bo'lgan manzilni beramiz
-    navigate('/regester');
+    navigate('/register');
   };
 
   const toggleDrawer = (newOpen: boolean) => () => {

@@ -4,13 +4,11 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Sitemark from './SitemarkIcon';
 
-// "Wow" effekt beradigan, mazmunli ikonkalarni import qilamiz
 import ForumRoundedIcon from '@mui/icons-material/ForumRounded';
 import PsychologyRoundedIcon from '@mui/icons-material/PsychologyRounded';
 import WorkspacePremiumRoundedIcon from '@mui/icons-material/WorkspacePremiumRounded';
 import SecurityRoundedIcon from '@mui/icons-material/SecurityRounded';
 
-// 1. Ma'lumotlar endi statik, to'g'ridan-to'g'ri shu yerda e'lon qilinadi
 const items = [
   {
     icon: <ForumRoundedIcon />,
@@ -38,7 +36,7 @@ const items = [
   },
 ];
 
-export default function Features() {
+export default function RegisterFeatures() {
   return (
     <Stack
       sx={{
@@ -61,9 +59,8 @@ export default function Features() {
       {items.map((item, index) => (
         <Stack key={index} direction="row" sx={{ gap: 2 }}>
           <Box
-            sx={{
-              // Ikonkalarni yanada ko'zga ko'rinadigan qilish uchun
-              color: 'primary.main',
+          sx={{
+              color: 'secondary.main',
             }}
           >
             {item.icon}
