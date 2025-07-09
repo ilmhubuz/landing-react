@@ -48,7 +48,7 @@ const PhoneTypography = (
     }}
   >
     <CallIcon fontSize="large" />
-    &nbsp;946715060
+    &nbsp;94 671 50 60
   </Link>
 );
 
