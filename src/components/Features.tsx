@@ -63,7 +63,16 @@ export function MobileLayout({
         gap: 2,
       }}
     >
-      <Box sx={{ display: 'flex', gap: 1, overflow: 'auto', pb: 1.5 }}>
+      {/* Mobil uchun filiallar ro'yxati (aylantirsa bo'ladigan Chip'lar) */}
+      <Box
+        sx={{
+          display: 'flex',
+          gap: 1,
+          overflowX: 'auto',
+          pb: 1.5,
+          '& > *': { flexShrink: 0 },
+        }}
+      >
         {items.map(({ title }, index) => (
           <Chip
             key={index}
@@ -71,36 +80,64 @@ export function MobileLayout({
             onClick={() => handleItemClick(index)}
             variant={selectedItemIndex === index ? 'filled' : 'outlined'}
             color={selectedItemIndex === index ? 'primary' : 'default'}
+            sx={{ minWidth: 'fit-content', height: 35 }} // <-- CHIP BALANDLIGI BU YERDA O'ZGARTIRILDI
           />
         ))}
       </Box>
-      {/* Mobil uchun xarita */}
-      {selectedFeature.mapIframeSrc && (
-        <iframe
-          src={selectedFeature.mapIframeSrc}
-          width="100%"
-          height="300"
-          style={{ border: 0 }}
-          allowFullScreen={true}
-          aria-hidden="false"
-          tabIndex={0}
-          title={`Map for ${selectedFeature.title}`}
-          loading="lazy"
-        ></iframe>
-      )}
-      {/* Mobil uchun baholash vidjeti */}
-      {selectedFeature.ratingIframeSrc && (
-        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
+
+      {/* Mobil uchun xarita va baholash vidjeti - bir Box ichida, relative position bilan */}
+      <Box
+        sx={(theme) => ({
+          position: 'relative', // Baholash iframesi uchun asos
+          borderRadius: 2, // Cardga o'xshash border radius
+          border: '1px solid', // Yupqa border
+          borderColor: 'divider', // Border rangi
+          overflow: 'hidden', // Radius ishlatish uchun
+          // Mobil karta balandligini to'liq joylashish uchun moslashtirish
+          // iframe height 250px bo'lgani uchun, boxning minimal balandligi shuni qoplab turishi kerak
+          minHeight: '250px', // <-- MOBIL KARTA BALANDLIGI BU YERDA O'ZGARTIRILDI (minimal)
+        })}
+      >
+        {selectedFeature.mapIframeSrc && (
           <iframe
-            src={selectedFeature.ratingIframeSrc}
-            width="150"
-            height="50"
-            style={{ border: 0 }}
-            title={`Rating for ${selectedFeature.title}`}
-            loading="lazy"
+            src={selectedFeature.mapIframeSrc}
+            width="100%"
+            height="250" // <-- MOBIL XARITA BALANDLIGI BU YERDA O'ZGARTIRILDI (300px dan 250px ga)
+            frameBorder="0"
+            style={{ display: 'block' }}
+            allowFullScreen=""
+            aria-hidden="false"
+            tabIndex="0"
+            title={`Map for ${selectedFeature.title}`}
           ></iframe>
-        </Box>
-      )}
+        )}
+
+        {/* Mobil uchun baholash vidjeti - xarita ustida o'ng past burchakda */}
+        {selectedFeature.ratingIframeSrc && (
+          <Box
+            sx={{
+              position: 'absolute',
+              bottom: 8, // Pastdan 8px
+              right: 8, // O'ngdan 8px
+              zIndex: 1, // Xarita ustida turishi uchun
+            }}
+          >
+            <iframe
+              src={selectedFeature.ratingIframeSrc}
+              width="150"
+              height="50"
+              frameBorder="0"
+              style={{ border: 0 }}
+              title={`Rating for ${selectedFeature.title}`}
+            ></iframe>
+          </Box>
+        )}
+      </Box>
+
+      {/* Mobil uchun tanlangan fililaning description'i */}
+      <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
+        {selectedFeature.description}
+      </Typography>
     </Box>
   );
 }
@@ -132,6 +169,7 @@ export default function Features() {
         }}
       >
         <Box sx={{ width: { xs: '100%', md: '30%' } }}>
+          {/* Bu DESKTOP ro'yxati mobil'da ko'rinmaydi */}
           <Box
             sx={{
               display: { xs: 'none', sm: 'flex' },
@@ -191,44 +229,58 @@ export default function Features() {
               </Box>
             ))}
           </Box>
+          {/* Endi bu MobileLayout to'g'ri ishlaydi */}
           <MobileLayout
             selectedItemIndex={selectedItemIndex}
             handleItemClick={handleItemClick}
           />
         </Box>
 
-        {/* Desktop uchun xarita va baholash vidjeti */}
+        {/* Desktop uchun xarita va baholash vidjeti - bir Box ichida, relative position bilan */}
         <Box
-          sx={{
+          sx={(theme) => ({
             display: { xs: 'none', sm: 'flex' },
-            flexDirection: 'column', // Add column direction for map and rating
+            flexDirection: 'column',
             width: { xs: '100%', md: '70%' },
-            gap: 2, // Gap between map and rating
-          }}
+            position: 'relative', // Baholash iframesi uchun asos
+            borderRadius: 2, // Cardga o'xshash border radius
+            border: '1px solid', // Yupqa border
+            borderColor: 'divider', // Border rangi
+            overflow: 'hidden', // Radius ishlatish uchun
+            gap: 2, // Map va boshqa kontent orasidagi bo'shliq
+          })}
         >
           {selectedFeature.mapIframeSrc && (
             <iframe
               src={selectedFeature.mapIframeSrc}
               width="100%"
               height="500"
-              style={{ border: 0 }}
-              allowFullScreen={true}
+              frameBorder="0"
+              style={{ display: 'block' }}
+              allowFullScreen=""
               aria-hidden="false"
-              tabIndex={0}
+              tabIndex="0"
               title={`Map for ${selectedFeature.title}`}
-              loading="lazy"
             ></iframe>
           )}
+
+          {/* Desktop uchun baholash vidjeti - xarita ustida o'ng past burchakda */}
           {selectedFeature.ratingIframeSrc && (
-            <Box sx={{ alignSelf: 'flex-end' }}>
-              {' '}
+            <Box
+              sx={{
+                position: 'absolute',
+                bottom: 8, // Pastdan 8px
+                right: 8, // O'ngdan 8px
+                zIndex: 1, // Xarita ustida turishi uchun
+              }}
+            >
               <iframe
                 src={selectedFeature.ratingIframeSrc}
                 width="150"
                 height="50"
+                frameBorder="0"
                 style={{ border: 0 }}
                 title={`Rating for ${selectedFeature.title}`}
-                loading="lazy"
               ></iframe>
             </Box>
           )}
