@@ -13,8 +13,7 @@ const App = () => {
       <YMaps query={{ apikey: YANDEX_API_KEY }}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/regester" element={<Register />} />
-          {/* <Route path="/about" element={<About />} /> */}
+          <Route path="/register" element={<Register />} />
         </Routes>
       </YMaps>
     </BrowserRouter>
