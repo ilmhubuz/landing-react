@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip'; // Mobil uchun Chip import qilindi
-import { Map, Placemark } from '@pbe/react-yandex-maps';
 
 // Ikonkalarni import qilamiz
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
@@ -17,7 +16,11 @@ const items = [
     title: 'Ilmhub Shahar (Namangan)',
     description:
       'Namangan shahrining markazida joylashgan, barcha qulayliklarga ega zamonaviy filialimiz.',
-    coordinates: [41.003768, 71.658741],
+    coordinates: [41.003768, 71.658741], // Coordinates are still useful for general reference, but won't be used by iframes
+    mapIframeSrc:
+      'https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=196532200053',
+    ratingIframeSrc:
+      'https://yandex.ru/sprav/widget/rating-badge/196532200053?type=rating&theme=dark',
   },
   {
     icon: <BusinessRoundedIcon />,
@@ -25,7 +28,10 @@ const items = [
     description:
       'Toshkent shahridagi eng yirik filiallarimizdan biri, transport uchun qulay hududda.',
     coordinates: [41.351039, 69.352922],
-    ///,
+    mapIframeSrc:
+      'https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=203336160307',
+    ratingIframeSrc:
+      'https://yandex.ru/sprav/widget/rating-badge/203336160307?type=rating&theme=dark',
   },
   {
     icon: <LocationOnRoundedIcon />,
@@ -33,22 +39,23 @@ const items = [
     description:
       'Uychi tumanidagi yoshlar uchun barcha sharoitlarni yaratgan holda tashkil etilgan filial.',
     coordinates: [41.028724, 71.851263],
+    mapIframeSrc:
+      'https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=134699861291',
+    ratingIframeSrc:
+      'https://yandex.ru/sprav/widget/rating-badge/134699861291?type=rating&theme=dark',
   },
 ];
 
-// ----- 1-O'ZGARTIRISH: MobileLayout komponentining ichi to'ldirildi -----
 export function MobileLayout({
   selectedItemIndex,
   handleItemClick,
 }: {
   selectedItemIndex: number;
   handleItemClick: (index: number) => void;
-  // selectedFeature prop'i endi kerak emas, chunki uni ichkarida olamiz
 }) {
   const selectedFeature = items[selectedItemIndex];
 
   return (
-    // Bu butun blok faqat kichik (xs) ekranlarda ko'rinadi va desktop'da yo'qoladi
     <Box
       sx={{
         display: { xs: 'flex', sm: 'none' },
@@ -69,14 +76,32 @@ export function MobileLayout({
         ))}
       </Box>
       {/* Mobil uchun xarita */}
-      <Map
-        key={selectedItemIndex}
-        state={{ center: selectedFeature.coordinates, zoom: 15 }}
-        width="100%"
-        height={300}
-      >
-        <Placemark geometry={selectedFeature.coordinates} />
-      </Map>
+      {selectedFeature.mapIframeSrc && (
+        <iframe
+          src={selectedFeature.mapIframeSrc}
+          width="100%"
+          height="300"
+          frameBorder="0"
+          style={{ border: 0 }}
+          allowFullScreen=""
+          aria-hidden="false"
+          tabIndex="0"
+          title={`Map for ${selectedFeature.title}`}
+        ></iframe>
+      )}
+      {/* Mobil uchun baholash vidjeti */}
+      {selectedFeature.ratingIframeSrc && (
+        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
+          <iframe
+            src={selectedFeature.ratingIframeSrc}
+            width="150"
+            height="50"
+            frameBorder="0"
+            style={{ border: 0 }}
+            title={`Rating for ${selectedFeature.title}`}
+          ></iframe>
+        </Box>
+      )}
     </Box>
   );
 }
@@ -85,9 +110,8 @@ export default function Features() {
   const [selectedItemIndex, setSelectedItemIndex] = React.useState(0);
   const handleItemClick = (index: number) => setSelectedItemIndex(index);
   const selectedFeature = items[selectedItemIndex];
-  const yandexTaxiLink = `https://go.yandex/route?rtext=~${selectedFeature.coordinates.join(
-    ','
-  )}&rtt=taxi`;
+  // Yandex Taxi link endi iframe ichida bo'lmaydi, lekin agar uni alohida tugma orqali ishlatmoqchi bo'lsangiz, bu qismni saqlashingiz mumkin.
+  // const yandexTaxiLink = `https://go.yandex/route?rtext=~${selectedFeature.coordinates.join(',')}&rtt=taxi`;
 
   return (
     <Container id="features" sx={{ py: { xs: 8, sm: 16 } }}>
@@ -178,33 +202,42 @@ export default function Features() {
           />
         </Box>
 
-        {/* ----- 2-O'ZGARTIRISH: Katta xarita mobil'da ko'rinmasligi kerak ----- */}
+        {/* Desktop uchun xarita va baholash vidjeti */}
         <Box
           sx={{
-            display: { xs: 'none', sm: 'flex' }, // 'blok' o'rniga 'none'
+            display: { xs: 'none', sm: 'flex' },
+            flexDirection: 'column', // Add column direction for map and rating
             width: { xs: '100%', md: '70%' },
+            gap: 2, // Gap between map and rating
           }}
         >
-          <Map
-            key={selectedItemIndex}
-            state={{
-              center: selectedFeature.coordinates,
-              zoom: 15,
-              controls: ['zoomControl', 'fullscreenControl'],
-            }}
-            width="100%"
-            height={500}
-            modules={['control.ZoomControl', 'control.FullscreenControl']}
-          >
-            <Placemark
-              geometry={selectedFeature.coordinates}
-              properties={{
-                iconCaption: selectedFeature.title,
-                balloonContentBody: `<div><strong>${selectedFeature.title}</strong><br/><a href="${yandexTaxiLink}" target="_blank">Yandex Go orqali borish</a></div>`,
-              }}
-              options={{ preset: 'islands#blueDotIconWithCaption' }}
-            />
-          </Map>
+          {selectedFeature.mapIframeSrc && (
+            <iframe
+              src={selectedFeature.mapIframeSrc}
+              width="100%"
+              height="500"
+              frameBorder="0"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              aria-hidden="false"
+              tabIndex="0"
+              title={`Map for ${selectedFeature.title}`}
+            ></iframe>
+          )}
+          {selectedFeature.ratingIframeSrc && (
+            <Box sx={{ alignSelf: 'flex-end' }}>
+              {' '}
+              {/* Align to the right for desktop */}
+              <iframe
+                src={selectedFeature.ratingIframeSrc}
+                width="150"
+                height="50"
+                frameBorder="0"
+                style={{ border: 0 }}
+                title={`Rating for ${selectedFeature.title}`}
+              ></iframe>
+            </Box>
+          )}
         </Box>
       </Box>
     </Container>
