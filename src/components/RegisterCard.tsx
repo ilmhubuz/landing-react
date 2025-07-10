@@ -11,8 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { styled } from '@mui/material/styles';
 import toast from 'react-hot-toast';
 
-// Ikonka va hook'larni import qilamiz (yo'llarni to'g'rilang)
-import { SitemarkIcon } from './ CustomIcons';
+import Sitemark from './SitemarkIcon';
 import { useLocations } from '../hooks/useLocations';
 import { useCoursesTypes } from '../hooks/useCoursesTypes';
 import { useSubmitLead } from '../hooks/useSubmitLead';
@@ -35,7 +34,7 @@ const Card = styled(MuiCard)(({ theme }) => ({
   }),
 }));
 
-export default function RegistrationCard() {
+export default function RegisterCard() {
   const { locations, loading: locationsLoading } = useLocations();
   const { courses, loading: coursesLoading } = useCoursesTypes();
   const { submitLead, isSubmitting } = useSubmitLead();
@@ -146,7 +145,7 @@ export default function RegistrationCard() {
   return (
     <Card variant="outlined">
       <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-        <SitemarkIcon />
+        <Sitemark />
       </Box>
       <Typography
         component="h1"
