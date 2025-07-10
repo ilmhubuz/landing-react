@@ -47,7 +47,6 @@ export default function Register(props: RegisterPageProps) {
           <IconButton onClick={() => navigate(-1)} aria-label="orqaga qaytish">
             <ArrowBackIcon />
           </IconButton>
-          <ColorModeSelect />
         </Box>
 
         <Stack

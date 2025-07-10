@@ -60,7 +60,7 @@ export default function RegisterFeatures() {
         <Stack key={index} direction="row" sx={{ gap: 2 }}>
           <Box
           sx={{
-              color: 'secondary.main',
+              color: 'grey.500',
             }}
           >
             {item.icon}
