@@ -5,6 +5,7 @@ import AppAppBar from '../components/AppAppBar';
 import Hero from '../components/Hero';
 import Footer from '../components/Footer';
 import FAQ from '../components/FAQ';
+import Features from '../components/Features';
 
 export default function Home(props: { disableCustomTheme?: boolean }) {
   return (
@@ -14,8 +15,8 @@ export default function Home(props: { disableCustomTheme?: boolean }) {
       <AppAppBar />
       <Hero />
       <div>
-        {/* <LogoCollection />
         <Features />
+        {/* <LogoCollection />
         <Divider />
         <Testimonials />
         <Divider />

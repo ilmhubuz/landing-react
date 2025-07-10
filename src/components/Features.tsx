@@ -1,82 +1,59 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import MuiChip from '@mui/material/Chip';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
-import type {} from '@mui/material/themeCssVarsAugmentation';
+import Chip from '@mui/material/Chip'; // Mobil uchun Chip import qilindi
 
-import DevicesRoundedIcon from '@mui/icons-material/DevicesRounded';
-import EdgesensorHighRoundedIcon from '@mui/icons-material/EdgesensorHighRounded';
-import ViewQuiltRoundedIcon from '@mui/icons-material/ViewQuiltRounded';
+// Ikonkalarni import qilamiz
+import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
+import BusinessRoundedIcon from '@mui/icons-material/BusinessRounded';
+import ApartmentRoundedIcon from '@mui/icons-material/ApartmentRounded';
 
 const items = [
   {
-    icon: <ViewQuiltRoundedIcon />,
-    title: 'Dashboard',
+    icon: <ApartmentRoundedIcon />,
+    title: 'Ilmhub Shahar (Namangan)',
     description:
-      'This item could provide a snapshot of the most important metrics or data points related to the product.',
-    imageLight: `url("${import.meta.env.VITE_TEMPLATE_IMAGE_URL || 'https://mui.com'}/static/images/templates/templates-images/dash-light.png")`,
-    imageDark: `url("${import.meta.env.VITE_TEMPLATE_IMAGE_URL || 'https://mui.com'}/static/images/templates/templates-images/dash-dark.png")`,
+      'Namangan shahrining markazida joylashgan, barcha qulayliklarga ega zamonaviy filialimiz.',
+    coordinates: [41.003768, 71.658741], // Coordinates are still useful for general reference, but won't be used by iframes
+    mapIframeSrc:
+      'https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=196532200053',
+    ratingIframeSrc:
+      'https://yandex.ru/sprav/widget/rating-badge/196532200053?type=rating&theme=dark',
   },
   {
-    icon: <EdgesensorHighRoundedIcon />,
-    title: 'Mobile integration',
+    icon: <BusinessRoundedIcon />,
+    title: 'Ilmhub Chimgan (Toshkent)',
     description:
-      'This item could provide information about the mobile app version of the product.',
-    imageLight: `url("${import.meta.env.VITE_TEMPLATE_IMAGE_URL || 'https://mui.com'}/static/images/templates/templates-images/mobile-light.png")`,
-    imageDark: `url("${import.meta.env.VITE_TEMPLATE_IMAGE_URL || 'https://mui.com'}/static/images/templates/templates-images/mobile-dark.png")`,
+      'Toshkent shahridagi eng yirik filiallarimizdan biri, transport uchun qulay hududda.',
+    coordinates: [41.351039, 69.352922],
+    mapIframeSrc:
+      'https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=203336160307',
+    ratingIframeSrc:
+      'https://yandex.ru/sprav/widget/rating-badge/203336160307?type=rating&theme=dark',
   },
   {
-    icon: <DevicesRoundedIcon />,
-    title: 'Available on all platforms',
+    icon: <LocationOnRoundedIcon />,
+    title: 'Ilmhub Uychi (Namangan)',
     description:
-      'This item could let users know the product is available on all platforms, such as web, mobile, and desktop.',
-    imageLight: `url("${import.meta.env.VITE_TEMPLATE_IMAGE_URL || 'https://mui.com'}/static/images/templates/templates-images/devices-light.png")`,
-    imageDark: `url("${import.meta.env.VITE_TEMPLATE_IMAGE_URL || 'https://mui.com'}/static/images/templates/templates-images/devices-dark.png")`,
+      'Uychi tumanidagi yoshlar uchun barcha sharoitlarni yaratgan holda tashkil etilgan filial.',
+    coordinates: [41.028724, 71.851263],
+    mapIframeSrc:
+      'https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=134699861291',
+    ratingIframeSrc:
+      'https://yandex.ru/sprav/widget/rating-badge/134699861291?type=rating&theme=dark',
   },
 ];
-
-interface ChipProps {
-  selected?: boolean;
-}
-
-const Chip = styled(MuiChip)<ChipProps>(({ theme }) => ({
-  variants: [
-    {
-      props: ({ selected }) => Boolean(selected),
-      style: {
-        background:
-          'linear-gradient(to bottom right, hsl(210, 98%, 48%), hsl(210, 98%, 35%))',
-        color: 'hsl(0, 0%, 100%)',
-        borderColor: (theme.vars || theme).palette.primary.light,
-        '& .MuiChip-label': {
-          color: 'hsl(0, 0%, 100%)',
-        },
-        ...theme.applyStyles('dark', {
-          borderColor: (theme.vars || theme).palette.primary.dark,
-        }),
-      },
-    },
-  ],
-}));
-
-interface MobileLayoutProps {
-  selectedItemIndex: number;
-  handleItemClick: (index: number) => void;
-  selectedFeature: (typeof items)[0];
-}
 
 export function MobileLayout({
   selectedItemIndex,
   handleItemClick,
-  selectedFeature,
-}: MobileLayoutProps) {
-  if (!items[selectedItemIndex]) {
-    return null;
-  }
+}: {
+  selectedItemIndex: number;
+  handleItemClick: (index: number) => void;
+}) {
+  const selectedFeature = items[selectedItemIndex];
 
   return (
     <Box
@@ -86,91 +63,79 @@ export function MobileLayout({
         gap: 2,
       }}
     >
-      <Box sx={{ display: 'flex', gap: 2, overflow: 'auto' }}>
+      {/* Mobil uchun filiallar ro'yxati (aylantirsa bo'ladigan Chip'lar) */}
+      <Box sx={{ display: 'flex', gap: 1, overflow: 'auto', pb: 1.5 }}>
         {items.map(({ title }, index) => (
           <Chip
-            size="medium"
             key={index}
             label={title}
             onClick={() => handleItemClick(index)}
-            selected={selectedItemIndex === index}
+            variant={selectedItemIndex === index ? 'filled' : 'outlined'}
+            color={selectedItemIndex === index ? 'primary' : 'default'}
           />
         ))}
       </Box>
-      <Card variant="outlined">
-        <Box
-          sx={(theme) => ({
-            mb: 2,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            minHeight: 280,
-            backgroundImage: 'var(--items-imageLight)',
-            ...theme.applyStyles('dark', {
-              backgroundImage: 'var(--items-imageDark)',
-            }),
-          })}
-          style={
-            items[selectedItemIndex]
-              ? ({
-                  '--items-imageLight': items[selectedItemIndex].imageLight,
-                  '--items-imageDark': items[selectedItemIndex].imageDark,
-                } as any)
-              : {}
-          }
-        />
-        <Box sx={{ px: 2, pb: 2 }}>
-          <Typography
-            gutterBottom
-            sx={{ color: 'text.primary', fontWeight: 'medium' }}
-          >
-            {selectedFeature.title}
-          </Typography>
-          <Typography variant="body2" sx={{ color: 'text.secondary', mb: 1.5 }}>
-            {selectedFeature.description}
-          </Typography>
+      {/* Mobil uchun xarita */}
+      {selectedFeature.mapIframeSrc && (
+        <iframe
+          src={selectedFeature.mapIframeSrc}
+          width="100%"
+          height="300"
+          frameBorder="0"
+          style={{ border: 0 }}
+          allowFullScreen=""
+          aria-hidden="false"
+          tabIndex="0"
+          title={`Map for ${selectedFeature.title}`}
+        ></iframe>
+      )}
+      {/* Mobil uchun baholash vidjeti */}
+      {selectedFeature.ratingIframeSrc && (
+        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
+          <iframe
+            src={selectedFeature.ratingIframeSrc}
+            width="150"
+            height="50"
+            frameBorder="0"
+            style={{ border: 0 }}
+            title={`Rating for ${selectedFeature.title}`}
+          ></iframe>
         </Box>
-      </Card>
+      )}
     </Box>
   );
 }
 
 export default function Features() {
   const [selectedItemIndex, setSelectedItemIndex] = React.useState(0);
-
-  const handleItemClick = (index: number) => {
-    setSelectedItemIndex(index);
-  };
-
+  const handleItemClick = (index: number) => setSelectedItemIndex(index);
   const selectedFeature = items[selectedItemIndex];
+  // Yandex Taxi link endi iframe ichida bo'lmaydi, lekin agar uni alohida tugma orqali ishlatmoqchi bo'lsangiz, bu qismni saqlashingiz mumkin.
+  // const yandexTaxiLink = `https://go.yandex/route?rtext=~${selectedFeature.coordinates.join(',')}&rtt=taxi`;
 
   return (
     <Container id="features" sx={{ py: { xs: 8, sm: 16 } }}>
       <Box sx={{ width: { sm: '100%', md: '60%' } }}>
-        <Typography
-          component="h2"
-          variant="h4"
-          gutterBottom
-          sx={{ color: 'text.primary' }}
-        >
-          Product features
+        <Typography component="h2" variant="h4" gutterBottom>
+          Bizning Filiallarimiz
         </Typography>
         <Typography
           variant="body1"
           sx={{ color: 'text.secondary', mb: { xs: 2, sm: 4 } }}
         >
-          Provide a brief overview of the key features of the product. For example,
-          you could list the number of features, their types or benefits, and
-          add-ons.
+          O'zingizga qulay bo'lgan filialimizga tashrif buyuring. Biz sizni
+          kutamiz!
         </Typography>
       </Box>
       <Box
         sx={{
           display: 'flex',
           flexDirection: { xs: 'column', md: 'row-reverse' },
-          gap: 2,
+          gap: 4,
         }}
       >
-        <div>
+        <Box sx={{ width: { xs: '100%', md: '30%' } }}>
+          {/* Bu DESKTOP ro'yxati mobil'da ko'rinmaydi */}
           <Box
             sx={{
               display: { xs: 'none', sm: 'flex' },
@@ -190,7 +155,8 @@ export default function Features() {
                     height: '100%',
                     width: '100%',
                     '&:hover': {
-                      backgroundColor: (theme.vars || theme).palette.action.hover,
+                      backgroundColor: (theme.vars || theme).palette.action
+                        .hover,
                     },
                   }),
                   selectedItemIndex === index && {
@@ -215,57 +181,63 @@ export default function Features() {
                     },
                   ]}
                 >
-                  {icon}
-
+                  {React.cloneElement(icon, {
+                    sx: {
+                      color:
+                        selectedItemIndex === index
+                          ? 'primary.main'
+                          : 'text.secondary',
+                    },
+                  })}
                   <Typography variant="h6">{title}</Typography>
                   <Typography variant="body2">{description}</Typography>
                 </Box>
               </Box>
             ))}
           </Box>
+          {/* Endi bu MobileLayout to'g'ri ishlaydi */}
           <MobileLayout
             selectedItemIndex={selectedItemIndex}
             handleItemClick={handleItemClick}
-            selectedFeature={selectedFeature}
           />
-        </div>
+        </Box>
+
+        {/* Desktop uchun xarita va baholash vidjeti */}
         <Box
           sx={{
             display: { xs: 'none', sm: 'flex' },
+            flexDirection: 'column', // Add column direction for map and rating
             width: { xs: '100%', md: '70%' },
-            height: 'var(--items-image-height)',
+            gap: 2, // Gap between map and rating
           }}
         >
-          <Card
-            variant="outlined"
-            sx={{
-              height: '100%',
-              width: '100%',
-              display: { xs: 'none', sm: 'flex' },
-              pointerEvents: 'none',
-            }}
-          >
-            <Box
-              sx={(theme) => ({
-                m: 'auto',
-                width: 420,
-                height: 500,
-                backgroundSize: 'contain',
-                backgroundImage: 'var(--items-imageLight)',
-                ...theme.applyStyles('dark', {
-                  backgroundImage: 'var(--items-imageDark)',
-                }),
-              })}
-              style={
-                items[selectedItemIndex]
-                  ? ({
-                      '--items-imageLight': items[selectedItemIndex].imageLight,
-                      '--items-imageDark': items[selectedItemIndex].imageDark,
-                    } as any)
-                  : {}
-              }
-            />
-          </Card>
+          {selectedFeature.mapIframeSrc && (
+            <iframe
+              src={selectedFeature.mapIframeSrc}
+              width="100%"
+              height="500"
+              frameBorder="0"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              aria-hidden="false"
+              tabIndex="0"
+              title={`Map for ${selectedFeature.title}`}
+            ></iframe>
+          )}
+          {selectedFeature.ratingIframeSrc && (
+            <Box sx={{ alignSelf: 'flex-end' }}>
+              {' '}
+              {/* Align to the right for desktop */}
+              <iframe
+                src={selectedFeature.ratingIframeSrc}
+                width="150"
+                height="50"
+                frameBorder="0"
+                style={{ border: 0 }}
+                title={`Rating for ${selectedFeature.title}`}
+              ></iframe>
+            </Box>
+          )}
         </Box>
       </Box>
     </Container>
