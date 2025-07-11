@@ -78,9 +78,9 @@ export function MobileLayout({
             onClick={() => handleItemClick(index)}
             variant={selectedItemIndex === index ? 'filled' : 'outlined'}
             color={selectedItemIndex === index ? 'primary' : 'default'}
-            // Xatolikni tuzatish: 'height' qiymatini raqamdan stringga o'zgartirildi ('35' -> '35px')
-            // Bu 103 va 105-qatorlardagi 'string'dan 'number'ga o'tish xatosini hal qiladi.
-            sx={{ minWidth: 'fit-content', height: '35px' }}
+            // Xatolikni tuzatish: 'sx' propini massiv ichiga olindi,
+            // bu TypeScriptning tur inferensiyasini yaxshilaydi.
+            sx={[{ minWidth: 'fit-content', height: '35px' }]}
           />
         ))}
       </Box>
@@ -187,11 +187,10 @@ export default function Features() {
                         .hover,
                     },
                   }),
-                  // Xatolikni tuzatish: Shartli 'sx' uslubini '&&' o'rniga ternary operatori bilan yozildi.
-                  // Bu 251-qatorlardagi 'string'dan 'boolean | undefined'ga o'tish xatosini hal qiladi.
+                  // Xatolikni tuzatish: 'undefined' o'rniga bo'sh obyekt '{}' ishlatildi.
                   selectedItemIndex === index
                     ? { backgroundColor: 'action.selected' }
-                    : undefined,
+                    : {},
                 ]}
               >
                 <Box
@@ -206,13 +205,12 @@ export default function Features() {
                       textTransform: 'none',
                       color: 'text.secondary',
                     },
-                    // Xatolikni tuzatish: Shartli 'sx' uslubini '&&' o'rniga ternary operatori bilan yozildi.
-                    // Bu 253-qatorlardagi 'string'dan 'number'ga o'tish xatosini hal qiladi.
+                    // Xatolikni tuzatish: 'undefined' o'rniga bo'sh obyekt '{}' ishlatildi.
                     selectedItemIndex === index
                       ? {
                           color: 'text.primary',
                         }
-                      : undefined,
+                      : {},
                   ]}
                 >
                   {React.cloneElement(icon, {
