@@ -105,9 +105,9 @@ export function MobileLayout({
             height="250" // <-- MOBIL XARITA BALANDLIGI BU YERDA O'ZGARTIRILDI (300px dan 250px ga)
             frameBorder="0"
             style={{ display: 'block' }}
-            allowFullScreen=""
+            allowFullScreen
             aria-hidden="false"
-            tabIndex="0"
+            tabIndex={0}
             title={`Map for ${selectedFeature.title}`}
           ></iframe>
         )}
@@ -257,9 +257,9 @@ export default function Features() {
               height="500"
               frameBorder="0"
               style={{ display: 'block' }}
-              allowFullScreen=""
+              allowFullScreen
               aria-hidden="false"
-              tabIndex="0"
+              tabIndex={0}
               title={`Map for ${selectedFeature.title}`}
             ></iframe>
           )}
