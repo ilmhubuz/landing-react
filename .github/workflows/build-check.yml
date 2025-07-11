@@ -1,0 +1,31 @@
+# Bu ish oqimining nomi. GitHub Actions tabida shu nom bilan ko'rinadi.
+name: Pull Request Build Check
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-validation:
+    name: Loyihani Build Qilish
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Kodni Yuklab Olish
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Node.js Muhitini Sozlash
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Bog'liqliklarni O'rnatish
+        run: npm install
+
+      - name: Loyihani Build Qilish
+        run: npm run build
