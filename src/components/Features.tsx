@@ -3,9 +3,8 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import Chip from '@mui/material/Chip'; // Mobil uchun Chip import qilindi
+import Chip from '@mui/material/Chip';
 
-// Ikonkalarni import qilamiz
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 import BusinessRoundedIcon from '@mui/icons-material/BusinessRounded';
 import ApartmentRoundedIcon from '@mui/icons-material/ApartmentRounded';
@@ -16,7 +15,7 @@ const items = [
     title: 'Ilmhub Shahar (Namangan)',
     description:
       'Namangan shahrining markazida joylashgan, barcha qulayliklarga ega zamonaviy filialimiz.',
-    coordinates: [41.003768, 71.658741], // Coordinates are still useful for general reference, but won't be used by iframes
+    coordinates: [41.003768, 71.658741],
     mapIframeSrc:
       'https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=196532200053',
     ratingIframeSrc:
@@ -63,7 +62,6 @@ export function MobileLayout({
         gap: 2,
       }}
     >
-      {/* Mobil uchun filiallar ro'yxati (aylantirsa bo'ladigan Chip'lar) */}
       <Box
         sx={{
           display: 'flex',
@@ -80,29 +78,27 @@ export function MobileLayout({
             onClick={() => handleItemClick(index)}
             variant={selectedItemIndex === index ? 'filled' : 'outlined'}
             color={selectedItemIndex === index ? 'primary' : 'default'}
-            sx={{ minWidth: 'fit-content', height: 35 }} // <-- CHIP BALANDLIGI BU YERDA O'ZGARTIRILDI
+            sx={{ minWidth: 'fit-content', height: 35 }} //
           />
         ))}
       </Box>
 
-      {/* Mobil uchun xarita va baholash vidjeti - bir Box ichida, relative position bilan */}
       <Box
         sx={(theme) => ({
-          position: 'relative', // Baholash iframesi uchun asos
-          borderRadius: 2, // Cardga o'xshash border radius
-          border: '1px solid', // Yupqa border
-          borderColor: 'divider', // Border rangi
-          overflow: 'hidden', // Radius ishlatish uchun
-          // Mobil karta balandligini to'liq joylashish uchun moslashtirish
-          // iframe height 250px bo'lgani uchun, boxning minimal balandligi shuni qoplab turishi kerak
-          minHeight: '250px', // <-- MOBIL KARTA BALANDLIGI BU YERDA O'ZGARTIRILDI (minimal)
+          position: 'relative',
+          borderRadius: 2,
+          border: '1px solid',
+          borderColor: 'divider',
+          overflow: 'hidden',
+
+          minHeight: '250px',
         })}
       >
         {selectedFeature.mapIframeSrc && (
           <iframe
             src={selectedFeature.mapIframeSrc}
             width="100%"
-            height="250" // <-- MOBIL XARITA BALANDLIGI BU YERDA O'ZGARTIRILDI (300px dan 250px ga)
+            height="250" 
             frameBorder="0"
             style={{ display: 'block' }}
             allowFullScreen=""
@@ -112,14 +108,14 @@ export function MobileLayout({
           ></iframe>
         )}
 
-        {/* Mobil uchun baholash vidjeti - xarita ustida o'ng past burchakda */}
+      
         {selectedFeature.ratingIframeSrc && (
           <Box
             sx={{
               position: 'absolute',
-              bottom: 8, // Pastdan 8px
-              right: 8, // O'ngdan 8px
-              zIndex: 1, // Xarita ustida turishi uchun
+              bottom: 8, 
+              right: 8,
+              zIndex: 1,
             }}
           >
             <iframe
@@ -134,7 +130,7 @@ export function MobileLayout({
         )}
       </Box>
 
-      {/* Mobil uchun tanlangan fililaning description'i */}
+  
       <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
         {selectedFeature.description}
       </Typography>
@@ -229,25 +225,25 @@ export default function Features() {
               </Box>
             ))}
           </Box>
-          {/* Endi bu MobileLayout to'g'ri ishlaydi */}
+        
           <MobileLayout
             selectedItemIndex={selectedItemIndex}
             handleItemClick={handleItemClick}
           />
         </Box>
 
-        {/* Desktop uchun xarita va baholash vidjeti - bir Box ichida, relative position bilan */}
+      
         <Box
           sx={(theme) => ({
             display: { xs: 'none', sm: 'flex' },
             flexDirection: 'column',
             width: { xs: '100%', md: '70%' },
-            position: 'relative', // Baholash iframesi uchun asos
-            borderRadius: 2, // Cardga o'xshash border radius
-            border: '1px solid', // Yupqa border
-            borderColor: 'divider', // Border rangi
-            overflow: 'hidden', // Radius ishlatish uchun
-            gap: 2, // Map va boshqa kontent orasidagi bo'shliq
+            position: 'relative', 
+            borderRadius: 2, 
+            border: '1px solid', 
+            borderColor: 'divider',
+            overflow: 'hidden',
+            gap: 2,
           })}
         >
           {selectedFeature.mapIframeSrc && (
@@ -264,14 +260,14 @@ export default function Features() {
             ></iframe>
           )}
 
-          {/* Desktop uchun baholash vidjeti - xarita ustida o'ng past burchakda */}
+       
           {selectedFeature.ratingIframeSrc && (
             <Box
               sx={{
                 position: 'absolute',
-                bottom: 8, // Pastdan 8px
-                right: 8, // O'ngdan 8px
-                zIndex: 1, // Xarita ustida turishi uchun
+                bottom: 8, 
+                right: 8, 
+                zIndex: 1, 
               }}
             >
               <iframe
