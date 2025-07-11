@@ -78,7 +78,9 @@ export function MobileLayout({
             onClick={() => handleItemClick(index)}
             variant={selectedItemIndex === index ? 'filled' : 'outlined'}
             color={selectedItemIndex === index ? 'primary' : 'default'}
-            sx={{ minWidth: 'fit-content', height: 35 }} //
+            // Xatolikni tuzatish: 'height' qiymatini raqamdan stringga o'zgartirildi ('35' -> '35px')
+            // Bu 103 va 105-qatorlardagi 'string'dan 'number'ga o'tish xatosini hal qiladi.
+            sx={{ minWidth: 'fit-content', height: '35px' }}
           />
         ))}
       </Box>
@@ -185,9 +187,11 @@ export default function Features() {
                         .hover,
                     },
                   }),
-                  selectedItemIndex === index && {
-                    backgroundColor: 'action.selected',
-                  },
+                  // Xatolikni tuzatish: Shartli 'sx' uslubini '&&' o'rniga ternary operatori bilan yozildi.
+                  // Bu 251-qatorlardagi 'string'dan 'boolean | undefined'ga o'tish xatosini hal qiladi.
+                  selectedItemIndex === index
+                    ? { backgroundColor: 'action.selected' }
+                    : undefined,
                 ]}
               >
                 <Box
@@ -202,9 +206,13 @@ export default function Features() {
                       textTransform: 'none',
                       color: 'text.secondary',
                     },
-                    selectedItemIndex === index && {
-                      color: 'text.primary',
-                    },
+                    // Xatolikni tuzatish: Shartli 'sx' uslubini '&&' o'rniga ternary operatori bilan yozildi.
+                    // Bu 253-qatorlardagi 'string'dan 'number'ga o'tish xatosini hal qiladi.
+                    selectedItemIndex === index
+                      ? {
+                          color: 'text.primary',
+                        }
+                      : undefined,
                   ]}
                 >
                   {React.cloneElement(icon, {
