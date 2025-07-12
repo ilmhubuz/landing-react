@@ -5,9 +5,30 @@ import AppAppBar from '../components/AppAppBar';
 import Hero from '../components/Hero';
 import Footer from '../components/Footer';
 import FAQ from '../components/FAQ';
-import Features from '../components/Features';
+import Locations from '../components/Locations';
 
 export default function Home(props: { disableCustomTheme?: boolean }) {
+  React.useEffect(() => {
+    const scrollToHash = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash) {
+        const el = document.getElementById(hash);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          setTimeout(() => {
+            const yOffset = -80;
+            const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            window.scrollTo({ top: y, behavior: 'auto' });
+          }, 400); 
+          el.focus?.();
+        }
+      }
+    };
+    scrollToHash();
+    window.addEventListener('hashchange', scrollToHash);
+    return () => window.removeEventListener('hashchange', scrollToHash);
+  }, []);
+
   return (
     <AppTheme {...props}>
       <CssBaseline enableColorScheme />
@@ -15,16 +36,7 @@ export default function Home(props: { disableCustomTheme?: boolean }) {
       <AppAppBar />
       <Hero />
       <div>
-        <Features />
-        {/* <LogoCollection />
-        <Divider />
-        <Testimonials />
-        <Divider />
-        <Highlights />
-        <Divider />
-        <Pricing />
-        <Divider />
-        <Divider /> */}
+        <Locations />
         <FAQ />
         <Footer />
       </div>

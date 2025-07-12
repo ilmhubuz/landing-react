@@ -131,7 +131,7 @@ export function MobileLayout({
   );
 }
 
-export default function Features() {
+export default function Locations() {
   const [selectedItemIndex, setSelectedItemIndex] = React.useState(0);
   const handleItemClick = (index: number) => setSelectedItemIndex(index);
   const selectedFeature = items[selectedItemIndex];

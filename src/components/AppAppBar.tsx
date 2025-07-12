@@ -64,8 +64,10 @@ export default function AppAppBar() {
     setOpen(newOpen);
   };
 
-  const scrollToFaq = () =>
-    document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' });
+  const handleHashNavigate = (hash: string) => {
+    window.location.hash = hash;
+    setOpen(false);
+  };
 
   return (
     <AppBar
@@ -90,9 +92,18 @@ export default function AppAppBar() {
                 color="info"
                 size="small"
                 sx={{ minWidth: 0 }}
-                onClick={scrollToFaq}
+                onClick={() => handleHashNavigate('#faq')}
               >
                 Savollar
+              </Button>
+              <Button
+                variant="text"
+                color="info"
+                size="small"
+                sx={{ minWidth: 0, ml: 1 }}
+                onClick={() => handleHashNavigate('#features')}
+              >
+                Manzillar
               </Button>
             </Box>
           </Box>
@@ -140,18 +151,11 @@ export default function AppAppBar() {
                     <CloseRoundedIcon />
                   </IconButton>
                 </Box>
-
-                {/* <MenuItem>Kurslar</MenuItem>
-                <MenuItem>Natijalar</MenuItem>
-                <MenuItem>Ustozlar</MenuItem>
-                <MenuItem>Narxlar</MenuItem> */}
-                <MenuItem
-                  onClick={() => {
-                    scrollToFaq();
-                    toggleDrawer(false)();
-                  }}
-                >
+                <MenuItem onClick={() => handleHashNavigate('#faq')}>
                   Savollar
+                </MenuItem>
+                <MenuItem onClick={() => handleHashNavigate('#features')}>
+                  Manzillar
                 </MenuItem>
                 {PhoneTypography}
                 <Divider sx={{ my: 3 }} />
