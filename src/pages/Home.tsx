@@ -6,6 +6,7 @@ import Hero from '../components/Hero';
 import Footer from '../components/Footer';
 import FAQ from '../components/FAQ';
 import Locations from '../components/Locations';
+import GalleryCarousel from '../components/GalleryCarousel';
 
 export default function Home(props: { disableCustomTheme?: boolean }) {
   React.useEffect(() => {
@@ -17,9 +18,10 @@ export default function Home(props: { disableCustomTheme?: boolean }) {
           el.scrollIntoView({ behavior: 'smooth', block: 'start' });
           setTimeout(() => {
             const yOffset = -80;
-            const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            const y =
+              el.getBoundingClientRect().top + window.pageYOffset + yOffset;
             window.scrollTo({ top: y, behavior: 'auto' });
-          }, 400); 
+          }, 400);
           el.focus?.();
         }
       }
@@ -36,6 +38,7 @@ export default function Home(props: { disableCustomTheme?: boolean }) {
       <AppAppBar />
       <Hero />
       <div>
+        <GalleryCarousel />
         <Locations />
         <FAQ />
         <Footer />
