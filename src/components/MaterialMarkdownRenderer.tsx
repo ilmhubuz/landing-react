@@ -9,7 +9,10 @@ import {
   Alert,
   Checkbox,
   FormControlLabel,
+  IconButton,
+  Tooltip,
 } from '@mui/material';
+import { Link as LinkIcon } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import CollapsibleCodeBlock from './CollapsibleCodeBlock';
 
@@ -38,6 +41,40 @@ interface MaterialMarkdownRendererProps {
 }
 
 export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRendererProps) {
+  // Generate slug from header text
+  const generateSlug = (text: string): string => {
+    return text
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
+      .replace(/\s+/g, '-') // Replace spaces with hyphens
+      .replace(/-+/g, '-') // Replace multiple hyphens with single
+      .trim()
+      .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
+  };
+
+  
+  const copyHeaderLink = async (slug: string) => {
+    const url = `${window.location.origin}${window.location.pathname}#${slug}`;
+    
+    try {
+      await navigator.clipboard.writeText(url);
+    } catch (err) {
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = url;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+    }
+  };
+
+  const updateUrlWithHash = (slug: string) => {
+    const url = `${window.location.pathname}#${slug}`;
+    window.history.pushState(null, '', url);
+  };
+
+
   const parseMarkdown = (text: string) => {
     const lines = text.split('\n');
     const elements: React.ReactElement[] = [];
@@ -191,6 +228,59 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
       });
     };
 
+    // Header component with anchor link
+    const renderHeader = (text: string, level: number, key: number) => {
+      const slug = generateSlug(text);
+      const Component = level === 1 ? 'h1' : level === 2 ? 'h2' : 'h3';
+      const variant = level === 1 ? 'h3' : level === 2 ? 'h4' : 'h5';
+      
+      return (
+        <Box
+          key={key}
+          id={slug}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            mt: 2,
+            mb: 1,
+            '&:hover .header-link': {
+              opacity: 1,
+            },
+          }}
+        >
+          <Typography
+            variant={variant}
+            component={Component}
+            sx={{ 
+              lineHeight: 1.1, 
+              flexGrow: 1,
+              cursor: 'pointer',
+            }}
+            onClick={() =>  { updateUrlWithHash(slug); copyHeaderLink(slug); } }
+          >
+            {parseInlineElements(text)}
+          </Typography>
+          <Tooltip title="Copy link to this section">
+            <IconButton
+              className="header-link"
+              size="small"
+              onClick={() => { updateUrlWithHash(slug); copyHeaderLink(slug); } }
+              sx={{
+                opacity: 0,
+                transition: 'opacity 0.2s',
+                ml: 1,
+                '&:hover': {
+                  backgroundColor: 'action.hover',
+                },
+              }}
+            >
+              <LinkIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
+        </Box>
+      );
+    };
+
     lines.forEach((line, index) => {
              // Handle code blocks
        if (line.startsWith('```')) {
@@ -215,51 +305,21 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
        if (line.startsWith('# ')) {
          flushList();
          flushBlockquote();
-         elements.push(
-           <Typography
-             key={index}
-             variant="h3"
-             component="h1"
-             gutterBottom
-             sx={{ mt: 2, mb: 1, lineHeight: 1.1 }}
-           >
-             {line.replace('# ', '')}
-           </Typography>
-         );
+         elements.push(renderHeader(line.replace('# ', ''), 1, index));
          return;
        }
 
        if (line.startsWith('## ')) {
          flushList();
          flushBlockquote();
-         elements.push(
-           <Typography
-             key={index}
-             variant="h4"
-             component="h2"
-             gutterBottom
-             sx={{ mt: 2, mb: 1, lineHeight: 1.1 }}
-           >
-             {line.replace('## ', '')}
-           </Typography>
-         );
+         elements.push(renderHeader(line.replace('## ', ''), 2, index));
          return;
        }
 
        if (line.startsWith('### ')) {
          flushList();
          flushBlockquote();
-         elements.push(
-           <Typography
-             key={index}
-             variant="h5"
-             component="h3"
-             gutterBottom
-             sx={{ mt: 2, mb: 1, lineHeight: 1.1 }}
-           >
-             {line.replace('### ', '')}
-           </Typography>
-         );
+         elements.push(renderHeader(line.replace('### ', ''), 3, index));
          return;
        }
 
