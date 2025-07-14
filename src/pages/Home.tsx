@@ -4,8 +4,8 @@ import AppTheme from '../theme/AppTheme';
 import AppAppBar from '../components/AppAppBar';
 import Hero from '../components/Hero';
 import Footer from '../components/Footer';
-import FAQ from '../components/FAQ';
-import Locations from '../components/Locations';
+const FAQ = React.lazy(() => import('../components/FAQ'));
+const Locations = React.lazy(() => import('../components/Locations'));
 
 export default function Home(props: { disableCustomTheme?: boolean }) {
   React.useEffect(() => {
@@ -36,8 +36,12 @@ export default function Home(props: { disableCustomTheme?: boolean }) {
       <AppAppBar />
       <Hero />
       <div>
-        <Locations />
-        <FAQ />
+        <React.Suspense fallback={<div style={{ height: '400px' }} />}>
+          <Locations />
+        </React.Suspense>
+        <React.Suspense fallback={<div style={{ height: '400px' }} />}>
+          <FAQ />
+        </React.Suspense>
         <Footer />
       </div>
     </AppTheme>
