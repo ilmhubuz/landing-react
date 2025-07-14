@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Typography,
   Box,
+  Stack,
   Divider,
   Link,
   Paper,
@@ -46,54 +47,39 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
     let codeBlockContent: string[] = [];
     let codeBlockLanguage = '';
 
-    const flushList = () => {
+        const flushList = () => {
       if (currentList.length > 0) {
         elements.push(
-          <Box key={`list-${elements.length}`} sx={{ my: 2 }}>
+          <Stack key={`list-${elements.length}`} spacing={0.5} sx={{ my: 2 }}>
             {currentList.map((item, index) => (
               item.type === 'task' ? (
-                <FormControlLabel
-                  key={index}
-                  control={
-                    <Checkbox
-                      checked={item.checked || false}
-                      size="small"
-                      sx={{ my: 'auto' }}
-                      disabled
-                    />
-                  }
-                  label={
-                    <Typography 
-                      variant="body1" 
-                      sx={{ 
-                        my: 'auto'
-                      }}>
-                        {parseInlineElements(item.text)}
-                    </Typography>
-                  }
-                  sx={{ display: 'flex', width: '100%' }}
-                />
+                <Stack key={index} direction="row" alignItems="center" spacing={1}>
+                  <Checkbox
+                    checked={item.checked || false}
+                    size="small"
+                    sx={{ p: 0 }}
+                    disabled
+                  />
+                  <Typography variant="body1" sx={{ lineHeight: 1.2 }}>
+                    {parseInlineElements(item.text)}
+                  </Typography>
+                </Stack>
               ) : (
-                <Box key={index} sx={{ display: 'flex' }}>
+                <Stack key={index} direction="row" alignItems="center" spacing={1.5}>
                   <Box sx={{ 
-                    width: '8px', 
-                    height: '8px', 
+                    width: '6px', 
+                    height: '6px', 
                     backgroundColor: 'text.primary', 
-                    borderRadius: '50%', 
-                    mr: 1.5,
+                    borderRadius: '50%',
                     flexShrink: 0
                   }} />
-                  <Typography 
-                    variant="body1" 
-                    sx={{ 
-                      flex: 1
-                    }}>
-                      {parseInlineElements(item.text)}
+                  <Typography variant="body1" sx={{ lineHeight: 1.2 }}>
+                    {parseInlineElements(item.text)}
                   </Typography>
-                </Box>
+                </Stack>
               )
             ))}
-          </Box>
+          </Stack>
         );
         currentList = [];
       }
