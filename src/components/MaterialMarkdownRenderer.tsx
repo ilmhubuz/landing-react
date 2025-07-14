@@ -50,7 +50,7 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
         const flushList = () => {
       if (currentList.length > 0) {
         elements.push(
-          <Stack key={`list-${elements.length}`} spacing={0.5} sx={{ my: 2 }}>
+          <Stack key={`list-${elements.length}`} spacing={0.25} sx={{ my: 1 }}>
             {currentList.map((item, index) => (
               item.type === 'task' ? (
                 <Stack key={index} direction="row" alignItems="center" spacing={1}>
@@ -88,10 +88,10 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
     const flushBlockquote = () => {
       if (currentBlockquote.length > 0) {
         elements.push(
-          <BlockQuote key={`blockquote-${elements.length}`} severity="info" icon={false}>
-            <Box sx={{ '& p': { mb: 1 } }}>
+          <BlockQuote key={`blockquote-${elements.length}`} severity="info" icon={false} sx={{ my: 1 }}>
+            <Box sx={{ '& p': { mb: 0.5 } }}>
               {currentBlockquote.map((line, i) => (
-                <Typography key={i} variant="body1" sx={{ mb: i === currentBlockquote.length - 1 ? 0 : 1 }}>
+                <Typography key={i} variant="body1" sx={{ mb: i === currentBlockquote.length - 1 ? 0 : 0.5 }}>
                   {parseInlineElements(line)}
                 </Typography>
               ))}
@@ -221,7 +221,7 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
              variant="h3"
              component="h1"
              gutterBottom
-             sx={{ mt: 4, mb: 2, lineHeight: 1.1 }}
+             sx={{ mt: 2, mb: 1, lineHeight: 1.1 }}
            >
              {line.replace('# ', '')}
            </Typography>
@@ -238,7 +238,7 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
              variant="h4"
              component="h2"
              gutterBottom
-             sx={{ mt: 3, mb: 2, lineHeight: 1.1 }}
+             sx={{ mt: 2, mb: 1, lineHeight: 1.1 }}
            >
              {line.replace('## ', '')}
            </Typography>
@@ -255,7 +255,7 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
              variant="h5"
              component="h3"
              gutterBottom
-             sx={{ mt: 3, mb: 2, lineHeight: 1.1 }}
+             sx={{ mt: 2, mb: 1, lineHeight: 1.1 }}
            >
              {line.replace('### ', '')}
            </Typography>
@@ -267,7 +267,7 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
        if (line.trim() === '---') {
          flushList();
          flushBlockquote();
-         elements.push(<Divider key={index} sx={{ my: 3 }} />);
+         elements.push(<Divider key={index} sx={{ my: 1.5 }} />);
          return;
        }
 
@@ -305,7 +305,7 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
        if (line.trim() === '') {
          flushList();
          flushBlockquote();
-         elements.push(<Box key={index} sx={{ height: 8 }} />);
+         elements.push(<Box key={index} sx={{ height: 4 }} />);
          return;
        }
 
@@ -318,7 +318,7 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
              key={index}
              variant="body1"
              paragraph
-             sx={{ mb: 1.0, lineHeight: 1.2 }}
+             sx={{ mb: 0.5, lineHeight: 1.2 }}
            >
              {parseInlineElements(line)}
            </Typography>
@@ -337,7 +337,7 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
   return (
     <Box sx={{ 
       '& > *:first-of-type': { mt: 0 },
-      '& p': { mb: 1.0 }
+      '& p': { mb: 0.5 }
     }}>
       {parseMarkdown(content)}
     </Box>
