@@ -154,7 +154,7 @@ export default function AppAppBar() {
                 <MenuItem onClick={() => handleHashNavigate('#faq')}>
                   Savollar
                 </MenuItem>
-                <MenuItem onClick={() => handleHashNavigate('#features')}>
+                <MenuItem onClick={() => handleHashNavigate('#locations')}>
                   Manzillar
                 </MenuItem>
                 {PhoneTypography}
