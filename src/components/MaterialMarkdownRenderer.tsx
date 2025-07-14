@@ -6,6 +6,8 @@ import {
   Link,
   Paper,
   Alert,
+  Checkbox,
+  FormControlLabel,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import CollapsibleCodeBlock from './CollapsibleCodeBlock';
@@ -38,7 +40,8 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
   const parseMarkdown = (text: string) => {
     const lines = text.split('\n');
     const elements: React.ReactElement[] = [];
-    let currentList: string[] = [];
+    let currentList: Array<{ text: string; checked?: boolean; type: 'regular' | 'task' }> = [];
+    let currentBlockquote: string[] = [];
     let inCodeBlock = false;
     let codeBlockContent: string[] = [];
     let codeBlockLanguage = '';
@@ -46,29 +49,70 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
     const flushList = () => {
       if (currentList.length > 0) {
         elements.push(
-          <Box 
-            key={`list-${elements.length}`} 
-            component="ul" 
-            sx={{ 
-              my: 2, 
-              pl: 3,
-              listStyleType: 'disc',
-              '& li': {
-                display: 'list-item',
-                mb: 0.5
-              }
-            }}
-          >
+          <Box key={`list-${elements.length}`} sx={{ my: 2 }}>
             {currentList.map((item, index) => (
-              <Box key={index} component="li">
-                <Typography variant="body1" component="div" sx={{ lineHeight: 1.2 }}>
-                  {parseInlineElements(item)}
-                </Typography>
-              </Box>
+              item.type === 'task' ? (
+                <FormControlLabel
+                  key={index}
+                  control={
+                    <Checkbox
+                      checked={item.checked || false}
+                      size="small"
+                      sx={{ my: 'auto' }}
+                      disabled
+                    />
+                  }
+                  label={
+                    <Typography 
+                      variant="body1" 
+                      sx={{ 
+                        my: 'auto'
+                      }}>
+                        {parseInlineElements(item.text)}
+                    </Typography>
+                  }
+                  sx={{ display: 'flex', width: '100%' }}
+                />
+              ) : (
+                <Box key={index} sx={{ display: 'flex' }}>
+                  <Box sx={{ 
+                    width: '8px', 
+                    height: '8px', 
+                    backgroundColor: 'text.primary', 
+                    borderRadius: '50%', 
+                    mr: 1.5,
+                    flexShrink: 0
+                  }} />
+                  <Typography 
+                    variant="body1" 
+                    sx={{ 
+                      flex: 1
+                    }}>
+                      {parseInlineElements(item.text)}
+                  </Typography>
+                </Box>
+              )
             ))}
           </Box>
         );
         currentList = [];
+      }
+    };
+
+    const flushBlockquote = () => {
+      if (currentBlockquote.length > 0) {
+        elements.push(
+          <BlockQuote key={`blockquote-${elements.length}`} severity="info" icon={false}>
+            <Box sx={{ '& p': { mb: 1 } }}>
+              {currentBlockquote.map((line, i) => (
+                <Typography key={i} variant="body1" sx={{ mb: i === currentBlockquote.length - 1 ? 0 : 1 }}>
+                  {parseInlineElements(line)}
+                </Typography>
+              ))}
+            </Box>
+          </BlockQuote>
+        );
+        currentBlockquote = [];
       }
     };
 
@@ -162,131 +206,146 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
     };
 
     lines.forEach((line, index) => {
-      // Handle code blocks
-      if (line.startsWith('```')) {
-        if (inCodeBlock) {
-          flushCodeBlock();
-          inCodeBlock = false;
-        } else {
-          flushList();
-          inCodeBlock = true;
-          codeBlockLanguage = line.replace('```', '').trim();
-        }
-        return;
-      }
+             // Handle code blocks
+       if (line.startsWith('```')) {
+         if (inCodeBlock) {
+           flushCodeBlock();
+           inCodeBlock = false;
+         } else {
+           flushList();
+           flushBlockquote();
+           inCodeBlock = true;
+           codeBlockLanguage = line.replace('```', '').trim();
+         }
+         return;
+       }
 
-      if (inCodeBlock) {
-        codeBlockContent.push(line);
-        return;
-      }
+       if (inCodeBlock) {
+         codeBlockContent.push(line);
+         return;
+       }
 
-      // Handle headers
-      if (line.startsWith('# ')) {
-        flushList();
-        elements.push(
-          <Typography
-            key={index}
-            variant="h3"
-            component="h1"
-            gutterBottom
-            sx={{ mt: 4, mb: 2, lineHeight: 1.1 }}
-          >
-            {line.replace('# ', '')}
-          </Typography>
-        );
-        return;
-      }
+             // Handle headers
+       if (line.startsWith('# ')) {
+         flushList();
+         flushBlockquote();
+         elements.push(
+           <Typography
+             key={index}
+             variant="h3"
+             component="h1"
+             gutterBottom
+             sx={{ mt: 4, mb: 2, lineHeight: 1.1 }}
+           >
+             {line.replace('# ', '')}
+           </Typography>
+         );
+         return;
+       }
 
-      if (line.startsWith('## ')) {
-        flushList();
-        elements.push(
-          <Typography
-            key={index}
-            variant="h4"
-            component="h2"
-            gutterBottom
-            sx={{ mt: 3, mb: 2, lineHeight: 1.1 }}
-          >
-            {line.replace('## ', '')}
-          </Typography>
-        );
-        return;
-      }
+       if (line.startsWith('## ')) {
+         flushList();
+         flushBlockquote();
+         elements.push(
+           <Typography
+             key={index}
+             variant="h4"
+             component="h2"
+             gutterBottom
+             sx={{ mt: 3, mb: 2, lineHeight: 1.1 }}
+           >
+             {line.replace('## ', '')}
+           </Typography>
+         );
+         return;
+       }
 
-      if (line.startsWith('### ')) {
-        flushList();
-        elements.push(
-          <Typography
-            key={index}
-            variant="h5"
-            component="h3"
-            gutterBottom
-            sx={{ mt: 3, mb: 2, lineHeight: 1.1 }}
-          >
-            {line.replace('### ', '')}
-          </Typography>
-        );
-        return;
-      }
+       if (line.startsWith('### ')) {
+         flushList();
+         flushBlockquote();
+         elements.push(
+           <Typography
+             key={index}
+             variant="h5"
+             component="h3"
+             gutterBottom
+             sx={{ mt: 3, mb: 2, lineHeight: 1.1 }}
+           >
+             {line.replace('### ', '')}
+           </Typography>
+         );
+         return;
+       }
 
-      // Handle horizontal rules
-      if (line.trim() === '---') {
-        flushList();
-        elements.push(<Divider key={index} sx={{ my: 3 }} />);
-        return;
-      }
+       // Handle horizontal rules
+       if (line.trim() === '---') {
+         flushList();
+         flushBlockquote();
+         elements.push(<Divider key={index} sx={{ my: 3 }} />);
+         return;
+       }
 
-      // Handle blockquotes
-      if (line.startsWith('> ')) {
-        flushList();
-        elements.push(
-          <BlockQuote key={index} severity="info" icon={false}>
-            {parseInlineElements(line.replace('> ', ''))}
-          </BlockQuote>
-        );
-        return;
-      }
+             // Handle blockquotes
+       if (line.startsWith('> ') || line.trim() === '>') {
+         flushList();
+         currentBlockquote.push(line.replace(/^>\s?/, ''));
+         return;
+       }
 
-      // Handle lists
-      if (line.startsWith('- ') || line.startsWith('* ')) {
-        currentList.push(line.replace(/^[-*] /, ''));
-        return;
-      }
+       // Handle lists
+       if (line.startsWith('- ') || line.startsWith('* ')) {
+         flushBlockquote();
+         const lineContent = line.replace(/^[-*] /, '');
+         
+         // Check if it's a task list item
+         if (lineContent.match(/^\[[x\sX]\]/)) {
+           const checked = lineContent.includes('[x]') || lineContent.includes('[X]');
+           const text = lineContent.replace(/^\[[x\sX]\]\s?/, '');
+           currentList.push({ text, checked, type: 'task' });
+         } else {
+           currentList.push({ text: lineContent, type: 'regular' });
+         }
+         return;
+       }
 
-      // Handle numbered lists
-      if (line.match(/^\d+\. /)) {
-        currentList.push(line.replace(/^\d+\. /, ''));
-        return;
-      }
+       // Handle numbered lists
+       if (line.match(/^\d+\. /)) {
+         flushBlockquote();
+         currentList.push({ text: line.replace(/^\d+\. /, ''), type: 'regular' });
+         return;
+       }
 
-      // Handle empty lines
-      if (line.trim() === '') {
-        flushList();
-        elements.push(<Box key={index} sx={{ height: 8 }} />);
-        return;
-      }
+             // Handle empty lines
+       if (line.trim() === '') {
+         flushList();
+         flushBlockquote();
+         elements.push(<Box key={index} sx={{ height: 8 }} />);
+         return;
+       }
 
-      // Handle regular paragraphs
-      if (line.trim() !== '') {
-        flushList();
-        elements.push(
-          <Typography
-            key={index}
-            variant="body1"
-            paragraph
-            sx={{ mb: 1.0, lineHeight: 1.2 }}
-          >
-            {parseInlineElements(line)}
-          </Typography>
-        );
-      }
-    });
+       // Handle regular paragraphs
+       if (line.trim() !== '') {
+         flushList();
+         flushBlockquote();
+         elements.push(
+           <Typography
+             key={index}
+             variant="body1"
+             paragraph
+             sx={{ mb: 1.0, lineHeight: 1.2 }}
+           >
+             {parseInlineElements(line)}
+           </Typography>
+         );
+       }
+     });
 
-    // Flush remaining items
-    flushList();
-    flushCodeBlock();
+     // Flush remaining items
+     flushList();
+     flushBlockquote();
+     flushCodeBlock();
 
-    return elements;
+     return elements;
   };
 
   return (

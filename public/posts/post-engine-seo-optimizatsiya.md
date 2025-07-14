@@ -1,9 +1,5 @@
 # Landing sahifaga Post Engine ni qo'shish va SEO optimizatsiyasi
 
-**Muallif:** Wahid Abduhakimov
-**Nashr sanasi:** 2025-07-15  
-**O'qish vaqti:** 3 daqiqa
-
 ## Kirish
 
 Zamonaviy veb-saytlar uchun *tez* va **samarali** blog tizimi yaratish juda muhim. Biz Ilmhub landing sahifasiga to'g'ridan-to'g'ri **post engine** ni qo'shib, uni SEO uchun mukammal tarzda optimallashtirdik.

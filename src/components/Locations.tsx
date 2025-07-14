@@ -137,7 +137,7 @@ export default function Locations() {
   const selectedFeature = items[selectedItemIndex];
 
   return (
-    <Container id="features" sx={{ py: { xs: 8, sm: 16 } }}>
+    <Container id="locations" sx={{ py: { xs: 8, sm: 16 } }}>
       <Box sx={{ width: { sm: '100%', md: '60%' } }}>
         <Typography component="h2" variant="h4" gutterBottom>
           Bizning Filiallarimiz

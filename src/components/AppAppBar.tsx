@@ -101,7 +101,7 @@ export default function AppAppBar() {
                 color="info"
                 size="small"
                 sx={{ minWidth: 0, ml: 1 }}
-                onClick={() => handleHashNavigate('#features')}
+                onClick={() => handleHashNavigate('#locations')}
               >
                 Manzillar
               </Button>
