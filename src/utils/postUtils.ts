@@ -15,7 +15,15 @@ export const extractPostMetadata = (markdown: string, slug: string): PostMetadat
   
   // Extract title (first H1)
   const titleLine = lines.find(line => line.startsWith('# '));
-  const title = titleLine ? titleLine.replace('# ', '').trim() : slug;
+  let title = titleLine ? titleLine.replace('# ', '').trim() : '';
+  
+  // Fallback: if no H1 found, use slug as title
+  if (!title) {
+    title = slug
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
   
   // Extract excerpt (first meaningful paragraph after title)
   const titleIndex = lines.findIndex(line => line.startsWith('# '));
@@ -23,34 +31,55 @@ export const extractPostMetadata = (markdown: string, slug: string): PostMetadat
     line.trim() !== '' && 
     !line.startsWith('#') && 
     !line.startsWith('---') &&
-    !line.startsWith('>')
+    !line.startsWith('>') &&
+    !line.startsWith('```') &&
+    !line.startsWith('- ') &&
+    !line.startsWith('* ') &&
+    !line.match(/^\d+\. /)
   );
   
   let excerpt = '';
   for (const line of contentLines) {
-    if (line.trim() !== '') {
-      excerpt += line + ' ';
+    const cleanLine = line.trim();
+    if (cleanLine !== '') {
+      excerpt += cleanLine + ' ';
       if (excerpt.length > 160) break;
     }
   }
   
-  // Clean up excerpt
+  // Clean up excerpt - remove markdown syntax more thoroughly
   excerpt = excerpt
-    .replace(/[#*_`[\]()]/g, '')  // Remove markdown syntax
-    .replace(/\s+/g, ' ')         // Normalize whitespace
-    .trim()
-    .substring(0, 160);
+    .replace(/[#*_`[\]()]/g, '')     // Remove markdown syntax
+    .replace(/\*\*(.*?)\*\*/g, '$1') // Remove bold formatting
+    .replace(/\*(.*?)\*/g, '$1')     // Remove italic formatting
+    .replace(/`(.*?)`/g, '$1')       // Remove inline code formatting
+    .replace(/\[(.*?)\]\(.*?\)/g, '$1') // Remove links, keep text
+    .replace(/\s+/g, ' ')            // Normalize whitespace
+    .replace(/\n/g, ' ')             // Replace newlines with spaces
+    .trim();
   
-  if (excerpt.length === 160) {
+  // Limit excerpt length
+  if (excerpt.length > 160) {
+    excerpt = excerpt.substring(0, 160);
+    // Try to end at a word boundary
+    const lastSpace = excerpt.lastIndexOf(' ');
+    if (lastSpace > 120) {
+      excerpt = excerpt.substring(0, lastSpace);
+    }
     excerpt += '...';
   }
   
+  // Fallback excerpt if empty
+  if (!excerpt) {
+    excerpt = `${title} haqida batafsil ma'lumot va foydali maslahatlar.`;
+  }
+  
   // Calculate read time (assuming 200 words per minute)
-  const wordCount = markdown.split(/\s+/).length;
-  const readTime = Math.ceil(wordCount / 200);
+  const wordCount = markdown.split(/\s+/).filter(word => word.length > 0).length;
+  const readTime = Math.max(1, Math.ceil(wordCount / 200));
   
   // Extract keywords from content
-  const keywords = extractKeywords(markdown);
+  const keywords = extractKeywords(markdown, title);
   
   return {
     title,
@@ -63,12 +92,19 @@ export const extractPostMetadata = (markdown: string, slug: string): PostMetadat
   };
 };
 
-const extractKeywords = (markdown: string): string[] => {
+const extractKeywords = (markdown: string, title: string = ''): string[] => {
   // Extract meaningful words from markdown
   const text = markdown
     .replace(/[#*_`[\]()]/g, ' ')  // Remove markdown syntax
     .replace(/\n/g, ' ')           // Replace newlines with spaces
     .toLowerCase();
+  
+  // Extract keywords from title
+  const titleKeywords = title
+    .toLowerCase()
+    .replace(/[^\w\s]/g, ' ')
+    .split(/\s+/)
+    .filter(word => word.length > 2 && word.length < 15);
   
   // Common tech/programming keywords that might appear in posts
   const techKeywords = [
@@ -77,7 +113,9 @@ const extractKeywords = (markdown: string): string[] => {
     'texnologiya', 'technology', 'kompyuter', 'computer', 'internet',
     'dizayn', 'design', 'ui', 'ux', 'responsive', 'mobile',
     'algoritm', 'algorithm', 'struktura', 'structure', 'function',
-    'o\'rganish', 'learning', 'ta\'lim', 'education', 'kurs', 'course'
+    'o\'rganish', 'learning', 'ta\'lim', 'education', 'kurs', 'course',
+    'typescript', 'html', 'css', 'node', 'express', 'mongodb', 'sql',
+    'git', 'github', 'vscode', 'npm', 'yarn', 'webpack', 'vite'
   ];
   
   const foundKeywords = techKeywords.filter(keyword => 
@@ -87,19 +125,31 @@ const extractKeywords = (markdown: string): string[] => {
   // Add default keywords
   const defaultKeywords = ['ilmhub', 'maqola', 'dasturlash', 'texnologiya'];
   
-  // Combine and deduplicate keywords
-  const allKeywords = foundKeywords.concat(defaultKeywords);
-  const uniqueKeywords = Array.from(new Set(allKeywords));
+  // Combine all keywords: title keywords first, then found keywords, then defaults
+  const allKeywords = Array.from(new Set([...titleKeywords, ...foundKeywords, ...defaultKeywords]));
   
-  return uniqueKeywords.slice(0, 10);
+  return allKeywords.slice(0, 10);
 };
 
 export const generatePostSEO = (metadata: PostMetadata, currentUrl: string) => {
+  // Generate a more SEO-friendly title
+  const seoTitle = metadata.title.length > 60 
+    ? `${metadata.title.substring(0, 57)}... - Ilmhub`
+    : `${metadata.title} - Ilmhub`;
+  
+  // Ensure description is optimal length for SEO
+  let seoDescription = metadata.excerpt;
+  if (seoDescription.length > 160) {
+    seoDescription = metadata.excerpt.substring(0, 157) + '...';
+  } else if (seoDescription.length < 120) {
+    seoDescription = `${metadata.excerpt} Ilmhub.uz da batafsil o'qing.`;
+  }
+  
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": metadata.title,
-    "description": metadata.excerpt,
+    "description": seoDescription,
     "author": {
       "@type": "Organization",
       "name": metadata.author,
@@ -121,14 +171,20 @@ export const generatePostSEO = (metadata: PostMetadata, currentUrl: string) => {
       "@id": currentUrl
     },
     "keywords": metadata.keywords.join(', '),
-    "wordCount": metadata.readTime,
+    "timeRequired": metadata.readTime,
     "articleSection": "Technology",
-    "inLanguage": "uz-UZ"
+    "inLanguage": "uz-UZ",
+    "isAccessibleForFree": true,
+    "genre": "Technology",
+    "audience": {
+      "@type": "Audience",
+      "audienceType": "Developers, Students, Tech Enthusiasts"
+    }
   };
   
   return {
-    title: `${metadata.title} - Ilmhub`,
-    description: metadata.excerpt,
+    title: seoTitle,
+    description: seoDescription,
     keywords: metadata.keywords.join(', '),
     structuredData
   };

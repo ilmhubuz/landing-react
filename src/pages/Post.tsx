@@ -143,7 +143,20 @@ const Post: React.FC = () => {
     <PostsTheme>
       <Helmet>
         {(() => {
-          if (!post) return null;
+          if (!post) {
+            // Default SEO while loading
+            const defaultTitle = slug 
+              ? `${slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')} - Ilmhub`
+              : 'Maqola - Ilmhub';
+            return (
+              <>
+                <title>{defaultTitle}</title>
+                <meta name="description" content="Ilmhub.uz da dasturlash va texnologiya haqida foydali maqolalar o'qing." />
+                <meta name="robots" content="index, follow" />
+              </>
+            );
+          }
+          
           const seo = generatePostSEO(post, window.location.href);
           return (
             <>
@@ -155,11 +168,16 @@ const Post: React.FC = () => {
               <meta property="og:description" content={post.excerpt} />
               <meta property="og:url" content={window.location.href} />
               <meta property="og:site_name" content="Ilmhub" />
+              <meta property="og:locale" content="uz_UZ" />
               <meta property="twitter:card" content="summary_large_image" />
               <meta property="twitter:title" content={post.title} />
               <meta property="twitter:description" content={post.excerpt} />
               <meta name="author" content={post.author} />
               <meta name="robots" content="index, follow" />
+              <meta name="article:author" content={post.author} />
+              <meta name="article:published_time" content={post.publishedAt} />
+              <meta name="article:section" content="Technology" />
+              <meta name="article:tag" content={post.keywords.join(', ')} />
               <link rel="canonical" href={window.location.href} />
               <script type="application/ld+json">
                 {JSON.stringify(seo.structuredData)}
