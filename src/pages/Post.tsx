@@ -4,8 +4,6 @@ import { Helmet } from 'react-helmet-async';
 import {
   Container,
   Typography,
-  Paper,
-  Breadcrumbs,
   Link,
   CircularProgress,
   Alert,
@@ -13,10 +11,12 @@ import {
   Stack,
   Fade,
   Skeleton,
+  IconButton,
 } from '@mui/material';
 import {
   Home as HomeIcon,
   Article as ArticleIcon,
+  Share as ShareIcon,
 } from '@mui/icons-material';
 import PostsTheme from '../theme/PostsTheme';
 import MaterialMarkdownRenderer from '../components/MaterialMarkdownRenderer';
@@ -172,22 +172,59 @@ const Post: React.FC = () => {
       <Container maxWidth="md" sx={{ py: 4 }}>
         <Fade in timeout={600}>
           <div>
-            {/* Breadcrumbs */}
-            <Breadcrumbs sx={{ mb: 4 }} separator="›">
-              <Link
+            {/* Breadcrumbs and Share */}
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 4, width: '100%', overflow: 'hidden' }}>
+              <Box sx={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                minWidth: 0, 
+                flex: 1,
+                overflow: 'hidden'
+              }}>
+                <Link
+                  color="inherit"
+                  href="/"
+                  underline="hover"
+                  sx={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}
+                >
+                  <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+                  Bosh sahifa
+                </Link>
+                
+                <Typography variant="body2" sx={{ mx: 1, flexShrink: 0 }}>
+                  ›
+                </Typography>
+                
+                <Box sx={{ 
+                  display: 'flex', 
+                  alignItems: 'center',
+                  minWidth: 0,
+                  overflow: 'hidden'
+                }}>
+                  <ArticleIcon sx={{ mr: 0.5, flexShrink: 0 }} fontSize="inherit" />
+                  <Typography 
+                    color="text.primary"
+                    sx={{ 
+                      overflow: 'hidden', 
+                      textOverflow: 'ellipsis', 
+                      whiteSpace: 'nowrap',
+                      minWidth: 0
+                    }}
+                  >
+                    {post?.title}
+                  </Typography>
+                </Box>
+              </Box>
+              
+              <IconButton 
+                onClick={handleShare}
                 color="inherit"
-                href="/"
-                underline="hover"
-                sx={{ display: 'flex', alignItems: 'center' }}
+                sx={{ ml: 2, flexShrink: 0 }}
+                aria-label="Share post"
               >
-                <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-                Bosh sahifa
-              </Link>
-              <Typography color="text.primary" sx={{ display: 'flex', alignItems: 'center' }}>
-                <ArticleIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-                {post?.title}
-              </Typography>
-            </Breadcrumbs>
+                <ShareIcon fontSize="inherit" />
+              </IconButton>
+            </Box>
             
             {/* Article Content */}
             <Box sx={{ mb: 4 }}>
@@ -195,12 +232,6 @@ const Post: React.FC = () => {
                 {post && <MaterialMarkdownRenderer content={post.content} />}
               </article>
             </Box>
-            
-            <Link href="/" underline="hover" color="secondary.dark">
-                <Typography variant="h6">
-                    Bosh sahifaga qaytish
-                </Typography>
-            </Link>
           </div>
         </Fade>
       </Container>
