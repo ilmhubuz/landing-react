@@ -21,8 +21,6 @@ export default defineConfig({
           vendor: ['react', 'react-dom', 'react-router-dom'],
           // Material-UI chunk
           mui: ['@mui/material', '@mui/icons-material', '@mui/system', '@emotion/react', '@emotion/styled'],
-          // Maps chunk
-          maps: ['@pbe/react-yandex-maps'],
           // Utils chunk
           utils: ['axios', 'react-hot-toast', 'react-helmet-async']
         },
@@ -48,8 +46,6 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    open: true,
-    // Enable compression
-    compress: true
+    open: true
   }
 });
