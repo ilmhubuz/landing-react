@@ -160,6 +160,18 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
       let index = 0;
 
       while (remainingText.length > 0) {
+        // Handle line breaks
+        const brMatch = remainingText.match(/<br\s*\/?>/i);
+        if (brMatch) {
+          const beforeBr = remainingText.substring(0, brMatch.index);
+          if (beforeBr) {
+            parts.push(parseTextFormatting(beforeBr, index++));
+          }
+          parts.push(<br key={index++} />);
+          remainingText = remainingText.substring(brMatch.index! + brMatch[0].length);
+          continue;
+        }
+
         // Handle inline code
         const codeMatch = remainingText.match(/`([^`]+)`/);
         if (codeMatch) {

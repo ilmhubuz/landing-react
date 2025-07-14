@@ -1,51 +1,48 @@
-# 🚀 Tez Kod Yetkazish — Tajribangiz va Lavozimingizni Tez O‘stiring
+# 🚀 Code Delivery
 
-Tasavvur qiling: siz har oy oylikka emas, balki har bir tugatgan `task`ingiz uchun haq olayapsiz.  
-> ❓ Bu holatda ko‘proq daromad qilish uchun nima qilardingiz?
+Avvalroq jamoada ajralib turuvchi injiner bo'lish haqida [yozgandim](https://t.me/wahidsblog/1819). Bugun shu fikrni davom ettirmoqchiman.
 
-✅ Javob oddiy — qisqa vaqt ichida ko‘proq topshiriq bajarish va tez tasdiqlatish.
+<br/>
 
-Endi tasavvur qiling: siz hozirgi ishingizga ham shunday yondashyapsiz.  
-👉 Har 2 oyda lavozimingiz o‘sib borishi mumkin!
+Tasavvur qiling: siz har oy oylikka emas, balki har bir tugatgan **task**ingiz uchun haq olayapsiz.
 
----
 
-## 🔑 1. Topshiriqlarni Tez Bajaring
+> ❓ Shu holatda ko'proq pul topish uchun nima qilishingiz kerak?
+> 💡 Javobi judda oddiy — qisqa vaqt ichida ko'proq **task** bajarishingiz va siz bajargan **task**lar tezroq tasdiqlanishi kerak. 
 
-🧠 Butun boshli loyiha emas, oddiy bir topshiriqni odatda 24 soat ichida bajarish mumkin.  
-AI yordamida siz:
+<br/>
 
-- Kod yozasiz
-- Uni test qilasiz
-- Hujjatini ham tayyorlaysiz
+*Agar siz hozirgi lavozimingizga ham huddi yuqoridagiday yondashsangiz ishoning har 2 oyda lavozimingiz oshib boradi.*
 
-🎯 Tushunmagan joy bo‘lsa, vaqt o‘tkazmasdan savol bering — jamoadoshlaringizdan yoki product managerdan.
+<br/>
+<br/>
 
----
+Yuqoridagi samaradorlikka siz ham erisha olasiz! Quyidagilarni diqqat bilan o'rganing va amal qiling.
 
-## 🔍 2. Code Review Jarayonini Tezlashtiring
+### ⚡ Topshiriqlarni tez topshiring
+- Agar sizga butun boshli kichik loyihani 0dan qurish topshirig'i tushmagan bo'lsa, har qanday topshiriqni 24 soat ochida bemalol bajarsa bo'ladi. Ochig'i AI yordamida hozir topshiriqlarni bir necha soatlarda bajarib, testlab ham qo'ysa bo'ladi.
 
-✅ Topshiriqni bajarish — ishning yarmi.  
-Kodni tasdiqlatish uchun review olish majburiy:
+- Topshiriq bajarish davrida siz tushinmagan elementlar haqida proaktiv savollar so'rang — hohlang jamoadoshlaringizdan, hohlang boshqaruvchingizdan (agar product savollari bo'lsa) — shunda topshiriqni maksimal tezroq bitira olasiz.
 
-- Kamida 1 ta peer
-- Kamida 1 ta yuqoriroq darajadagi dasturchi tomonidan
+<br/>
 
-📌 Startuplarda — *tez harakat qiling, eslatib turing*  
-📌 Katta jamoalarda — *24 soatdan keyin review so‘rashingiz mumkin*
+### ✅ Tezlik bilan tasdiq oling
+- Unutmang siz topshiriqni bajardingiz degani hammasi tugadi degani emas. Endi siz kodingizni tasdiqlatishingiz kerak. Bu `Code Review` (kodni tekshirish) orqali amalga oshiriladi. 
 
----
+- O'zini hurmat qilgan jamoalarda kodni albatta kamida bitta **peer** (o'zi bilan teng yoki pastroq hamkasb) va kamida bitta **senior** (yuqoriroq lavozim/bilimga ega dasturchi) tekshirishi shart.
 
-## 📈 Xulosa
+- Sizni topshiriqlarni tez yetkazib berishingiz asosiy to'siq bo'luvchi omil odatda shu `Code Review` jarayoni. 
 
-Agar quyidagilarni odatga aylantirsangiz:
+- Yuqori tezlikda harakatlanuvchi Startup va kichik jamoaviy loyihalarda hamkasblaringizni har soatda eslatib tursangiz ham bo'laveradi (ish soatlarida albatta). 
 
-- Topshiriqlarni tez bajarish
-- Code Review’ni tez olish
-
-...tajribangiz ham, lavozimingiz ham tez o‘sadi.  
-Tajriba orqali tasdiqlangan.
+- Sekinroq harakatlanuvchi katta jamoalarda esa 24 soat ichida `Code Review` olmasangiz keyin hamkasblardan `Review` talab qilsangiz bo'ladi. 
 
 ---
 
-❤️ Foydali bo‘lsa, ulashing. Boshqalarga ham ilhom bo‘lsin.
+<br/>
+
+Agar yuqoridagi 2ta qoidani kunlik tartibingizga qo'sha olsangiz sizni tajriba va lavozimingiz o'z-o'zidan katta tezlikda o'sa boshlaydi. Tajribadan o'tgan. 
+
+<br/>
+
+> ❤️ Foydali bo‘lsa, ulashing. Boshqalarga ham ilhom bo‘lsin.
