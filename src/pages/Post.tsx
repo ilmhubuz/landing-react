@@ -196,7 +196,7 @@ const Post: React.FC = () => {
               </article>
             </Box>
             
-            <Link href="/" underline="hover" color="secondary.main">
+            <Link href="/" underline="hover" color="secondary.dark">
                 <Typography variant="h6">
                     Bosh sahifaga qaytish
                 </Typography>

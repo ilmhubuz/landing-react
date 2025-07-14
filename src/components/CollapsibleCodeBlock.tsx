@@ -42,12 +42,17 @@ export default function CollapsibleCodeBlock({
   };
 
   return (
-    <Box sx={{ my: 2 }}>
+    <Box sx={{ 
+        my: 2,
+        borderRadius: '4px 4px 0 0',
+        border: '1px solid #1e1e1e',
+        overflow: 'hidden',
+    }}>
       <Box sx={{ 
         display: 'flex', 
         alignItems: 'center', 
         px: 2,
-        backgroundColor: '#1e1e1e',
+        py: .5,
         borderRadius: '4px 4px 0 0',
         borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
       }}>
@@ -62,9 +67,9 @@ export default function CollapsibleCodeBlock({
               display: 'flex',
               alignItems: 'center',
               cursor: 'pointer',
-              color: 'primary.main',
+              color: 'secondary.dark',
               '&:hover': {
-                color: 'primary.light',
+                color: 'secondary.main',
               }
             }}
           >
@@ -111,9 +116,9 @@ export default function CollapsibleCodeBlock({
                 display: 'flex',
                 alignItems: 'center',
                 cursor: 'pointer',
-                color: 'primary.main',
+                color: 'secondary.dark',
                 '&:hover': {
-                  color: 'primary.light',
+                  color: 'secondary.main',
                 }
               }}
             >
