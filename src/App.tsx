@@ -5,6 +5,7 @@ import { CircularProgress, Box } from '@mui/material';
 // Lazy load components
 const Home = React.lazy(() => import('./pages/Home'));
 const Register = React.lazy(() => import('./pages/Register'));
+const Post = React.lazy(() => import('./pages/Post'));
 
 // Loading component
 const LoadingSpinner = () => (
@@ -27,6 +28,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/posts/:slug" element={<Post />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

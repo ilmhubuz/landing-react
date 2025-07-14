@@ -7,7 +7,6 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
 
 import AppTheme from '../theme/AppTheme';
-import ColorModeSelect from '../theme/ColorModeSelect';
 import RegisterCard from '../components/RegisterCard';
 import Content from '../components/RegisterFeatures';
 import { Helmet } from 'react-helmet-async';
