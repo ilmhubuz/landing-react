@@ -182,7 +182,7 @@ const Post: React.FC = () => {
                 overflow: 'hidden'
               }}>
                 <Link
-                  color="inherit"
+                  color="secondary.dark"
                   href="/"
                   underline="hover"
                   sx={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}
@@ -203,7 +203,7 @@ const Post: React.FC = () => {
                 }}>
                   <ArticleIcon sx={{ mr: 0.5, flexShrink: 0 }} fontSize="inherit" />
                   <Typography 
-                    color="text.primary"
+                    color="secondary.dark"
                     sx={{ 
                       overflow: 'hidden', 
                       textOverflow: 'ellipsis', 

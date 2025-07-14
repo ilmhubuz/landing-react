@@ -34,7 +34,7 @@ const StyledCodeBlock = styled(Card)(({ theme }) => ({
 
 const StyledCode = styled('code')(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#2d2d2d' : '#f1f3f4',
-  padding: '3px 6px',
+  padding: '1px 4px',
   borderRadius: 4,
   fontSize: '0.875rem',
   fontFamily: '"Roboto Mono", "Consolas", "Monaco", monospace',
@@ -190,7 +190,6 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) =
           continue;
         }
 
-        // No special formatting found, process remaining text
         parts.push(parseTextFormatting(remainingText, index++));
         break;
       }

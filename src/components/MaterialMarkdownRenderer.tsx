@@ -13,9 +13,9 @@ import CollapsibleCodeBlock from './CollapsibleCodeBlock';
 
 
 const InlineCode = styled('code')(({ theme }) => ({
-  backgroundColor: theme.palette.grey[800],
+  backgroundColor: theme.palette.mode === 'dark' ? '#2d2d2d' : '#f1f3f4',
   color: theme.palette.secondary.main,
-  padding: theme.spacing(0.5, 1),
+  padding: theme.spacing(0.25, 0.5),
   borderRadius: theme.shape.borderRadius,
   fontFamily: '"Roboto Mono", "Consolas", "Monaco", monospace',
   fontSize: '0.875rem',
