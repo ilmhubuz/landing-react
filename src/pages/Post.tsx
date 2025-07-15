@@ -12,6 +12,7 @@ import {
   Fade,
   Skeleton,
   IconButton,
+  Button,
 } from '@mui/material';
 import {
   Home as HomeIcon,
@@ -125,15 +126,47 @@ const Post: React.FC = () => {
     return (
       <PostsTheme>
         <Container maxWidth="md" sx={{ py: 4 }}>
-          <Alert severity="error" sx={{ mb: 3 }}>
-            {error}
-          </Alert>
-          <Typography variant="h4" gutterBottom>
-            Post topilmadi
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            Siz qidirayotgan maqola mavjud emas yoki o'chirilgan.
-          </Typography>
+          <Fade in timeout={600}>
+            <Box sx={{ textAlign: 'center' }}>
+              <Alert severity="error" sx={{ mb: 4 }}>
+                {error}
+              </Alert>
+              
+              <Typography variant="h4" gutterBottom>
+                Maqola topilmadi
+              </Typography>
+              
+              <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+                Siz qidirayotgan maqola mavjud emas yoki o'chirilgan bo'lishi mumkin.
+              </Typography>
+
+              <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="center">
+                <Button
+                  variant="contained"
+                  startIcon={<HomeIcon />}
+                  onClick={() => navigate('/')}
+                  sx={{ minWidth: 180 }}
+                >
+                  Bosh sahifa
+                </Button>
+                
+                <Button
+                  variant="outlined"
+                  startIcon={<ArticleIcon />}
+                  onClick={() => navigate(-1)}
+                  sx={{ minWidth: 180 }}
+                >
+                  Orqaga qaytish
+                </Button>
+              </Stack>
+              
+              <Box sx={{ mt: 4, p: 3, backgroundColor: 'background.paper', borderRadius: 2 }}>
+                <Typography variant="body2" color="text.secondary">
+                  Yordam kerak bo'lsa, <strong>90-691-50-60</strong> raqamiga qo'ng'iroq qiling
+                </Typography>
+              </Box>
+            </Box>
+          </Fade>
         </Container>
       </PostsTheme>
     );
