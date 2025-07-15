@@ -6,6 +6,9 @@ import Hero from '../components/Hero';
 import Footer from '../components/Footer';
 const FAQ = React.lazy(() => import('../components/FAQ'));
 const Locations = React.lazy(() => import('../components/Locations'));
+const GalleryCarousel = React.lazy(
+  () => import('../components/GalleryCarousel')
+);
 
 export default function Home(props: { disableCustomTheme?: boolean }) {
   React.useEffect(() => {
@@ -17,9 +20,10 @@ export default function Home(props: { disableCustomTheme?: boolean }) {
           el.scrollIntoView({ behavior: 'smooth', block: 'start' });
           setTimeout(() => {
             const yOffset = -80;
-            const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            const y =
+              el.getBoundingClientRect().top + window.pageYOffset + yOffset;
             window.scrollTo({ top: y, behavior: 'auto' });
-          }, 400); 
+          }, 400);
           el.focus?.();
         }
       }
@@ -36,6 +40,10 @@ export default function Home(props: { disableCustomTheme?: boolean }) {
       <AppAppBar />
       <Hero />
       <div>
+        <React.Suspense fallback={<div style={{ height: '400px' }} />}>
+          <GalleryCarousel />
+        </React.Suspense>
+
         <React.Suspense fallback={<div style={{ height: '400px' }} />}>
           <Locations />
         </React.Suspense>
