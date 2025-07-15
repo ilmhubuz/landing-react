@@ -5,6 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 
+// 1. MA'LUMOTLAR: Siz bergan ma'lumotlar o'zgarishsiz qoldirildi
 const cards = [
   {
     image:
@@ -121,7 +122,8 @@ const GalleryCarousel = () => {
 
   // 1. Ikkitalik rasm guruhlash mantiqi tiklandi
   const groupedItems = React.useMemo(() => {
-    const items: JSX.Element[] = [];
+    // MUAMMO SHU YERDA EDI: JSX.Element o'rniga React.ReactElement ishlatildi
+    const items: React.ReactElement[] = [];
     for (let i = 0; i < cards.length; i++) {
       const card = cards[i];
       const cardWrapper = (children: React.ReactNode, key: string) => (
