@@ -59,4 +59,4 @@
 
 Agar o‘zingizga ishonsangiz va professional o‘sishni xohlasangiz — marhamat!
 
-📩 Murojaat: `@ustozwahid` telegram hisobiga yozing.
+📩 Murojaat: [@ustozwahid](https://t.me/ustozwahid) telegram hisobiga yozing.
