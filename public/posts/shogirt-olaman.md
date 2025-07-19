@@ -1,9 +1,10 @@
-# 🧠 **Shogirdlik / Internship imkoniyati**  
+# 🧠 Shogirdlik / Internship imkoniyati
 
 🎯 *2-3 nafar ishtiyoqli odamlarga zamonaviy texnologiyalarni real loyihalarda o‘rgataman*  
 💻 *Barchasi amaliyot orqali, o‘zimning ishchi loyihalarimda qatnashasiz*
 
 ---
+<br/>
 
 ## 💡 **Nimalarni o‘rganasiz?**
 
@@ -34,13 +35,15 @@
 - Effective communication, initiative & ownership
 
 ---
+<br/>
 
-## 🎁 **Bonus (2-oydan boshlab):**
+## 🎁 Bonus (2-oydan boshlab):
 - `Cursor` yoki `GitHub Copilot Pro` — faol ishtirokchilar uchun
 
 ---
+<br/>
 
-## 📌 **Nima talab qilaman?**
+## 📌 Nima talab qilaman?
 
 - ⏱ **High availability** — muntazam ishtirok va mas’uliyat
 - ⚡ **Super open communication** — tezkor va halol muloqot
@@ -50,6 +53,7 @@
   Internship tugaganidan so‘ng ham **kamida 1 yil maintain qiladi**
 
 ---
+<br/>
 
 🎓 O‘zim tayyorlagan shogirdlar — istalgan kompaniyada mustahkam joy topa oladigan darajadagi muhandislar.
 
