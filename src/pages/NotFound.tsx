@@ -152,7 +152,7 @@ const NotFound: React.FC = () => {
                 <Button
                   variant="text"
                   color="primary"
-                  onClick={() => navigate('/register')}
+                  onClick={() => window.location.href = '/register.html'}
                   sx={{ textTransform: 'none', fontSize: '1rem' }}
                 >
                   Ro'yxatdan o'tish

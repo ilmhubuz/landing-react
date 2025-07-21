@@ -57,7 +57,7 @@ export default function AppAppBar() {
   const navigate = useNavigate();
 
   const handleNavigateToRegister = () => {
-    navigate('/register');
+    window.location.href = '/register.html';
   };
 
   const toggleDrawer = (newOpen: boolean) => () => {
