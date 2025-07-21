@@ -46,6 +46,7 @@ const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
   margin: theme.spacing(2, 0),
   border: `1px solid ${theme.palette.divider}`,
   borderRadius: theme.shape.borderRadius,
+  backgroundColor: theme.palette.background.paper,
 }));
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -273,7 +274,7 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
       }
 
       return (
-        <StyledTableContainer key={`table-${key}`} component={Paper}>
+        <StyledTableContainer key={`table-${key}`}>
           <Table size="small">
             <TableHead>
               <TableRow>
