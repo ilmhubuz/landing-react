@@ -182,7 +182,7 @@ public class AsyncService
 ```
 - **Tushuntirish**:  
   - `Semaphore`ning yengilroq varianti, `async/await` bilan ishlaydi.  
-  - Internal spinning (tezroq kirish uchun qisqa kutish) va so‘ngra bloklash. Batafsil [👉 bu yerda](https://ilmhub.uz/posts/semaphore-slim)
+  - Internal spinning (tezroq kirish uchun qisqa kutish) va so‘ngra bloklash. Batafsil [👉 bu yerda](/posts/semaphore-slim)
 - **Use case**: Bir process ichida asinxron parallel limitlash.  
 - **Pros & Cons**:  
   - Tezkor va yengil  

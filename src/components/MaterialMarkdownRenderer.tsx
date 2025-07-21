@@ -11,6 +11,12 @@ import {
   FormControlLabel,
   IconButton,
   Tooltip,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
 } from '@mui/material';
 import { Link as LinkIcon } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
@@ -36,8 +42,33 @@ const BlockQuote = styled(Alert)(({ theme }) => ({
   },
 }));
 
+const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
+  margin: theme.spacing(2, 0),
+  border: `1px solid ${theme.palette.divider}`,
+  borderRadius: theme.shape.borderRadius,
+}));
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  borderBottom: `1px solid ${theme.palette.divider}`,
+  padding: theme.spacing(1, 2),
+}));
+
+const StyledTableHeaderCell = styled(TableCell)(({ theme }) => ({
+  borderBottom: `2px solid ${theme.palette.divider}`,
+  backgroundColor: theme.palette.action.hover,
+  fontWeight: 600,
+  padding: theme.spacing(1, 2),
+}));
+
 interface MaterialMarkdownRendererProps {
   content: string;
+}
+
+interface ListItem {
+  text: string;
+  checked?: boolean;
+  type: 'regular' | 'task';
+  level: number;
 }
 
 export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRendererProps) {
@@ -74,50 +105,19 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
     window.history.pushState(null, '', url);
   };
 
-
   const parseMarkdown = (text: string) => {
     const lines = text.split('\n');
     const elements: React.ReactElement[] = [];
-    let currentList: Array<{ text: string; checked?: boolean; type: 'regular' | 'task' }> = [];
+    let currentList: ListItem[] = [];
     let currentBlockquote: string[] = [];
+    let currentTable: string[] = [];
     let inCodeBlock = false;
     let codeBlockContent: string[] = [];
     let codeBlockLanguage = '';
 
-        const flushList = () => {
+    const flushList = () => {
       if (currentList.length > 0) {
-        elements.push(
-          <Stack key={`list-${elements.length}`} spacing={0.25} sx={{ my: 1 }}>
-            {currentList.map((item, index) => (
-              item.type === 'task' ? (
-                <Stack key={index} direction="row" alignItems="center" spacing={1}>
-                  <Checkbox
-                    checked={item.checked || false}
-                    size="small"
-                    sx={{ p: 0 }}
-                    disabled
-                  />
-                  <Typography variant="body1" sx={{ lineHeight: 1.2 }}>
-                    {parseInlineElements(item.text)}
-                  </Typography>
-                </Stack>
-              ) : (
-                <Stack key={index} direction="row" alignItems="center" spacing={1.5}>
-                  <Box sx={{ 
-                    width: '6px', 
-                    height: '6px', 
-                    backgroundColor: 'text.primary', 
-                    borderRadius: '50%',
-                    flexShrink: 0
-                  }} />
-                  <Typography variant="body1" sx={{ lineHeight: 1.2 }}>
-                    {parseInlineElements(item.text)}
-                  </Typography>
-                </Stack>
-              )
-            ))}
-          </Stack>
-        );
+        elements.push(renderNestedList(currentList, elements.length));
         currentList = [];
       }
     };
@@ -139,6 +139,13 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
       }
     };
 
+    const flushTable = () => {
+      if (currentTable.length > 0) {
+        elements.push(renderTable(currentTable, elements.length));
+        currentTable = [];
+      }
+    };
+
     const flushCodeBlock = () => {
       if (codeBlockContent.length > 0) {
         elements.push(
@@ -152,6 +159,129 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
         codeBlockContent = [];
         codeBlockLanguage = '';
       }
+    };
+
+    const renderNestedList = (items: ListItem[], key: number): React.ReactElement => {
+      const renderListItems = (items: ListItem[], level: number = 0): React.ReactNode[] => {
+        const result: React.ReactNode[] = [];
+        let i = 0;
+
+        while (i < items.length) {
+          const item = items[i];
+          
+          if (item.level === level) {
+            // Find all children of this item
+            const children: ListItem[] = [];
+            let j = i + 1;
+            
+            while (j < items.length && items[j].level > level) {
+              children.push(items[j]);
+              j++;
+            }
+
+            const listItem = (
+              <Box key={`item-${level}-${i}`} sx={{ mb: 0.5 }}>
+                {item.type === 'task' ? (
+                  <Stack direction="row" alignItems="center" spacing={1}>
+                    <Checkbox
+                      checked={item.checked || false}
+                      size="small"
+                      sx={{ p: 0 }}
+                      disabled
+                    />
+                    <Typography variant="body1" sx={{ lineHeight: 1.2 }}>
+                      {parseInlineElements(item.text)}
+                    </Typography>
+                  </Stack>
+                ) : (
+                  <Stack direction="row" alignItems="flex-start" spacing={1.5}>
+                    <Box sx={{ 
+                      width: '6px', 
+                      height: '6px', 
+                      backgroundColor: 'text.primary', 
+                      borderRadius: '50%',
+                      flexShrink: 0,
+                      mt: 0.75
+                    }} />
+                    <Box sx={{ flex: 1 }}>
+                      <Typography variant="body1" sx={{ lineHeight: 1.2, mb: children.length > 0 ? 1 : 0 }}>
+                        {parseInlineElements(item.text)}
+                      </Typography>
+                      {children.length > 0 && (
+                        <Box sx={{ ml: 0, mt: 0.5 }}>
+                          <Stack spacing={0.25}>
+                            {renderListItems(children, level + 1)}
+                          </Stack>
+                        </Box>
+                      )}
+                    </Box>
+                  </Stack>
+                )}
+              </Box>
+            );
+
+            result.push(listItem);
+            i = j; // Skip processed children
+          } else {
+            i++;
+          }
+        }
+
+        return result;
+      };
+
+      return (
+        <Stack key={`list-${key}`} spacing={0.25} sx={{ my: 1 }}>
+          {renderListItems(items, 0)}
+        </Stack>
+      );
+    };
+
+    const renderTable = (tableLines: string[], key: number): React.ReactElement => {
+      const rows = tableLines.filter(line => line.trim() !== '');
+      if (rows.length < 2) return <div key={key}></div>; // Need at least header + separator
+
+      const headerRow = rows[0];
+      const separatorRow = rows[1];
+      const dataRows = rows.slice(2);
+
+      // Parse header
+      const headers = headerRow.split('|').map(cell => cell.trim()).filter(cell => cell !== '');
+      
+      // Validate separator row
+      if (!separatorRow.includes('---')) {
+        return <div key={key}></div>;
+      }
+
+      return (
+        <StyledTableContainer key={`table-${key}`} component={Paper}>
+          <Table size="small">
+            <TableHead>
+              <TableRow>
+                {headers.map((header, index) => (
+                  <StyledTableHeaderCell key={index}>
+                    {parseInlineElements(header)}
+                  </StyledTableHeaderCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {dataRows.map((row, rowIndex) => {
+                const cells = row.split('|').map(cell => cell.trim()).filter(cell => cell !== '');
+                return (
+                  <TableRow key={rowIndex}>
+                    {cells.map((cell, cellIndex) => (
+                      <StyledTableCell key={cellIndex}>
+                        {parseInlineElements(cell)}
+                      </StyledTableCell>
+                    ))}
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </StyledTableContainer>
+      );
     };
 
     const parseInlineElements = (text: string): React.ReactNode => {
@@ -172,7 +302,34 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
           continue;
         }
 
-        // Handle inline code
+        // Handle links with potential inline code in the label
+        const linkMatch = remainingText.match(/\[([^\]]*(?:`[^`]*`[^\]]*)*[^\]]*)\]\(([^)]+)\)/);
+        if (linkMatch) {
+          const beforeLink = remainingText.substring(0, linkMatch.index);
+          if (beforeLink) {
+            parts.push(parseTextFormatting(beforeLink, index++));
+          }
+          
+          // Parse the link label which might contain inline code
+          const linkLabel = linkMatch[1];
+          const linkUrl = linkMatch[2];
+          
+          parts.push(
+            <Link
+              key={index++}
+              href={linkUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              color="secondary"
+            >
+              {parseInlineElements(linkLabel)}
+            </Link>
+          );
+          remainingText = remainingText.substring(linkMatch.index! + linkMatch[0].length);
+          continue;
+        }
+
+        // Handle inline code (but not if we're already inside a link)
         const codeMatch = remainingText.match(/`([^`]+)`/);
         if (codeMatch) {
           const beforeCode = remainingText.substring(0, codeMatch.index);
@@ -185,28 +342,6 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
             </InlineCode>
           );
           remainingText = remainingText.substring(codeMatch.index! + codeMatch[0].length);
-          continue;
-        }
-
-        // Handle links
-        const linkMatch = remainingText.match(/\[([^\]]+)\]\(([^)]+)\)/);
-        if (linkMatch) {
-          const beforeLink = remainingText.substring(0, linkMatch.index);
-          if (beforeLink) {
-            parts.push(parseTextFormatting(beforeLink, index++));
-          }
-          parts.push(
-            <Link
-              key={index++}
-              href={linkMatch[2]}
-              target="_blank"
-              rel="noopener noreferrer"
-              color="secondary"
-            >
-              {linkMatch[1]}
-            </Link>
-          );
-          remainingText = remainingText.substring(linkMatch.index! + linkMatch[0].length);
           continue;
         }
 
@@ -293,117 +428,135 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
       );
     };
 
+    const getListLevel = (line: string): number => {
+      const match = line.match(/^(\s*)([-*]|\d+\.)\s/);
+      if (!match) return 0;
+      return Math.floor(match[1].length / 2); // Assuming 2 spaces per level
+    };
+
     lines.forEach((line, index) => {
-             // Handle code blocks
-       if (line.startsWith('```')) {
-         if (inCodeBlock) {
-           flushCodeBlock();
-           inCodeBlock = false;
-         } else {
-           flushList();
-           flushBlockquote();
-           inCodeBlock = true;
-           codeBlockLanguage = line.replace('```', '').trim();
-         }
-         return;
-       }
+      // Handle code blocks
+      if (line.startsWith('```')) {
+        if (inCodeBlock) {
+          flushCodeBlock();
+          inCodeBlock = false;
+        } else {
+          flushList();
+          flushBlockquote();
+          flushTable();
+          inCodeBlock = true;
+          codeBlockLanguage = line.replace('```', '').trim();
+        }
+        return;
+      }
 
-       if (inCodeBlock) {
-         codeBlockContent.push(line);
-         return;
-       }
+      if (inCodeBlock) {
+        codeBlockContent.push(line);
+        return;
+      }
 
-             // Handle headers
-       if (line.startsWith('# ')) {
-         flushList();
-         flushBlockquote();
-         elements.push(renderHeader(line.replace('# ', ''), 1, index));
-         return;
-       }
+      // Handle headers
+      if (line.startsWith('# ')) {
+        flushList();
+        flushBlockquote();
+        flushTable();
+        elements.push(renderHeader(line.replace('# ', ''), 1, index));
+        return;
+      }
 
-       if (line.startsWith('## ')) {
-         flushList();
-         flushBlockquote();
-         elements.push(renderHeader(line.replace('## ', ''), 2, index));
-         return;
-       }
+      if (line.startsWith('## ')) {
+        flushList();
+        flushBlockquote();
+        flushTable();
+        elements.push(renderHeader(line.replace('## ', ''), 2, index));
+        return;
+      }
 
-       if (line.startsWith('### ')) {
-         flushList();
-         flushBlockquote();
-         elements.push(renderHeader(line.replace('### ', ''), 3, index));
-         return;
-       }
+      if (line.startsWith('### ')) {
+        flushList();
+        flushBlockquote();
+        flushTable();
+        elements.push(renderHeader(line.replace('### ', ''), 3, index));
+        return;
+      }
 
-       // Handle horizontal rules
-       if (line.trim() === '---') {
-         flushList();
-         flushBlockquote();
-         elements.push(<Divider key={index} sx={{ my: 1.5 }} />);
-         return;
-       }
+      // Handle horizontal rules
+      if (line.trim() === '---') {
+        flushList();
+        flushBlockquote();
+        flushTable();
+        elements.push(<Divider key={index} sx={{ my: 1.5 }} />);
+        return;
+      }
 
-             // Handle blockquotes
-       if (line.startsWith('> ') || line.trim() === '>') {
-         flushList();
-         currentBlockquote.push(line.replace(/^>\s?/, ''));
-         return;
-       }
+      // Handle blockquotes
+      if (line.startsWith('> ') || line.trim() === '>') {
+        flushList();
+        flushTable();
+        currentBlockquote.push(line.replace(/^>\s?/, ''));
+        return;
+      }
 
-       // Handle lists
-       if (line.startsWith('- ') || line.startsWith('* ')) {
-         flushBlockquote();
-         const lineContent = line.replace(/^[-*] /, '');
-         
-         // Check if it's a task list item
-         if (lineContent.match(/^\[[x\sX]\]/)) {
-           const checked = lineContent.includes('[x]') || lineContent.includes('[X]');
-           const text = lineContent.replace(/^\[[x\sX]\]\s?/, '');
-           currentList.push({ text, checked, type: 'task' });
-         } else {
-           currentList.push({ text: lineContent, type: 'regular' });
-         }
-         return;
-       }
+      // Handle table rows
+      if (line.includes('|') && line.trim() !== '') {
+        flushList();
+        flushBlockquote();
+        currentTable.push(line);
+        return;
+      }
 
-       // Handle numbered lists
-       if (line.match(/^\d+\. /)) {
-         flushBlockquote();
-         currentList.push({ text: line.replace(/^\d+\. /, ''), type: 'regular' });
-         return;
-       }
+      // Handle lists (including multi-level)
+      if (line.match(/^\s*([-*]|\d+\.)\s/)) {
+        flushBlockquote();
+        flushTable();
+        const level = getListLevel(line);
+        const lineContent = line.replace(/^\s*([-*]|\d+\.)\s/, '');
+        
+        // Check if it's a task list item
+        if (lineContent.match(/^\[[x\sX]\]/)) {
+          const checked = lineContent.includes('[x]') || lineContent.includes('[X]');
+          const text = lineContent.replace(/^\[[x\sX]\]\s?/, '');
+          currentList.push({ text, checked, type: 'task', level });
+        } else {
+          currentList.push({ text: lineContent, type: 'regular', level });
+        }
+        return;
+      }
 
-             // Handle empty lines
-       if (line.trim() === '') {
-         flushList();
-         flushBlockquote();
-         elements.push(<Box key={index} sx={{ height: 4 }} />);
-         return;
-       }
+      // Handle empty lines
+      if (line.trim() === '') {
+        flushList();
+        flushBlockquote();
+        flushTable();
+        elements.push(<Box key={index} sx={{ height: 4 }} />);
+        return;
+      }
 
-       // Handle regular paragraphs
-       if (line.trim() !== '') {
-         flushList();
-         flushBlockquote();
-         elements.push(
-           <Typography
-             key={index}
-             variant="body1"
-             paragraph
-             sx={{ mb: 0.5, lineHeight: 1.2 }}
-           >
-             {parseInlineElements(line)}
-           </Typography>
-         );
-       }
-     });
+      // Handle regular paragraphs
+      if (line.trim() !== '') {
+        flushList();
+        flushBlockquote();
+        flushTable();
+        elements.push(
+          <Typography
+            key={index}
+            variant="body1"
+            paragraph
+            sx={{ mb: 0.5, lineHeight: 1.2 }}
+          >
+            {parseInlineElements(line)}
+          </Typography>
+        );
+      }
+    });
 
-     // Flush remaining items
-     flushList();
-     flushBlockquote();
-     flushCodeBlock();
+    // Flush remaining items
+    flushList();
+    flushBlockquote();
+    flushTable();
+    flushCodeBlock();
 
-     return elements;
+    return elements;
   };
 
   return (

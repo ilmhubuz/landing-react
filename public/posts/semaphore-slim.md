@@ -1,4 +1,4 @@
-# `Semaphore` va `SemaphoreSlim` o‘rtasidagi farqlar
+# Semaphore va SemaphoreSlim o‘rtasidagi farqlar
 
 ## 🧵 Ko‘p oqimli dasturlashda sinxronlash
 
@@ -22,7 +22,7 @@ Tasavvur qiling, avtoturargohda 3 ta bo‘sh joy bor. Har bir mashina joy topgun
 
 ### Kod namunasi:
 
-~~~csharp
+```csharp
 using System;
 using System.Threading;
 
@@ -50,7 +50,7 @@ class Program
         semaphore.Release(); // Joyni bo‘shatish
     }
 }
-~~~
+```
 
 ---
 
@@ -62,7 +62,7 @@ Bu uni **tezroq**, **kam resurs talab qiladigan** va **`async/await` bilan ishla
 
 ### Kod namunasi:
 
-~~~csharp
+```csharp
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -92,7 +92,7 @@ class Program
         semaphoreSlim.Release();
     }
 }
-~~~
+```
 
 ---
 
@@ -151,7 +151,7 @@ Dasturingiz talablari, arxitekturasi va ishlash samaradorligiga qarab siz ularda
 ---
 
 ## 📚 Foydali havolalar
-- [`lock`, `semaphore`, `semaphoreslim` haqida batafsil](https://ilmhub.uz/posts/locking-toliq-qollanma)
+- [`lock`](/posts/locking-toliq-qollanma#1-lock-monitor-asosida), [`semaphore`](/posts/locking-toliq-qollanma#4-semaphore), [`semaphoreslim`](/posts/locking-toliq-qollanma#5-semaphoreslim) haqida batafsil
 - [`SemaphoreSlim` rasmiy hujjatlari (Microsoft)](https://learn.microsoft.com/en-us/dotnet/api/system.threading.semaphoreslim)
 - [`Semaphore` rasmiy hujjatlari (Microsoft)](https://learn.microsoft.com/en-us/dotnet/api/system.threading.semaphore)
 - [Thread sinxronlash haqida umumiy ko‘rsatma (.NET Docs)](https://learn.microsoft.com/en-us/dotnet/standard/threading/)
