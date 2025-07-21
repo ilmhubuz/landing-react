@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import MuiCard from '@mui/material/Card';
@@ -38,7 +37,6 @@ export default function RegisterCard() {
   const { locations, loading: locationsLoading } = useLocations();
   const { courses, loading: coursesLoading } = useCoursesTypes();
   const { submitLead, isSubmitting } = useSubmitLead();
-  const navigate = useNavigate();
 
   const [form, setForm] = React.useState({
     name: '',
@@ -134,7 +132,7 @@ export default function RegisterCard() {
       success: (data) => {
         setForm({ name: '', phone: '', age: '', location: '', course: '' });
         setTimeout(() => {
-          navigate('/');
+          window.location.href = '/';
         }, 1500);
         return <b>Ma'lumotlaringiz qabul qilindi!</b>;
       },

@@ -4,49 +4,35 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { useNavigate } from 'react-router-dom';
 
 import AppTheme from '../theme/AppTheme';
 import RegisterCard from '../components/RegisterCard';
 import Content from '../components/RegisterFeatures';
-import { Helmet } from 'react-helmet-async';
 
 type RegisterPageProps = {
   disableCustomTheme?: boolean;
 };
 
 export default function Register(props: RegisterPageProps) {
-  const navigate = useNavigate();
-
   return (
-    <>
-      <Helmet>
-        <title>Ro'yxatdan o'tish - Ilmhub</title>
-        <meta
-          name="description"
-          content="Ilmhub o'quv markaziga ro'yxatdan o'ting va farzandingizga zamonaviy ta'lim bering!"
-        />
-        <link rel="canonical" href="https://ilmhub.uz/register" />
-      </Helmet>
-      <AppTheme {...props}>
-        <CssBaseline enableColorScheme />
+    <AppTheme {...props}>
+      <CssBaseline enableColorScheme />
 
-        {/* Yuqori qismdagi tugmalar uchun umumiy konteyner */}
-        <Box
-          sx={{
-            position: 'fixed',
-            top: 0,
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'space-between',
-            p: { xs: 1.5, sm: 2 },
-            zIndex: 10,
-          }}
-        >
-          <IconButton onClick={() => navigate(-1)} aria-label="orqaga qaytish">
-            <ArrowBackIcon />
-          </IconButton>
-        </Box>
+      <Box
+        sx={{
+          position: 'fixed',
+          top: 0,
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'space-between',
+          p: { xs: 1.5, sm: 2 },
+          zIndex: 10,
+        }}
+      >
+        <IconButton onClick={() => window.location.href = '/'} aria-label="orqaga qaytish">
+          <ArrowBackIcon />
+        </IconButton>
+      </Box>
 
         <Stack
           direction="column"
@@ -91,6 +77,5 @@ export default function Register(props: RegisterPageProps) {
           </Stack>
         </Stack>
       </AppTheme>
-    </>
   );
 }

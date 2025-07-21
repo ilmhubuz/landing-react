@@ -1,0 +1,5 @@
+# Redirect /register to register.html for SEO-friendly URLs
+/register /register.html 200
+
+# Handle client-side routing for the main app
+/*    /index.html   200 

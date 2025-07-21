@@ -15,6 +15,10 @@ export default defineConfig({
     emptyOutDir: true,
     // Optimize chunk splitting
     rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+        register: path.resolve(__dirname, 'register.html')
+      },
       output: {
         manualChunks: {
           // Vendor chunk for React and core libraries
@@ -31,14 +35,7 @@ export default defineConfig({
       }
     },
     // Optimize bundle size
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-        pure_funcs: ['console.log', 'console.info', 'console.debug', 'console.warn']
-      }
-    },
+    minify: 'esbuild',
     // Optimize chunk size warning limit
     chunkSizeWarningLimit: 500,
     // Enable source maps for debugging (disable in production)
