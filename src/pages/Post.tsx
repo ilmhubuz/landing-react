@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import {
   Container,
@@ -31,6 +31,7 @@ interface PostData extends PostMetadata {
 const Post: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
   const [post, setPost] = useState<PostData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -76,6 +77,36 @@ const Post: React.FC = () => {
 
     loadPost();
   }, [slug]);
+
+  // Handle smooth scrolling to anchor when page loads with hash
+  useEffect(() => {
+    if (!loading && !error && post && location.hash) {
+      const scrollToAnchor = () => {
+        const hash = location.hash.substring(1); // Remove the # symbol
+        const element = document.getElementById(hash);
+        
+        if (element) {
+          // Add a small delay to ensure the content is fully rendered
+          setTimeout(() => {
+            element.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start',
+              inline: 'nearest'
+            });
+            
+            // Add a slight offset to account for any fixed headers
+            setTimeout(() => {
+              const yOffset = -20; // 20px offset from top
+              const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+              window.scrollTo({ top: y, behavior: 'smooth' });
+            }, 100);
+          }, 100);
+        }
+      };
+
+      scrollToAnchor();
+    }
+  }, [loading, error, post, location.hash]);
 
   const handleShare = async () => {
     const url = window.location.href;

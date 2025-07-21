@@ -151,7 +151,7 @@ Dasturingiz talablari, arxitekturasi va ishlash samaradorligiga qarab siz ularda
 ---
 
 ## 📚 Foydali havolalar
-- [`lock`](/posts/locking-toliq-qollanma#1-lock-monitor-asosida), [`semaphore`](/posts/locking-toliq-qollanma#4-semaphore), [`semaphoreslim`](/posts/locking-toliq-qollanma#5-semaphoreslim) haqida batafsil
+- [`lock`](/posts/locking-toliq-qollanma#1-lock-monitor-asosida), [`semaphore`](/posts/locking-toliq-qollanma#4-semaphore), [`semaphoreslim`](/posts/locking-toliq-qollanma#5-semaphoreslim) haqida [batafsil](/posts/locking-toliq-qollanma)
 - [`SemaphoreSlim` rasmiy hujjatlari (Microsoft)](https://learn.microsoft.com/en-us/dotnet/api/system.threading.semaphoreslim)
 - [`Semaphore` rasmiy hujjatlari (Microsoft)](https://learn.microsoft.com/en-us/dotnet/api/system.threading.semaphore)
 - [Thread sinxronlash haqida umumiy ko‘rsatma (.NET Docs)](https://learn.microsoft.com/en-us/dotnet/standard/threading/)

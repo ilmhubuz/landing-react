@@ -103,6 +103,25 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
   const updateUrlWithHash = (slug: string) => {
     const url = `${window.location.pathname}#${slug}`;
     window.history.pushState(null, '', url);
+    
+    // Smooth scroll to the element
+    const element = document.getElementById(slug);
+    if (element) {
+      setTimeout(() => {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest'
+        });
+        
+        // Add a slight offset to account for any fixed headers
+        setTimeout(() => {
+          const yOffset = -20; // 20px offset from top
+          const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }, 100);
+      }, 50);
+    }
   };
 
   const parseMarkdown = (text: string) => {
