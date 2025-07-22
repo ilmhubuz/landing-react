@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Typography,
   Box,
@@ -21,7 +21,7 @@ import {
 import { Link as LinkIcon } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import CollapsibleCodeBlock from './CollapsibleCodeBlock';
-
+import YouTubeEmbed from './YoutubeEmbed';
 
 
 const InlineCode = styled('code')(({ theme }) => ({
@@ -454,6 +454,61 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
       return Math.floor(match[1].length / 2); // Assuming 2 spaces per level
     };
 
+    const parseYouTubeEmbeds = (text: string): React.ReactNode[] => {
+      const parts: React.ReactNode[] = [];
+      const youtubeRegex = /{%\s*youtube\s+([a-zA-Z0-9_-]{11})\s*(?:\s+title=["']([^"']*)["'])?\s*%}/g;
+      
+      let lastIndex = 0;
+      let match;
+      
+      while ((match = youtubeRegex.exec(text)) !== null) {
+        // Add text before the YouTube embed
+        if (match.index > lastIndex) {
+          const beforeText = text.substring(lastIndex, match.index).trim();
+          if (beforeText) {
+            parts.push(
+              <Typography key={`text-${lastIndex}`} variant="body1" paragraph sx={{ mb: 0.5, lineHeight: 1.2 }}>
+                {parseInlineElements(beforeText)}
+              </Typography>
+            );
+          }
+        }
+        
+        // Add YouTube embed
+        const videoId = match[1];
+        const title = match[2];
+        
+        parts.push(
+          <YouTubeEmbed 
+            key={`youtube-${videoId}`} 
+            videoId={videoId} 
+            title={title}
+            showTitle={!!title}
+          />
+        );
+        
+        lastIndex = match.index + match[0].length;
+      }
+      
+      // Add remaining text
+      if (lastIndex < text.length) {
+        const remainingText = text.substring(lastIndex).trim();
+        if (remainingText) {
+          parts.push(
+            <Typography key={`text-${lastIndex}`} variant="body1" paragraph sx={{ mb: 0.5, lineHeight: 1.2 }}>
+              {parseInlineElements(remainingText)}
+            </Typography>
+          );
+        }
+      }
+      
+      return parts.length > 0 ? parts : [
+        <Typography key="fallback" variant="body1" paragraph sx={{ mb: 0.5, lineHeight: 1.2 }}>
+          {parseInlineElements(text)}
+        </Typography>
+      ];
+    };
+
     lines.forEach((line, index) => {
       // Handle code blocks
       if (line.startsWith('```')) {
@@ -557,16 +612,27 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
         flushList();
         flushBlockquote();
         flushTable();
-        elements.push(
-          <Typography
-            key={index}
-            variant="body1"
-            paragraph
-            sx={{ mb: 0.5, lineHeight: 1.2 }}
-          >
-            {parseInlineElements(line)}
-          </Typography>
-        );
+        
+        // Check if line contains YouTube embeds
+        if (line.includes('{% youtube')) {
+          const youtubeElements = parseYouTubeEmbeds(line);
+          youtubeElements.forEach((element, idx) => {
+            elements.push(React.cloneElement(element as React.ReactElement, { 
+              key: `${index}-${idx}` 
+            }));
+          });
+        } else {
+          elements.push(
+            <Typography
+              key={index}
+              variant="body1"
+              paragraph
+              sx={{ mb: 0.5, lineHeight: 1.2 }}
+            >
+              {parseInlineElements(line)}
+            </Typography>
+          );
+        }
       }
     });
 
