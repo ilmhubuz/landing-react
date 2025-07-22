@@ -11,8 +11,9 @@
 <br/>
 
 ---
+<br/>
 
-## 👎 Barcha vazifani bitta sinf bajaradi
+### 👎 Barcha vazifani bitta sinf bajaradi
 ```csharp
 public class InvoiceService
 {
@@ -43,8 +44,9 @@ public class InvoiceService
 > - Email xabar dizaynini o‘zgartirish
 
 ---
+<br/>
 
-## ✅ Yaxshi Misol: Har bir mas’uliyat alohida
+### ✅ Har bir mas’uliyat alohida
 ```csharp
 public class InvoiceGenerator
 {
@@ -76,8 +78,9 @@ public class EmailSender
 - Unit testlar osonroq, modul almashtirish osonroq
 
 ---
+<br/>
 
-## 🎯 Real-World Use Case: ASP.NET Core loyihasida
+### 🎯 Hayotiy misol
 Faraz qilaylik, siz ASP.NET Core Web API yaratmoqdasiz va unda foydalanuvchi ro‘yxatdan o‘tadi. Yomon dizayndagi `UserService` quyidagicha ko‘rinadi:
 
 ```csharp
@@ -153,24 +156,27 @@ public class UserRegistrationService
 ```
 
 ---
+<br/>
 
-## 💡 Afzalliklari
+### 💡 Afzalliklari
 - **O‘qish oson**: Har bir sinf faqat bitta ishni bajaradi.
 - **Test qilish oson**: Har bir modulni alohida sinovdan o‘tkazish mumkin.
 - **Refactor qilish qulay**: Kichik o‘zgarishlar butun kodga ta’sir qilmaydi.
 - **Reusability**: EmailSender yoki Validator boshqa sinflarda ham ishlatiladi.
 
 ---
+<br/>
 
-## ❗ Eslatma
+### ❗ Eslatma
 SRP bu:
 - "Har bir sinf faqat bitta metodga ega bo‘lsin" degani emas.  
 - "Har bir sinf faqat bitta sabab bilan o‘zgarsin" degani.  
 > Bir nechta metod bo‘lishi mumkin, lekin hammasi **bitta mas’uliyatni** ifoda etishi kerak.
 
 ---
+<br/>
 
-## 🧭 Xulosa
+### 🧭 Xulosa
 Single Responsibility Principle (SRP) — bu kodni modularlashtirish va kelajakdagi o‘zgarishlarga tayyor qilishda eng muhim tamoyillardandir. .NET loyihalaringizda har bir klassga savol bering:
 
 > **"Bu sinf qaysi yagona vazifani bajaradi?"**
@@ -178,5 +184,6 @@ Single Responsibility Principle (SRP) — bu kodni modularlashtirish va kelajakd
 Agar siz bir nechta mas’uliyatni ko‘rsangiz — vaqt keldi: uni ajrating. ✅
 
 ---
+<br/>
 
 Happy coding! 👨‍💻👩‍💻
