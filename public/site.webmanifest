@@ -1,0 +1,42 @@
+{
+    "name": "Ilmhub O'quv Markazi",
+    "short_name": "ilmhub",
+    "start_url": "/",
+    "scope": "/",
+    "icons": [
+        {
+            "src": "https://ilmhubuz.github.io/static/images/logo/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "https://ilmhubuz.github.io/static/images/logo/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#000000",
+    "background_color": "#000000",
+    "display": "standalone",
+    "screenshots": [
+        {
+            "src": "https://ilmhubuz.github.io/static/images/logo/screenshots/landing/ios.png",
+            "sizes": "1290x2796",
+            "type": "image/png",
+            "platform": "ios"
+        },
+        {
+            "src": "https://ilmhubuz.github.io/static/images/logo/screenshots/landing/android.png",
+            "sizes": "1442x3202",
+            "type": "image/png",
+            "platform": "android"
+        },
+        {
+            "src": "https://ilmhubuz.github.io/static/images/logo/screenshots/landing/desktop.png",
+            "sizes": "3808x1930",
+            "type": "image/png",
+            "form_factor": "wide",
+            "platform": "macos"
+        }
+    ]
+}
