@@ -1,16 +1,15 @@
-## SARGability ― SQL kontekstida 🔍
+# Tsql ― SARGability 🔍
 
-SQL Server’da query performance ko‘p hollarda **SARGability** tushunchasiga bog‘liq bo‘ladi.  
-**SARGable (Search ARGument able)** ― bu query shartlari optimizer tomonidan **index seek** bilan bajarilishi mumkinligini anglatadi.  
+**SQL Server**da **query** samaradorligi ko‘pincha **[SARGability](https://en.wikipedia.org/wiki/Sargable)** tushunchasiga bog‘liq bo‘ladi. 
 
-Agar query **SARGable bo‘lsa**, SQL Server indeksdan samarali foydalanadi va faqat kerakli satrlarni o‘qiydi.  
-Agar **SARGable bo‘lmasa**, SQL Server butun jadvalni yoki butun index’ni skan qiladi. ❌
+**SARGable query** indeksdan samarali foydalanib kerakli **index**larnigina o'qiydi; **non-SARGable** esa butun jadval yoki **index**ni skan qiladi.
 
 ---
+<br/>
 
-#### 👎 Non-SARGable misol
+## 👎 Non-SARGable misol
 
-Quyidagi query’ga e’tibor bering:
+Quyidagi **query**ga e’tibor bering:
 
 ```sql
 SELECT *
@@ -25,8 +24,9 @@ WHERE DATEADD(DAY, -1, CreatedDateTime) >= SYSUTCDATETIME();
 > Natijada, katta hajmdagi jadvalda bu query juda sekin ishlaydi.
 
 ---
+<br/>
 
-#### ✅ SARGable misol
+## ✅ SARGable misol
 
 Endi shartni qayta yozamiz:
 
@@ -44,7 +44,7 @@ WHERE CreatedDateTime >= DATEADD(DAY, -1, SYSUTCDATETIME());
 
 ---
 
-#### 🔧 Umumiy qoidalar
+## 🔧 Umumiy qoidalar
 
 - `WHERE` qismida **ustun ustida funksiyalar ishlatishdan saqlaning** (`ISNULL`, `CAST`, `CONVERT`, va h.k.)  
 - Ustunni “toza” (`naked column`) holatda qoldiring, barcha matematik amallarni va funksiyalarni **konstantaga** qo‘ying  
@@ -52,7 +52,7 @@ WHERE CreatedDateTime >= DATEADD(DAY, -1, SYSUTCDATETIME());
 
 ---
 
-#### 🎯 Hayotiy misol
+## 🎯 Hayotiy misol
 
 👎 Non-SARGable:
 ```sql
@@ -69,12 +69,12 @@ WHERE CreatedDateTime >= '2025-01-01'
 
 ---
 
-#### 🧭 Xulosa
+## 🧭 Xulosa
 
 **SARGability** ― bu query performance uchun juda muhim tushuncha:  
 
-- **SARGable query** → index seek, tez ishlash  
-- **Non-SARGable query** → index scan/table scan, sekin ishlash  
+- **SARGable query** → index seek, tez ishlaydi  
+- **Non-SARGable query** → index scan/table scan, sekin ishlaydi  
 
 > Har safar query yozganingizda o‘zingizdan so‘rang:  
 > **"Bu shart indeksdan samarali foydalanadimi?"**  
