@@ -2,7 +2,7 @@
 
 <br/>
 
-**Concurrent** _(bir nechta thread bir vaqtning o‘zida)_ muhitda resurslaringizni himoya qilish juda muhim. `.NET` ramkasida quyidagi primitivlar orqali resurslar himoya qilinadi:
+**Concurrent** muhitda resurslarni himoya qilish juda muhim. `.NET` ramkasida buni quyidagi primitivlar yordamida amalga oshirish mumkin:
 
 - `lock` (Monitor asosida)  
 - `Monitor` sinfi  

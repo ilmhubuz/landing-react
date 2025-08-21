@@ -76,3 +76,5 @@ Filtered index va pre-aggregation ham foydali variantlar, ammo bizning hozirgi e
 - Doimiy ishlatiladigan statistikalar uchun esa pre-aggregation yechimlari o‘ylab ko‘rilishi kerak.  
 
 > Agar query sekin ishlayotgan bo‘lsa, avval **SARGability** va **index** masalasini ko‘rib chiqing. Bu eng tez va samarali yechimdir.
+
+{% nextpost slug="tsql-sargability" %}

@@ -80,3 +80,5 @@ WHERE CreatedDateTime >= '2025-01-01'
 > **"Bu shart indeksdan samarali foydalanadimi?"**  
 
 Agar javob “yo‘q” bo‘lsa, query’ni SARGable shaklga keltirish kerak. ✅
+
+{% nextpost slug="query-optimization" %}

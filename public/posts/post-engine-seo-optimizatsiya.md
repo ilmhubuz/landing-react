@@ -165,3 +165,5 @@ Bu yondashuv kichik va o'rta loyihalar uchun **mukammal yechim** bo'lib, murakka
 - [ ] RSS feed
 
 **Savol-javoblar uchun** bizning [Telegram kanalimiz](https://t.me/ilmhub_uz)ga qo'shiling! 
+
+{% nextpost slug="tez-kod-yetkazish" %} 

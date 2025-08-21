@@ -99,4 +99,6 @@ Kodni ishga tushirganda siz `Transient`da har safar yangi vaqt (`CreatedAt`) olg
 👉 **Izoh qoldiring**, savollaringiz bo‘lsa bemalol yozing!  
 🟡 **Obuna bo‘ling** va .NET darslarining keyingi videolarini o‘tkazib yubormang!
 
+{% nextpost slug="locking-toliq-qollanma" %}
+
 #dotnet #csharp #dependencyinjection #aspnetcore #uzbekdev #programming

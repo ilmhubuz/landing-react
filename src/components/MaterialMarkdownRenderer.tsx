@@ -22,6 +22,8 @@ import { Link as LinkIcon } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import CollapsibleCodeBlock from './CollapsibleCodeBlock';
 import YouTubeEmbed from './YoutubeEmbed';
+import NextPostCard from './NextPostCard';
+import { extractPostMetadata, getPostUrl, isValidSlug } from '../utils/postUtils';
 
 
 const InlineCode = styled('code')(({ theme }) => ({
@@ -134,6 +136,8 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
     let inCodeBlock = false;
     let codeBlockContent: string[] = [];
     let codeBlockLanguage = '';
+    let nextPostSlug: string | null = null;
+    let nextPostCardElement: React.ReactElement | null = null;
 
     const flushList = () => {
       if (currentList.length > 0) {
@@ -510,6 +514,13 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
     };
 
     lines.forEach((line, index) => {
+      // Handle Next Post Card placeholder (must be first, so it doesn't get rendered as text)
+      const nextPostMatch = line.match(/\{\%\s*nextpost\s+slug=["']([a-z0-9-]+)["']\s*\%\}/);
+      if (nextPostMatch) {
+        nextPostSlug = nextPostMatch[1];
+        // Do NOT render this line at all
+        return;
+      }
       // Handle code blocks
       if (line.startsWith('```')) {
         if (inCodeBlock) {
@@ -642,6 +653,15 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
     flushTable();
     flushCodeBlock();
 
+    if (nextPostSlug && isValidSlug(nextPostSlug)) {
+
+      elements.push(
+        <Box key="next-post-card" sx={{ mt: 6, mb: 2, display: 'flex', justifyContent: 'center' }}>
+          <NextPostCardLoader slug={nextPostSlug} />
+        </Box>
+      );
+    }
+
     return elements;
   };
 
@@ -653,4 +673,31 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
       {parseMarkdown(content)}
     </Box>
   );
+} 
+
+// Loader component for NextPostCard (async fetch)
+function NextPostCardLoader({ slug }: { slug: string }) {
+  const [meta, setMeta] = React.useState<null | { title: string; summary: string; readTime: string; href: string }>(null);
+  React.useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch(`/posts/${slug}.md`);
+        if (!res.ok) return;
+        const markdown = await res.text();
+        const meta = extractPostMetadata(markdown, slug);
+        if (!cancelled) {
+          setMeta({
+            title: meta.title,
+            summary: meta.excerpt,
+            readTime: meta.readTime,
+            href: getPostUrl(slug),
+          });
+        }
+      } catch {}
+    })();
+    return () => { cancelled = true; };
+  }, [slug]);
+  if (!meta) return null;
+  return <NextPostCard {...meta} />;
 } 

@@ -187,3 +187,5 @@ Agar siz bir nechta mas’uliyatni ko‘rsangiz — vaqt keldi: uni ajrating. �
 <br/>
 
 Happy coding! 👨‍💻👩‍💻
+
+{% nextpost slug="di-faktory-metodlar" %}

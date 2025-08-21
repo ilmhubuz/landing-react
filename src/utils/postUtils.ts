@@ -37,7 +37,7 @@ export const extractPostMetadata = (markdown: string, slug: string): PostMetadat
     !line.startsWith('* ') &&
     !line.match(/^\d+\. /)
   );
-  
+
   let excerpt = '';
   for (const line of contentLines) {
     const cleanLine = line.trim();
@@ -46,19 +46,11 @@ export const extractPostMetadata = (markdown: string, slug: string): PostMetadat
       if (excerpt.length > 160) break;
     }
   }
-  
-  // Clean up excerpt - remove markdown syntax more thoroughly
-  excerpt = excerpt
-    .replace(/[#*_`[\]()]/g, '')     // Remove markdown syntax
-    .replace(/\*\*(.*?)\*\*/g, '$1') // Remove bold formatting
-    .replace(/\*(.*?)\*/g, '$1')     // Remove italic formatting
-    .replace(/`(.*?)`/g, '$1')       // Remove inline code formatting
-    .replace(/\[(.*?)\]\(.*?\)/g, '$1') // Remove links, keep text
-    .replace(/\s+/g, ' ')            // Normalize whitespace
-    .replace(/\n/g, ' ')             // Replace newlines with spaces
-    .trim();
-  
-  // Limit excerpt length
+
+  // Only trim whitespace, do not strip markdown syntax
+  excerpt = excerpt.trim();
+
+  // Limit excerpt length (but keep markdown)
   if (excerpt.length > 160) {
     excerpt = excerpt.substring(0, 160);
     // Try to end at a word boundary
@@ -68,7 +60,7 @@ export const extractPostMetadata = (markdown: string, slug: string): PostMetadat
     }
     excerpt += '...';
   }
-  
+
   // Fallback excerpt if empty
   if (!excerpt) {
     excerpt = `${title} haqida batafsil ma'lumot va foydali maslahatlar.`;
