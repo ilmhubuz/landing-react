@@ -1,16 +1,20 @@
-# Claude Code effort darajalari: Low, Medium, High, xHigh, Max aslida nima qiladi? 🎚️
+# Claude Code effort darajalari
 
-Claude Code'da **effort** — ya'ni modelning "qancha chuqur o'ylashi" — natija sifatiga juda katta ta'sir qiladi. Lekin ko'pchilik o'zi qaysi standart darajada ishlayotganini ham bilmaydi va, bilmagan holda, pasaytirilgan sozlamada kod yozadi. Keling, har bir darajani tartib bilan ko'rib chiqamiz, qaysi birini qachon tanlashni hal qilamiz va eng yangi **Opus 4.8** modeli bu rasmni qanday o'zgartirganini ko'ramiz. 🧭
+Claude Code'dagi effort (modelning o'ylash chuqurligi) natija sifatiga kuchli ta'sir qiladi, ammo ko'pchilik o'zining standart darajasini bilmay, past sozlamada kod yozadi. Quyida har bir darajani ko'rib chiqamiz, qachon qaysisini tanlashni aniqlaymiz va Opus 4.8 bu manzarani qanday o'zgartirganini ko'ramiz. 🧭
 
 ---
 <br/>
 
 ## ⚡ Qisqacha (TL;DR)
 
-- Darajalar **4 ta emas, 5 ta**: `low`, `medium`, `high`, `xhigh`, `max` 🖐️
+- Darajalar **5 ta**: `low`, `medium`, `high`, `xhigh`, `max` 🖐️
 - Eng yangi **Opus 4.8** (hozirgi standart model) hamma tarifda `high`'da ishlaydi. Opus 4.7 esa `xhigh`'da, eski 4.6 modellari Pro/Max'da `medium`'da edi.
-- Effort — bu **xulq-atvor signali**, qattiq token byudjeti emas. Hatto `low`'da ham Claude qiyin masala ustida o'ylaydi — shunchaki kamroq.
-- Effort bir vaqtning o'zida 4 narsani boshqaradi: **o'ylash chuqurligi**, **tool chaqirish ishtahasi**, **javob uzunligi** va **avtonom davom etish**.
+- Effort — bu **xulq-atvor signali**, qat'iy token byudjeti emas. Hatto `low`'da ham Claude qiyin masala ustida o'ylaydi — shunchaki kamroq.
+- Effort bir vaqtning o'zida 4 narsani boshqaradi:
+  - **o'ylash chuqurligi**
+  - **tool chaqirish ishtahasi**
+  - **javob uzunligi**
+  - **avtonom davom etish**.
 - Anthropic tavsiyasi (4.7 va 4.8 uchun): kod va agentic ish uchun `xhigh`dan boshlang, qolgan hamma narsa uchun `high`.
 - Ko'pincha **kontekst sifati** effort darajasidan muhimroq — yaxshi kontekst bilan `low` yomon kontekstdagi `max`'ni ortda qoldiradi.
 
@@ -43,7 +47,7 @@ U bir vaqtning o'zida **4 narsa**ga ta'sir qiladi:
 | **xHigh** | High'dan bir pog'ona yuqori — chuqurroq fikrlaydi, ko'proq tekshiradi, uzoq vazifalar bo'ylab izchil davom etadi. Faqat Opus 4.7 va 4.8 da. Anthropic'ning **kod va agentic ish uchun tavsiya etgan boshlang'ich nuqtasi**. |
 | **Max** | Eng yuqori quvvat, token chegarasi yo'q. Faqat haqiqatan og'ir, "frontier" masalalar uchun. Ko'pchilik vazifada katta xarajat evaziga arzimas yutuq beradi, ba'zan esa ortiqcha o'ylab yuboradi. |
 
-> 📌 Effort — **qattiq token byudjeti emas**, balki xulq-atvor signali. Hatto `low`'da ham masala yetarlicha qiyin bo'lsa, Claude baribir o'ylaydi — shunchaki yuqori darajadagidan kamroq. Ya'ni darajani pasaytirsangiz, model "ahmoq" bo'lib qolmaydi — shunchaki kamroq harakat qiladi.
+> 📌 Effort — **qat'iy token byudjeti emas**, balki xulq-atvor signali. Hatto `low`'da ham masala yetarlicha qiyin bo'lsa, Claude baribir o'ylaydi — shunchaki yuqori darajadagidan kamroq. Ya'ni darajani pasaytirsangiz, model "ahmoq" bo'lib qolmaydi — shunchaki kamroq harakat qiladi.
 
 ---
 <br/>
@@ -154,6 +158,6 @@ Doimiylik darajasi bo'yicha, kamdan-ko'pga:
 
 <br/>
 
-> 🙌 Ushbu maqola jamoaning birgalikdagi kuzatuvlari, rasmiy hujjatlar va amaliyotdan yig'ilgan. Modellar va standartlar tez o'zgaradi — takliflar va to'g'rilashlar mamnuniyat bilan qabul qilinadi.
+> 🙌 Ushbu maqola muallifning kuzatuvlari, rasmiy hujjatlar va amaliyotdan yig'ilgan. Modellar va standartlar tez o'zgaradi — takliflar va to'g'rilashlar mamnuniyat bilan qabul qilinadi.
 
 {% nextpost slug="tez-kod-yetkazish" %}
