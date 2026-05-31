@@ -1,5 +1,7 @@
 # Claude Code effort darajalari
 
+![Claude Code effort darajalari](/posts/images/claude-effort-cover.png)
+
 Claude Code'dagi effort (modelning o'ylash chuqurligi) natija sifatiga kuchli ta'sir qiladi, ammo ko'pchilik o'zining standart darajasini bilmay, past sozlamada kod yozadi. Quyida har bir darajani ko'rib chiqamiz, qachon qaysisini tanlashni aniqlaymiz va Opus 4.8 bu manzarani qanday o'zgartirganini ko'ramiz. 🧭
 
 ---
