@@ -35,6 +35,7 @@ export const extractPostMetadata = (markdown: string, slug: string): PostMetadat
     !line.startsWith('```') &&
     !line.startsWith('- ') &&
     !line.startsWith('* ') &&
+    !line.trim().startsWith('![') &&
     !line.match(/^\d+\. /)
   );
 

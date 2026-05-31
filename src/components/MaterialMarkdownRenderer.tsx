@@ -326,6 +326,27 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
           continue;
         }
 
+        // Handle inline images (before links, so "![alt](src)" isn't parsed as "!" + link)
+        const inlineImageMatch = remainingText.match(/!\[([^\]]*)\]\(([^)]+)\)/);
+        if (inlineImageMatch) {
+          const beforeImage = remainingText.substring(0, inlineImageMatch.index);
+          if (beforeImage) {
+            parts.push(parseTextFormatting(beforeImage, index++));
+          }
+          parts.push(
+            <Box
+              key={index++}
+              component="img"
+              src={inlineImageMatch[2]}
+              alt={inlineImageMatch[1]}
+              loading="lazy"
+              sx={{ maxWidth: '100%', height: 'auto', borderRadius: 1, display: 'block', my: 1 }}
+            />
+          );
+          remainingText = remainingText.substring(inlineImageMatch.index! + inlineImageMatch[0].length);
+          continue;
+        }
+
         // Handle links with potential inline code in the label
         const linkMatch = remainingText.match(/\[([^\]]*(?:`[^`]*`[^\]]*)*[^\]]*)\]\(([^)]+)\)/);
         if (linkMatch) {
@@ -572,6 +593,32 @@ export default function MaterialMarkdownRenderer({ content }: MaterialMarkdownRe
         flushBlockquote();
         flushTable();
         elements.push(<Divider key={index} sx={{ my: 1.5 }} />);
+        return;
+      }
+
+      // Handle standalone images (e.g. hero/header image)
+      const blockImageMatch = line.trim().match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+      if (blockImageMatch) {
+        flushList();
+        flushBlockquote();
+        flushTable();
+        const [, altText, src] = blockImageMatch;
+        elements.push(
+          <Box
+            key={index}
+            component="img"
+            src={src}
+            alt={altText}
+            loading="lazy"
+            sx={{
+              display: 'block',
+              width: '100%',
+              height: 'auto',
+              borderRadius: 2,
+              my: 2,
+            }}
+          />
+        );
         return;
       }
 
